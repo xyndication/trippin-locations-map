@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Locations — map + Instagram</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --paper: #fff;
+      --ink: #1a1a1a;
+      --muted: #5c5c5c;
+      --line: #ddd8ce;
+      --accent: #3d6b8c;
+      --accent-hover: #2d5068;
+      --overlay: rgba(26, 26, 26, 0.35);
+      --header-h: 52px;
+      --sidebar-w: 280px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      overflow: hidden;
+    }
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    header {
+      height: var(--header-h);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    header p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+    }
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: var(--paper);
+      border-right: 1px solid var(--line);
+      overflow-y: auto;
+    }
+    .sidebar-hint {
+      padding: 0.65rem 0.85rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+    }
+    .loc-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+      cursor: pointer;
+      font: inherit;
+      color: inherit;
+    }
+    .loc-btn:hover,
+    .loc-btn.active {
+      background: #eef3f6;
+    }
+    .loc-btn.active {
+      border-left: 3px solid var(--accent);
+      padding-left: calc(0.85rem - 3px);
+    }
+    .loc-btn .title {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .loc-btn .region {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+    #map {
+      flex: 1;
+      min-width: 0;
+      background: #e8e4dc;
+    }
+    /* Floating panel */
+    .panel {
+      position: fixed;
+      top: var(--header-h);
+      right: 0;
+      width: min(420px, 100vw);
+      height: calc(100% - var(--header-h));
+      background: var(--paper);
+      border-left: 1px solid var(--line);
+      box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+    }
+    .panel.open {
+      transform: translateX(0);
+    }
+    .panel-backdrop {
+      position: fixed;
+      inset: var(--header-h) 0 0 0;
+      background: var(--overlay);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .panel-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .panel-header-text { flex: 1; min-width: 0; }
+    .panel-header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.3;
+    }
+    .panel-header .region {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .panel-close {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--paper);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      color: var(--muted);
+    }
+    .panel-close:hover { background: var(--bg); color: var(--ink); }
+    .panel-notes {
+      padding: 0.65rem 1rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .panel-embed {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0.75rem;
+      background: #fafafa;
+      display: flex;
+      justify-content: center;
+    }
+    .panel-embed .instagram-media {
+      margin: 0 !important;
+      min-width: 280px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    .panel-embed .embed-loading {
+      color: var(--muted);
+      font-size: 0.875rem;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .panel-footer {
+      padding: 0.65rem 1rem;
+      border-top: 1px solid var(--line);
+      flex-shrink: 0;
+    }
+    .panel-footer a {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .panel-footer a:hover { color: var(--accent-hover); }
+    @media (max-width: 720px) {
+      .sidebar { display: none; }
+      .panel { width: 100vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Saved locations</h1>
+      <p>Click a pin or list item</p>
+    </header>
+    <div class="main">
+      <aside class="sidebar" id="sidebar" aria-label="Location list"></aside>
+      <div id="map" role="application" aria-label="Locations map"></div>
+    </div>
+  </div>
+
+  <div class="panel-backdrop" id="backdrop" hidden></div>
+  <aside class="panel" id="panel" aria-label="Instagram post" aria-hidden="true">
+    <div class="panel-header">
+      <div class="panel-header-text">
+        <h2 id="panel-title"></h2>
+        <div class="region" id="panel-region"></div>
+      </div>
+      <button type="button" class="panel-close" id="panel-close" aria-label="Close">&times;</button>
+    </div>
+    <p class="panel-notes" id="panel-notes"></p>
+    <div class="panel-embed" id="panel-embed">
+      <p class="embed-loading">Select a location on the map.</p>
+    </div>
+    <div class="panel-footer">
+      <a id="panel-maps" href="#" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+  </aside>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+    var LOCATIONS = [
+  {
+    "id": "usal-beach-candelabra-redwood-usal-road",
+    "title": "Usal Beach / Candelabra Redwood (Usal Road)",
+    "region": "Lost Coast, Mendocino County · south of Lost Coast, north of Fort Bragg · @californian.views",
+    "notes": "Secluded coast and rare Candelabra Redwood — wind-sculpted coastal redwood with candle-like branches from centuries of salt spray.",
+    "lat": 39.813,
+    "lng": -123.85,
+    "instagram": "https://www.instagram.com/p/DZz-gCfPmGI/"
+  },
+  {
+    "id": "big-sur-highway-1-corridor",
+    "title": "Big Sur / Highway 1 corridor",
+    "region": "Central Coast, Monterey County south to San Luis Obispo County · @realworldmami",
+    "notes": "Iconic CA coast — dramatic cliffs, pocket beaches, redwood canyons, and pull-over ocean viewpoints every few miles.",
+    "lat": 36.27,
+    "lng": -121.805,
+    "instagram": "https://www.instagram.com/p/DaqK8iDBBZF/"
+  },
+  {
+    "id": "partington-cove-trail",
+    "title": "Partington Cove Trail",
+    "region": "Big Sur / Julia Pfeiffer Burns State Park · @realworldmami @scenic_adventure_travel",
+    "notes": "Hidden coastal gem — 1880s hand-carved tunnel down to an emerald cove where lumber was once loaded onto ships; dramatic cliffs and turquoise water.",
+    "lat": 36.1767,
+    "lng": -121.6822,
+    "instagram": "https://www.instagram.com/p/DW66Ua9jYPw/"
+  },
+  {
+    "id": "point-lobos-state-natural-reserve-incl-china-cove-gibson-beach-bird-island-cypress-grove-loop-trail",
+    "title": "Point Lobos State Natural Reserve (incl. China Cove, Gibson Beach, Bird Island, Cypress Grove, Loop Trail)",
+    "region": "Carmel / Monterey County · @anjali_wandersoul",
+    "notes": "One of the last native Monterey cypress groves on Earth — turquoise coves, cliff forests, sea otters, seals, and winter gray whales.",
+    "lat": 36.517,
+    "lng": -121.942,
+    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/"
+  },
+  {
+    "id": "pacific-grove-incl-lovers-point-kissing-rock-monarch-sanctuary-asilomar-point-pinos-sunset-point",
+    "title": "Pacific Grove (incl. Lovers Point, Kissing Rock, Monarch Sanctuary, Asilomar, Point Pinos, Sunset Point)",
+    "region": "Monterey Peninsula, Monterey County · @eagertravele",
+    "notes": "“Europe in California” coastal day trip — sunrise cove, bluff walks, monarch grove, dunes boardwalk, historic lighthouse.",
+    "lat": 36.617,
+    "lng": -121.916,
+    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/"
+  },
+  {
+    "id": "pinnacles-national-park-high-peaks-trail",
+    "title": "Pinnacles National Park — High Peaks Trail",
+    "region": "Central California (east of Salinas / Hollister) · @kelleyandcarlsadventures",
+    "notes": "Bucket-list volcanic spire hike — steep switchbacks, narrow exposed sections with handrails, panoramic ridge views, and top California condor viewing in the US.",
+    "lat": 36.4933,
+    "lng": -121.1833,
+    "instagram": "https://www.instagram.com/p/DZPyE7NPJXc/"
+  },
+  {
+    "id": "little-lakes-valley-to-gem-lakes-incl-mack-marsh-heart-box-long-chickenfoot-gem-lakes",
+    "title": "Little Lakes Valley to Gem Lakes (incl. Mack, Marsh, Heart, Box, Long, Chickenfoot, Gem Lakes)",
+    "region": "Rock Creek / John Muir Wilderness, Eastern Sierra · @iamoneness11",
+    "notes": "Seven alpine lakes in ~7 mi — high-reward, above-treeline granite peaks and turquoise water almost from the start; gentler gain than many Sierra hikes.",
+    "lat": 37.441,
+    "lng": -118.746,
+    "instagram": "https://www.instagram.com/p/DazKDyMAM2U/"
+  },
+  {
+    "id": "steep-ravine-dipsea-trail-loop",
+    "title": "Steep Ravine & Dipsea Trail Loop",
+    "region": "Mount Tamalpais State Park, Marin County · @cal.euphoria",
+    "notes": "Must-do Bay Area waterfall hike — lush fern-lined ravine, redwoods, wooden ladders, and ocean views; best after heavy rain when streams gush.",
+    "lat": 37.8983,
+    "lng": -122.6389,
+    "instagram": "https://www.instagram.com/p/DRPkK7oEQhh/"
+  },
+  {
+    "id": "moro-rock-trail",
+    "title": "Moro Rock Trail",
+    "region": "Sequoia National Park, Sierra Nevada · @cal.euphoria",
+    "notes": "Thrilling climb up a granite dome via narrow winding stone stairs — panoramic views of the Great Western Divide and Kaweah River canyon.",
+    "lat": 36.5453,
+    "lng": -118.7653,
+    "instagram": "https://www.instagram.com/p/DRck9e0j1kt/"
+  },
+  {
+    "id": "kings-canyon-national-park",
+    "title": "Kings Canyon National Park",
+    "region": "Sierra Nevada, Fresno / Tulare Counties",
+    "notes": "Yosemite-scale granite cliffs, waterfalls, and alpine meadows — fewer crowds than Yosemite; ~4–5 hr from LA.",
+    "lat": 36.8879,
+    "lng": -118.5551,
+    "instagram": "https://www.instagram.com/p/DNdryi6Nvad/"
+  },
+  {
+    "id": "yosemite-national-park",
+    "title": "Yosemite National Park",
+    "region": "Sierra Nevada, Central California · @nationalparkfoundation",
+    "notes": "Iconic granite valley — Half Dome, El Capitan, waterfalls, high-country lakes; classic moon-and-landscape night-sky destination.",
+    "lat": 37.8651,
+    "lng": -119.5383,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/"
+  },
+  {
+    "id": "ouray-incl-million-dollar-highway-box-canon-falls-via-ferrata-hot-springs",
+    "title": "Ouray (incl. Million Dollar Highway, Box Cañon Falls, Via Ferrata, hot springs)",
+    "region": "San Juan Mountains, Southwest Colorado · @ultimatevacationn",
+    "notes": "\"Switzerland of America\" — alpine valley town ringed by the San Juan Mountains; top US adventure base for scenic drives, hiking, and via ferrata.",
+    "lat": 38.0228,
+    "lng": -107.6714,
+    "instagram": "https://www.instagram.com/p/DYIjeLwytvf/"
+  },
+  {
+    "id": "arches-national-park",
+    "title": "Arches National Park",
+    "region": "Moab, Southeast Utah · @nationalparkfoundation",
+    "notes": "2,000+ natural stone arches — Delicate Arch, Landscape Arch, Fiery Furnace; red-rock desert under big skies and moonlit nights.",
+    "lat": 38.7331,
+    "lng": -109.5925,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/"
+  },
+  {
+    "id": "lake-clark-national-park",
+    "title": "Lake Clark National Park",
+    "region": "South-central Alaska · Lake and Peninsula Borough · @nationalparkfoundation",
+    "notes": "Remote volcano-and-lake wilderness — turquoise lakes, coastal brown bears, glaciers; mostly fly-in access.",
+    "lat": 60.4127,
+    "lng": -154.3245,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/"
+  },
+  {
+    "id": "grand-teton-national-park",
+    "title": "Grand Teton National Park",
+    "region": "Jackson Hole, Northwest Wyoming · @nationalparkfoundation",
+    "notes": "Jagged Teton Range rising from Jackson Hole — alpine lakes, wildlife, Snake River views, dramatic night skies.",
+    "lat": 43.7904,
+    "lng": -110.6818,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/"
+  },
+  {
+    "id": "badlands-national-park",
+    "title": "Badlands National Park",
+    "region": "Southwest South Dakota · @nationalparkfoundation",
+    "notes": "Striking layered eroded buttes, pinnacles, and prairie — otherworldly landscape under wide open skies.",
+    "lat": 43.8554,
+    "lng": -102.3397,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/"
+  }
+];
+
+    var panel = document.getElementById('panel');
+    var backdrop = document.getElementById('backdrop');
+    var sidebar = document.getElementById('sidebar');
+    var markers = {};
+    var activeId = null;
+
+    function renderEmbed(url) {
+      var container = document.getElementById('panel-embed');
+      container.innerHTML =
+        '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="' +
+        url + '" data-instgrm-version="14"></blockquote>';
+
+      function process() {
+        if (window.instgrm && window.instgrm.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      }
+      if (window.instgrm) {
+        process();
+      } else {
+        var check = setInterval(function () {
+          if (window.instgrm) {
+            clearInterval(check);
+            process();
+          }
+        }, 100);
+        setTimeout(function () { clearInterval(check); }, 10000);
+      }
+    }
+
+    function openLocation(loc) {
+      activeId = loc.id;
+      document.getElementById('panel-title').textContent = loc.title;
+      document.getElementById('panel-region').textContent = loc.region;
+      document.getElementById('panel-notes').textContent = loc.notes;
+      document.getElementById('panel-maps').href =
+        'https://www.google.com/maps/search/?api=1&query=' + loc.lat + ',' + loc.lng;
+
+      renderEmbed(loc.instagram);
+
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden', 'false');
+      backdrop.hidden = false;
+      backdrop.classList.add('open');
+
+      document.querySelectorAll('.loc-btn').forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.id === loc.id);
+      });
+      if (markers[loc.id]) {
+        markers[loc.id].openPopup();
+      }
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden', 'true');
+      backdrop.classList.remove('open');
+      backdrop.hidden = true;
+      activeId = null;
+      document.querySelectorAll('.loc-btn').forEach(function (btn) {
+        btn.classList.remove('active');
+      });
+      document.getElementById('panel-embed').innerHTML =
+        '<p class="embed-loading">Select a location on the map.</p>';
+    }
+
+    document.getElementById('panel-close').addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePanel();
+    });
+
+    /* Sidebar list */
+    sidebar.innerHTML = '<p class="sidebar-hint">' + LOCATIONS.length + ' saved spots</p>';
+    LOCATIONS.forEach(function (loc) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'loc-btn';
+      btn.dataset.id = loc.id;
+      btn.innerHTML = '<span class="title">' + loc.title + '</span><span class="region">' + loc.region + '</span>';
+      btn.addEventListener('click', function () {
+        openLocation(loc);
+        map.setView([loc.lat, loc.lng], 10, { animate: true });
+      });
+      sidebar.appendChild(btn);
+    });
+
+    /* Map */
+    var map = L.map('map', { scrollWheelZoom: true }).setView([37.5, -118.5], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var bounds = L.latLngBounds();
+    LOCATIONS.forEach(function (loc) {
+      bounds.extend([loc.lat, loc.lng]);
+      var marker = L.circleMarker([loc.lat, loc.lng], {
+        radius: 9,
+        color: '#fff',
+        weight: 2,
+        fillColor: '#3d6b8c',
+        fillOpacity: 1
+      }).addTo(map);
+      marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">Click pin again or use list</span>');
+      marker.on('click', function () {
+        openLocation(loc);
+      });
+      markers[loc.id] = marker;
+    });
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 7 });
+  </script>
+</body>
+</html>
