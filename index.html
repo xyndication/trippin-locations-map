@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Locations — map + Instagram</title>
+  <title>Locations — map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <style>
     :root {
@@ -47,10 +47,9 @@
       font-size: 1rem;
       font-weight: 600;
     }
-    header p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: var(--muted);
+    .header-preview:hover {
+      background: #eef3f6;
+      color: var(--accent-hover);
     }
     .main {
       flex: 1;
@@ -194,7 +193,32 @@
       padding: 0.75rem;
       background: #fafafa;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .panel-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0;
+    }
+    .panel-gmaps-wrap {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #e8e4dc;
+      flex-shrink: 0;
+    }
+    .panel-gmaps-wrap iframe {
+      display: block;
+      width: 100%;
+      height: 200px;
+      border: 0;
+    }
+    .panel-instagram-wrap {
+      flex-shrink: 0;
     }
     .panel-embed .instagram-media {
       margin: 0 !important;
@@ -236,7 +260,7 @@
   </div>
 
   <div class="panel-backdrop" id="backdrop" hidden></div>
-  <aside class="panel" id="panel" aria-label="Instagram post" aria-hidden="true">
+  <aside class="panel" id="panel" aria-label="Location details" aria-hidden="true">
     <div class="panel-header">
       <div class="panel-header-text">
         <h2 id="panel-title"></h2>
@@ -409,27 +433,47 @@
     var markers = {};
     var activeId = null;
 
-    function renderEmbed(url) {
-      var container = document.getElementById('panel-embed');
-      container.innerHTML =
-        '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="' +
-        url + '" data-instgrm-version="14"></blockquote>';
+    function googleMapsEmbedUrl(loc) {
+      var q = encodeURIComponent(loc.lat + ',' + loc.lng);
+      return 'https://maps.google.com/maps?q=' + q + '&z=13&output=embed';
+    }
 
-      function process() {
-        if (window.instgrm && window.instgrm.Embeds) {
-          window.instgrm.Embeds.process();
-        }
+    function renderPanel(loc) {
+      var container = document.getElementById('panel-embed');
+      var html =
+        '<p class="panel-section-label">Google Maps</p>' +
+        '<div class="panel-gmaps-wrap">' +
+        '<iframe title="Google Maps: ' + loc.title.replace(/"/g, '') + '" ' +
+        'loading="lazy" referrerpolicy="no-referrer-when-downgrade" ' +
+        'src="' + googleMapsEmbedUrl(loc) + '"></iframe></div>';
+
+      if (loc.instagram) {
+        html +=
+          '<p class="panel-section-label">Instagram</p>' +
+          '<div class="panel-instagram-wrap">' +
+          '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="' +
+          loc.instagram + '" data-instgrm-version="14"></blockquote></div>';
       }
-      if (window.instgrm) {
-        process();
-      } else {
-        var check = setInterval(function () {
-          if (window.instgrm) {
-            clearInterval(check);
-            process();
+
+      container.innerHTML = html;
+
+      if (loc.instagram) {
+        function process() {
+          if (window.instgrm && window.instgrm.Embeds) {
+            window.instgrm.Embeds.process();
           }
-        }, 100);
-        setTimeout(function () { clearInterval(check); }, 10000);
+        }
+        if (window.instgrm) {
+          process();
+        } else {
+          var check = setInterval(function () {
+            if (window.instgrm) {
+              clearInterval(check);
+              process();
+            }
+          }, 100);
+          setTimeout(function () { clearInterval(check); }, 10000);
+        }
       }
     }
 
@@ -441,7 +485,7 @@
       document.getElementById('panel-maps').href =
         'https://www.google.com/maps/search/?api=1&query=' + loc.lat + ',' + loc.lng;
 
-      renderEmbed(loc.instagram);
+      renderPanel(loc);
 
       panel.classList.add('open');
       panel.setAttribute('aria-hidden', 'false');
