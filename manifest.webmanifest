@@ -1,0 +1,16 @@
+{
+  "name": "Trippin",
+  "short_name": "Trippin",
+  "description": "Saved places map — hikes, parks, and coast spots.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#f7f5f0",
+  "theme_color": "#3d6b8c",
+  "start_url": "./"
+}

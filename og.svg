@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f5f0"/>
+  <text x="600" y="290" text-anchor="middle" font-size="160">>~</text>
+  <text x="600" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="600" fill="#1a1a1a">Trippin</text>
+  <text x="600" y="490" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="32" fill="#5c5c5c">Saved places map</text>
+</svg>
