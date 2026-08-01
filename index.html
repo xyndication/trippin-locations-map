@@ -62,7 +62,13 @@
       background: var(--paper);
       border-bottom: 1px solid var(--line);
     }
-    header h1 {
+    .site-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+    .site-brand h1 {
       margin: 0;
       font-size: 1rem;
       font-weight: 600;
@@ -416,9 +422,11 @@
   <div class="app">
     <header>
       <div class="header-start">
-        <img class="site-logo" src="logo.png" width="36" height="36" alt="">
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
-        <h1>Trippin</h1>
+        <div class="site-brand">
+          <img class="site-logo" src="logo.png" width="36" height="36" alt="">
+          <h1>Trippin</h1>
+        </div>
       </div>
       <div class="header-end">
         <span class="build-meta">Updated 31 Jul 2026</span>
