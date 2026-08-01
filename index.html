@@ -125,13 +125,18 @@
       color: var(--muted);
       margin-top: 0.15rem;
     }
-    .loc-btn[hidden] {
-      display: none;
+    .loc-btn[hidden],
+    .loc-btn.is-offscreen {
+      display: none !important;
     }
     #map {
       flex: 1;
       min-width: 0;
       background: #e8e4dc;
+    }
+    #map .leaflet-container {
+      touch-action: none;
+      -webkit-tap-highlight-color: transparent;
     }
     .pin-emoji {
       background: none;
@@ -327,7 +332,7 @@
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
         <h1>Trippin</h1>
       </div>
-      <span class="build-meta">Updated Jul 31, 2026 · 99056e8</span>
+      <span class="build-meta">Updated Jul 31, 2026 · a4098fd</span>
     </header>
     <div class="main">
       <aside class="sidebar" id="sidebar" aria-label="Location list"></aside>
@@ -1045,6 +1050,7 @@
       function finish() {
         suppressHashUpdate = false;
         syncHashToUrl();
+        updateSidebarForMapView();
       }
 
       if (!state) {
@@ -1086,14 +1092,21 @@
 
     function updateSidebarForMapView() {
       if (!map || !sidebarHint) return;
+      if (!map.getBounds || !map.getBounds().isValid()) return;
       var mapBounds = map.getBounds();
       var visible = 0;
       LOCATIONS.forEach(function (loc) {
         var btn = locButtons[loc.id];
         if (!btn) return;
         var inView = mapBounds.contains([loc.lat, loc.lng]);
-        if (inView) visible++;
-        btn.hidden = !inView && loc.id !== activeId;
+        var show = inView || loc.id === activeId;
+        if (show) visible++;
+        btn.classList.toggle('is-offscreen', !show);
+        if (show) {
+          btn.removeAttribute('hidden');
+        } else {
+          btn.setAttribute('hidden', '');
+        }
       });
       if (visible === 0 && !activeId) {
         sidebarHint.textContent = 'No spots in this view · pan or zoom out';
@@ -1223,7 +1236,47 @@
     });
 
     /* Map */
-    var map = L.map('map', { scrollWheelZoom: true }).setView([37.5, -118.5], 5);
+    var map = L.map('map', {
+      scrollWheelZoom: true,
+      touchZoom: true,
+      doubleClickZoom: true,
+      tap: true,
+      tapTolerance: 20
+    }).setView([37.5, -118.5], 5);
+
+    (function enableMobileDoubleTapZoom() {
+      var lastTap = 0;
+      var lastX = 0;
+      var lastY = 0;
+      var delayMs = 320;
+      var maxPx = 28;
+
+      map.getContainer().addEventListener('touchend', function (e) {
+        if (e.touches.length > 0) return;
+        if (e.target.closest('.leaflet-marker-icon, .marker-cluster, .leaflet-control')) return;
+
+        var touch = e.changedTouches[0];
+        var now = Date.now();
+        var x = touch.clientX;
+        var y = touch.clientY;
+        var dx = x - lastX;
+        var dy = y - lastY;
+
+        if (lastTap && now - lastTap < delayMs && dx * dx + dy * dy < maxPx * maxPx) {
+          e.preventDefault();
+          var point = map.mouseEventToContainerPoint(touch);
+          var latlng = map.containerPointToLatLng(point);
+          var nextZoom = Math.min(map.getMaxZoom(), map.getZoom() + 1);
+          map.setView(latlng, nextZoom, { animate: true });
+          lastTap = 0;
+          return;
+        }
+
+        lastTap = now;
+        lastX = x;
+        lastY = y;
+      }, { passive: false });
+    })();
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -1289,23 +1342,22 @@
     });
     map.addLayer(clusterGroup);
 
+    map.on('moveend zoomend resize', function () {
+      scheduleHashSync();
+      scheduleSidebarUpdate();
+    });
+
     var initialHash = parseHashState();
     if (initialHash && (initialHash.loc || initialHash.lat != null)) {
       applyHashState(initialHash);
     } else {
       map.fitBounds(bounds, defaultBoundsOptions);
+      map.once('moveend', updateSidebarForMapView);
     }
 
     document.getElementById('home-btn').addEventListener('click', resetToHome);
-    map.on('moveend zoomend', function () {
-      scheduleHashSync();
-      scheduleSidebarUpdate();
-    });
     window.addEventListener('hashchange', function () {
       applyHashState(parseHashState());
-    });
-    map.whenReady(function () {
-      updateSidebarForMapView();
     });
   </script>
 </body>
