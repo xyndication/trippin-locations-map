@@ -412,7 +412,7 @@
         <h1>Trippin</h1>
       </div>
       <div class="header-end">
-        <span class="build-meta">Updated 31 Jul 2026 · 868a3ee</span>
+        <span class="build-meta">Updated 31 Jul 2026 · ec60e96</span>
         <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 16V4"/>
@@ -1107,6 +1107,8 @@
     var markers = {};
     var activeId = null;
     var locById = {};
+    var suppressHashUpdate = false;
+    var hashSyncTimer = null;
     var sidebarViewTimer = null;
     var locButtons = {};
     var sidebarHint = null;
@@ -1178,32 +1180,41 @@
     }
 
     function buildShareUrl() {
-      var base = location.origin + location.pathname + location.search;
-      if (!map) return base;
-      var params = new URLSearchParams();
-      if (activeId && locById[activeId]) {
-        var loc = locById[activeId];
-        params.set('z', String(Math.max(map.getZoom(), 12)));
-        params.set('lat', loc.lat.toFixed(5));
-        params.set('lng', loc.lng.toFixed(5));
-        params.set('loc', activeId);
-      } else {
-        var center = map.getCenter();
-        params.set('z', String(map.getZoom()));
-        params.set('lat', center.lat.toFixed(5));
-        params.set('lng', center.lng.toFixed(5));
-      }
-      return base + '#' + params.toString();
+      syncHashToUrl();
+      return location.href;
     }
 
-    function clearHashFromUrl() {
-      if (location.hash) {
-        history.replaceState(null, '', location.pathname + location.search);
+    function syncHashToUrl() {
+      if (suppressHashUpdate || !map) return;
+      var center = map.getCenter();
+      var params = new URLSearchParams();
+      params.set('z', String(map.getZoom()));
+      params.set('lat', center.lat.toFixed(5));
+      params.set('lng', center.lng.toFixed(5));
+      if (activeId) params.set('loc', activeId);
+      var next = location.pathname + location.search + '#' + params.toString();
+      if (location.pathname + location.search + location.hash !== next) {
+        history.replaceState(null, '', next);
       }
+    }
+
+    function scheduleHashSync() {
+      clearTimeout(hashSyncTimer);
+      hashSyncTimer = setTimeout(syncHashToUrl, 300);
     }
 
     function applyHashState(state) {
-      if (!state) return;
+      suppressHashUpdate = true;
+      function finish() {
+        suppressHashUpdate = false;
+        syncHashToUrl();
+        updateSidebarForMapView();
+      }
+
+      if (!state) {
+        finish();
+        return;
+      }
 
       if (state.lat != null && state.lng != null && state.z != null) {
         map.setView([state.lat, state.lng], state.z, { animate: false });
@@ -1212,12 +1223,25 @@
       if (state.loc && locById[state.loc]) {
         clusterGroup.zoomToShowLayer(markers[state.loc], function () {
           openLocation(locById[state.loc]);
-          updateSidebarForMapView();
+          finish();
         });
         return;
       }
 
-      updateSidebarForMapView();
+      if (activeId) {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        backdrop.classList.remove('open');
+        backdrop.hidden = true;
+        activeId = null;
+        document.querySelectorAll('.loc-btn').forEach(function (btn) {
+          btn.classList.remove('active');
+        });
+        document.getElementById('panel-embed').innerHTML =
+          '<p class="embed-loading">Select a location on the map.</p>';
+        document.getElementById('panel-share-btn').hidden = true;
+      }
+      finish();
     }
 
     function shareCurrentView(placeTitle) {
@@ -1316,6 +1340,7 @@
       if (markers[loc.id]) {
         markers[loc.id].openPopup();
       }
+      scheduleHashSync();
       scheduleSidebarUpdate();
       updateSidebarForMapView();
     }
@@ -1332,7 +1357,7 @@
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
       document.getElementById('panel-share-btn').hidden = true;
-      scheduleSidebarUpdate();
+      scheduleHashSync();
       updateSidebarForMapView();
     }
 
@@ -1413,6 +1438,7 @@
     var defaultBoundsOptions = { padding: [40, 40], maxZoom: 7 };
 
     function resetToHome() {
+      suppressHashUpdate = true;
       panel.classList.remove('open');
       panel.setAttribute('aria-hidden', 'true');
       backdrop.classList.remove('open');
@@ -1424,9 +1450,14 @@
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
       document.getElementById('panel-share-btn').hidden = true;
+      history.replaceState(null, '', location.pathname + location.search);
       map.closePopup();
       map.fitBounds(bounds, defaultBoundsOptions);
-      map.once('moveend', updateSidebarForMapView);
+      map.once('moveend', function () {
+        history.replaceState(null, '', location.pathname + location.search);
+        suppressHashUpdate = false;
+        updateSidebarForMapView();
+      });
     }
 
     var clusterGroup = L.markerClusterGroup({
@@ -1464,23 +1495,21 @@
     });
     map.addLayer(clusterGroup);
 
-    map.on('moveend zoomend resize', scheduleSidebarUpdate);
+    map.on('moveend zoomend resize', function () {
+      scheduleHashSync();
+      scheduleSidebarUpdate();
+    });
 
     var initialHash = parseHashState();
-    if (initialHash) {
+    if (initialHash && (initialHash.loc || initialHash.lat != null)) {
       applyHashState(initialHash);
-      clearHashFromUrl();
     } else {
       map.fitBounds(bounds, defaultBoundsOptions);
       map.once('moveend', updateSidebarForMapView);
     }
 
     window.addEventListener('hashchange', function () {
-      var state = parseHashState();
-      if (state) {
-        applyHashState(state);
-        clearHashFromUrl();
-      }
+      applyHashState(parseHashState());
     });
 
     document.getElementById('home-btn').addEventListener('click', resetToHome);
