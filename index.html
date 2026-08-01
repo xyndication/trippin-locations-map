@@ -608,7 +608,7 @@
         <img class="site-logo" src="logo.png" width="40" height="64" alt="">
         <h1 class="site-title">Trippin</h1>
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
-        <button type="button" class="review-btn" id="review-btn" aria-pressed="false" title="Show suggested only">🌲</button>
+        <button type="button" class="review-btn" id="review-btn" aria-pressed="false" title="Review nearby suggestions by area" hidden>🌲</button>
         <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 16V4"/>
@@ -626,7 +626,7 @@
             <button type="button" id="review-copy-btn" title="Copy removed slugs for Trippin sync">Copy removals</button>
           </div>
         </div>
-        <span class="build-meta">700d451 · 🥾 saved · 🌲 suggested</span>
+        <span class="build-meta" id="build-meta">700d451</span>
       </div>
     </header>
     <div class="main">
@@ -2984,6 +2984,8 @@
     var activeId = null;
     var reviewMode = false;
     var reviewClusterIndex = 0;
+    var reviewEnabled = new URLSearchParams(location.search).get('review') === '1';
+    var BUILD_VERSION = '__BUILD_VERSION__';
     var markerInCluster = {};
     var locById = {};
     var suppressHashUpdate = false;
@@ -3022,6 +3024,20 @@
 
     function dismissedCount() {
       return dismissedSuggestions.size;
+    }
+
+    function updateBuildMeta() {
+      var el = document.getElementById('build-meta');
+      if (!el) return;
+      var saved = LOCATIONS.filter(function (l) { return !l.suggested; }).length;
+      if (reviewEnabled) {
+        var suggested = LOCATIONS.filter(function (l) {
+          return l.suggested && !isDismissed(l.id);
+        }).length;
+        el.textContent = BUILD_VERSION + ' · ' + saved + ' saved · ' + suggested + ' 🌲';
+      } else {
+        el.textContent = BUILD_VERSION + ' · ' + saved + ' saved';
+      }
     }
 
     function updateReviewCopyLabel() {
@@ -3093,6 +3109,7 @@
 
     function shouldShowLocation(loc) {
       if (isDismissed(loc.id)) return false;
+      if (loc.suggested && !reviewMode) return false;
       if (reviewMode) return loc.suggested && loc.reviewCluster === reviewClusterIndex;
       return true;
     }
@@ -3159,6 +3176,7 @@
         return;
       }
       dismissSuggestion(id);
+      updateBuildMeta();
     }
 
     function dismissSuggestion(id) {
@@ -3171,6 +3189,7 @@
       if (btn) btn.setAttribute('hidden', '');
       updateSuggestedMarkerIcons();
       applyLocationVisibility();
+      updateBuildMeta();
       showShareToast('Removed: ' + loc.title);
       maybeAdvanceAfterDismiss();
     }
@@ -3215,6 +3234,11 @@
       LOCATIONS.forEach(function (loc) {
         var btn = locButtons[loc.id];
         if (!btn) return;
+        if (loc.suggested && !reviewMode) {
+          btn.setAttribute('hidden', '');
+          btn.classList.add('is-offscreen');
+          return;
+        }
         var inView = mapBounds.contains([loc.lat, loc.lng]);
         var show = inView || loc.id === activeId;
         if (show) visible++;
@@ -3226,8 +3250,7 @@
         sidebarHint.textContent = 'No spots in this view · pan or zoom out';
       } else {
         var saved = LOCATIONS.filter(function (l) { return !l.suggested; }).length;
-        var suggested = LOCATIONS.length - saved;
-        sidebarHint.textContent = visible + ' in view · ' + saved + ' saved · ' + suggested + ' 🌲';
+        sidebarHint.textContent = visible + ' in view · ' + saved + ' saved';
       }
     }
 
@@ -3288,6 +3311,7 @@
       nav.classList.toggle('open', reviewMode);
       if (reviewMode) {
         setReviewCluster(0);
+        updateBuildMeta();
       } else {
         document.querySelectorAll('.sidebar-section-label').forEach(function (el) { el.remove(); });
         updateSuggestedMarkerIcons();
@@ -3368,8 +3392,13 @@
       }
 
       if (state.loc && locById[state.loc]) {
+        var hashLoc = locById[state.loc];
+        if (hashLoc.suggested && !reviewMode) {
+          finish();
+          return;
+        }
         clusterGroup.zoomToShowLayer(markers[state.loc], function () {
-          openLocation(locById[state.loc]);
+          openLocation(hashLoc);
           finish();
         });
         return;
@@ -3555,6 +3584,7 @@
         });
       }
       locButtons[loc.id] = btn;
+      if (loc.suggested && !reviewEnabled) btn.setAttribute('hidden', '');
       sidebar.appendChild(btn);
     });
 
@@ -3648,7 +3678,7 @@
     });
 
     LOCATIONS.forEach(function (loc) {
-      bounds.extend([loc.lat, loc.lng]);
+      if (!loc.suggested) bounds.extend([loc.lat, loc.lng]);
       var pinEmoji = loc.suggested ? '🌲' : '🥾';
       var pinClass = loc.suggested ? 'pin-emoji pin-emoji-suggested' : 'pin-emoji';
       var marker = L.marker([loc.lat, loc.lng], {
@@ -3672,6 +3702,12 @@
     map.addLayer(clusterGroup);
     applyLocationVisibility();
     updateReviewCopyLabel();
+    if (reviewEnabled) {
+      document.getElementById('review-btn').hidden = false;
+      updateBuildMeta();
+    } else {
+      updateBuildMeta();
+    }
 
     map.on('moveend zoomend resize', function () {
       scheduleHashSync();
@@ -3694,7 +3730,7 @@
     document.getElementById('panel-skip-btn').addEventListener('click', skipToNextSuggestion);
 
     var initialHash = parseHashState();
-    if (new URLSearchParams(location.search).get('review') === '1') {
+    if (reviewEnabled) {
       setReviewMode(true);
     }
     if (initialHash && (initialHash.loc || initialHash.lat != null)) {
