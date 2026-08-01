@@ -62,16 +62,12 @@
       background: var(--paper);
       border-bottom: 1px solid var(--line);
     }
-    .site-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      min-width: 0;
-    }
-    .site-brand h1 {
+    .site-title {
       margin: 0;
       font-size: 1rem;
       font-weight: 600;
+      line-height: 1;
+      flex-shrink: 0;
     }
     .header-start {
       display: flex;
@@ -80,10 +76,11 @@
       min-width: 0;
     }
     .site-logo {
-      width: 2.25rem;
-      height: 2.25rem;
+      width: 2rem;
+      height: 2rem;
       object-fit: contain;
       flex-shrink: 0;
+      display: block;
     }
     .header-end {
       display: flex;
@@ -422,10 +419,8 @@
   <div class="app">
     <header>
       <div class="header-start">
-        <div class="site-brand">
-          <img class="site-logo" src="logo.png" width="36" height="36" alt="">
-          <h1>Trippin</h1>
-        </div>
+        <img class="site-logo" src="logo.png" width="32" height="32" alt="">
+        <h1 class="site-title">Trippin</h1>
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
         <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
