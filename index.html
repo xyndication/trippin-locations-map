@@ -412,7 +412,7 @@
         <h1>Trippin</h1>
       </div>
       <div class="header-end">
-        <span class="build-meta">Updated 31 Jul 2026 · cde6bd9</span>
+        <span class="build-meta">Updated 31 Jul 2026 · 868a3ee</span>
         <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 16V4"/>
@@ -1159,8 +1159,69 @@
       }, 2200);
     }
 
+    function parseHashState() {
+      var raw = location.hash.replace(/^#/, '');
+      if (!raw) return null;
+      var params = new URLSearchParams(raw);
+      var state = {};
+      var loc = params.get('loc');
+      if (loc) state.loc = loc;
+      var z = parseFloat(params.get('z'));
+      var lat = parseFloat(params.get('lat'));
+      var lng = parseFloat(params.get('lng'));
+      if (!isNaN(z) && !isNaN(lat) && !isNaN(lng)) {
+        state.z = z;
+        state.lat = lat;
+        state.lng = lng;
+      }
+      return state;
+    }
+
+    function buildShareUrl() {
+      var base = location.origin + location.pathname + location.search;
+      if (!map) return base;
+      var params = new URLSearchParams();
+      if (activeId && locById[activeId]) {
+        var loc = locById[activeId];
+        params.set('z', String(Math.max(map.getZoom(), 12)));
+        params.set('lat', loc.lat.toFixed(5));
+        params.set('lng', loc.lng.toFixed(5));
+        params.set('loc', activeId);
+      } else {
+        var center = map.getCenter();
+        params.set('z', String(map.getZoom()));
+        params.set('lat', center.lat.toFixed(5));
+        params.set('lng', center.lng.toFixed(5));
+      }
+      return base + '#' + params.toString();
+    }
+
+    function clearHashFromUrl() {
+      if (location.hash) {
+        history.replaceState(null, '', location.pathname + location.search);
+      }
+    }
+
+    function applyHashState(state) {
+      if (!state) return;
+
+      if (state.lat != null && state.lng != null && state.z != null) {
+        map.setView([state.lat, state.lng], state.z, { animate: false });
+      }
+
+      if (state.loc && locById[state.loc]) {
+        clusterGroup.zoomToShowLayer(markers[state.loc], function () {
+          openLocation(locById[state.loc]);
+          updateSidebarForMapView();
+        });
+        return;
+      }
+
+      updateSidebarForMapView();
+    }
+
     function shareCurrentView(placeTitle) {
-      var url = location.href;
+      var url = buildShareUrl();
       var title = placeTitle ? placeTitle + ' — Trippin' : 'Trippin map';
       var text = placeTitle ? placeTitle + ' on Trippin' : 'Saved places map';
       if (navigator.share) {
@@ -1405,11 +1466,22 @@
 
     map.on('moveend zoomend resize', scheduleSidebarUpdate);
 
-    if (location.hash) {
-      history.replaceState(null, '', location.pathname + location.search);
+    var initialHash = parseHashState();
+    if (initialHash) {
+      applyHashState(initialHash);
+      clearHashFromUrl();
+    } else {
+      map.fitBounds(bounds, defaultBoundsOptions);
+      map.once('moveend', updateSidebarForMapView);
     }
-    map.fitBounds(bounds, defaultBoundsOptions);
-    map.once('moveend', updateSidebarForMapView);
+
+    window.addEventListener('hashchange', function () {
+      var state = parseHashState();
+      if (state) {
+        applyHashState(state);
+        clearHashFromUrl();
+      }
+    });
 
     document.getElementById('home-btn').addEventListener('click', resetToHome);
     document.getElementById('header-share-btn').addEventListener('click', function () {
