@@ -9,17 +9,19 @@
   <meta name="apple-mobile-web-app-title" content="Trippin">
   <meta name="theme-color" content="#3d6b8c">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <meta property="og:title" content="Trippin">
   <meta property="og:description" content="Saved places map — hikes, parks, and coast spots.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://xyndication.github.io/trippin-locations-map/">
-  <meta property="og:image" content="https://xyndication.github.io/trippin-locations-map/og.svg">
+  <meta property="og:image" content="https://xyndication.github.io/trippin-locations-map/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Trippin">
   <meta name="twitter:description" content="Saved places map — hikes, parks, and coast spots.">
-  <meta name="twitter:image" content="https://xyndication.github.io/trippin-locations-map/og.svg">
+  <meta name="twitter:image" content="https://xyndication.github.io/trippin-locations-map/og.png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="">
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
@@ -70,6 +72,12 @@
       align-items: center;
       gap: 0.5rem;
       min-width: 0;
+    }
+    .site-logo {
+      width: 2.25rem;
+      height: 2.25rem;
+      object-fit: contain;
+      flex-shrink: 0;
     }
     .header-end {
       display: flex;
@@ -408,6 +416,7 @@
   <div class="app">
     <header>
       <div class="header-start">
+        <img class="site-logo" src="logo.png" width="36" height="36" alt="">
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
         <h1>Trippin</h1>
       </div>
