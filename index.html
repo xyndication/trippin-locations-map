@@ -76,9 +76,11 @@
       min-width: 0;
     }
     .site-logo {
-      width: 2rem;
       height: 2rem;
+      width: auto;
+      max-width: 2.25rem;
       object-fit: contain;
+      object-position: right center;
       flex-shrink: 0;
       display: block;
     }
@@ -419,7 +421,7 @@
   <div class="app">
     <header>
       <div class="header-start">
-        <img class="site-logo" src="logo.png" width="32" height="32" alt="">
+        <img class="site-logo" src="logo.png" width="20" height="32" alt="">
         <h1 class="site-title">Trippin</h1>
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
         <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
