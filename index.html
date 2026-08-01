@@ -71,6 +71,12 @@
       gap: 0.5rem;
       min-width: 0;
     }
+    .header-end {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+    }
     .home-btn {
       flex-shrink: 0;
       width: 2rem;
@@ -83,9 +89,28 @@
       line-height: 1;
       color: var(--accent);
     }
-    .home-btn:hover {
+    .home-btn:hover,
+    .share-btn:hover {
       background: var(--bg);
       color: var(--accent-hover);
+    }
+    .share-btn {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--paper);
+      cursor: pointer;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .share-btn svg {
+      width: 1rem;
+      height: 1rem;
     }
     .build-meta {
       font-size: 0.75rem;
@@ -329,12 +354,50 @@
       padding: 0.65rem 1rem;
       border-top: 1px solid var(--line);
       flex-shrink: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1rem;
     }
-    .panel-footer a {
+    .panel-footer a,
+    .panel-share-btn {
       font-size: 0.8rem;
       color: var(--accent);
+      background: none;
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
     }
-    .panel-footer a:hover { color: var(--accent-hover); }
+    .panel-footer a:hover,
+    .panel-share-btn:hover { color: var(--accent-hover); }
+    .panel-share-btn svg {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+    .share-toast {
+      position: fixed;
+      bottom: 1.25rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+      z-index: 1100;
+      opacity: 0;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .share-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
     @media (max-width: 720px) {
       .sidebar { display: none; }
       .panel { width: 100vw; }
@@ -348,7 +411,16 @@
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
         <h1>Trippin</h1>
       </div>
-      <span class="build-meta">Updated Jul 31, 2026 · 7223f63</span>
+      <div class="header-end">
+        <span class="build-meta">Updated 31 Jul 2026 · cde6bd9</span>
+        <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 16V4"/>
+            <path d="m7 9 5-5 5 5"/>
+            <path d="M5 20h14"/>
+          </svg>
+        </button>
+      </div>
     </header>
     <div class="main">
       <aside class="sidebar" id="sidebar" aria-label="Location list"></aside>
@@ -370,9 +442,19 @@
       <p class="embed-loading">Select a location on the map.</p>
     </div>
     <div class="panel-footer">
-      <a id="panel-maps" href="#" target="_blank" rel="noopener">Open in Google Maps</a>
+      <button type="button" class="panel-share-btn" id="panel-share-btn" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 16V4"/>
+          <path d="m7 9 5-5 5 5"/>
+          <path d="M5 20h14"/>
+        </svg>
+        Share this place
+      </button>
+      <a id="panel-maps" href="#" target="_blank" rel="noopener">Open in Google Maps ↗</a>
     </div>
   </aside>
+
+  <div class="share-toast" id="share-toast" role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
@@ -710,6 +792,17 @@
     "googleMapsEmbed": null
   },
   {
+    "id": "woodburn-premium-outlets",
+    "title": "Woodburn Premium Outlets",
+    "region": "Woodburn / Willamette Valley (I-5)",
+    "notes": "Oregon's largest outlet center — 110+ stores; easy I-5 stop between Portland and Salem.",
+    "lat": 45.1561674,
+    "lng": -122.8785613,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Woodburn+Premium+Outlets/@45.1561674,-122.8785613,17z/data=!3m1!4b1!4m6!3m5!1s0x54955c451f42e579:0xf61e6c7552a070a1!8m2!3d45.1561674!4d-122.8785613!16zL20vMGg0Ympy",
+    "googleMapsEmbed": null
+  },
+  {
     "id": "cape-kiwanda-state-natural-area",
     "title": "Cape Kiwanda State Natural Area",
     "region": "Pacific City, Oregon Coast",
@@ -1014,8 +1107,6 @@
     var markers = {};
     var activeId = null;
     var locById = {};
-    var suppressHashUpdate = false;
-    var hashSyncTimer = null;
     var sidebarViewTimer = null;
     var locButtons = {};
     var sidebarHint = null;
@@ -1023,83 +1114,6 @@
     LOCATIONS.forEach(function (loc) {
       locById[loc.id] = loc;
     });
-
-    function parseHashState() {
-      var raw = location.hash.replace(/^#/, '');
-      if (!raw) return null;
-      var params = new URLSearchParams(raw);
-      var state = {};
-      var loc = params.get('loc');
-      if (loc) state.loc = loc;
-      var z = parseFloat(params.get('z'));
-      var lat = parseFloat(params.get('lat'));
-      var lng = parseFloat(params.get('lng'));
-      if (!isNaN(z) && !isNaN(lat) && !isNaN(lng)) {
-        state.z = z;
-        state.lat = lat;
-        state.lng = lng;
-      }
-      return state;
-    }
-
-    function syncHashToUrl() {
-      if (suppressHashUpdate || !map) return;
-      var center = map.getCenter();
-      var params = new URLSearchParams();
-      params.set('z', String(map.getZoom()));
-      params.set('lat', center.lat.toFixed(5));
-      params.set('lng', center.lng.toFixed(5));
-      if (activeId) params.set('loc', activeId);
-      var next = location.pathname + location.search + '#' + params.toString();
-      if (location.pathname + location.search + location.hash !== next) {
-        history.replaceState(null, '', next);
-      }
-    }
-
-    function scheduleHashSync() {
-      clearTimeout(hashSyncTimer);
-      hashSyncTimer = setTimeout(syncHashToUrl, 300);
-    }
-
-    function applyHashState(state) {
-      suppressHashUpdate = true;
-      function finish() {
-        suppressHashUpdate = false;
-        syncHashToUrl();
-        updateSidebarForMapView();
-      }
-
-      if (!state) {
-        finish();
-        return;
-      }
-
-      if (state.lat != null && state.lng != null && state.z != null) {
-        map.setView([state.lat, state.lng], state.z, { animate: false });
-      }
-
-      if (state.loc && locById[state.loc]) {
-        clusterGroup.zoomToShowLayer(markers[state.loc], function () {
-          openLocation(locById[state.loc]);
-          finish();
-        });
-        return;
-      }
-
-      if (activeId) {
-        panel.classList.remove('open');
-        panel.setAttribute('aria-hidden', 'true');
-        backdrop.classList.remove('open');
-        backdrop.hidden = true;
-        activeId = null;
-        document.querySelectorAll('.loc-btn').forEach(function (btn) {
-          btn.classList.remove('active');
-        });
-        document.getElementById('panel-embed').innerHTML =
-          '<p class="embed-loading">Select a location on the map.</p>';
-      }
-      finish();
-    }
 
     function scheduleSidebarUpdate() {
       clearTimeout(sidebarViewTimer);
@@ -1131,6 +1145,40 @@
       } else {
         sidebarHint.textContent = visible + ' in view · ' + LOCATIONS.length + ' total';
       }
+    }
+
+    var shareToastTimer = null;
+
+    function showShareToast(message) {
+      var toast = document.getElementById('share-toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(shareToastTimer);
+      shareToastTimer = setTimeout(function () {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    function shareCurrentView(placeTitle) {
+      var url = location.href;
+      var title = placeTitle ? placeTitle + ' — Trippin' : 'Trippin map';
+      var text = placeTitle ? placeTitle + ' on Trippin' : 'Saved places map';
+      if (navigator.share) {
+        return navigator.share({ title: title, text: text, url: url }).catch(function (err) {
+          if (err && err.name === 'AbortError') return;
+          return copyShareUrl(url);
+        });
+      }
+      return copyShareUrl(url);
+    }
+
+    function copyShareUrl(url) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(url).then(function () {
+          showShareToast('Link copied');
+        });
+      }
+      showShareToast(url);
     }
 
     function googleMapsPlaceUrl(loc) {
@@ -1192,6 +1240,7 @@
       document.getElementById('panel-region').textContent = loc.region;
       document.getElementById('panel-notes').textContent = loc.notes;
       document.getElementById('panel-maps').href = googleMapsPlaceUrl(loc);
+      document.getElementById('panel-share-btn').hidden = false;
 
       renderPanel(loc);
 
@@ -1206,7 +1255,7 @@
       if (markers[loc.id]) {
         markers[loc.id].openPopup();
       }
-      scheduleHashSync();
+      scheduleSidebarUpdate();
       updateSidebarForMapView();
     }
 
@@ -1221,7 +1270,8 @@
       });
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
-      scheduleHashSync();
+      document.getElementById('panel-share-btn').hidden = true;
+      scheduleSidebarUpdate();
       updateSidebarForMapView();
     }
 
@@ -1302,7 +1352,6 @@
     var defaultBoundsOptions = { padding: [40, 40], maxZoom: 7 };
 
     function resetToHome() {
-      suppressHashUpdate = true;
       panel.classList.remove('open');
       panel.setAttribute('aria-hidden', 'true');
       backdrop.classList.remove('open');
@@ -1313,14 +1362,10 @@
       });
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
-      history.replaceState(null, '', location.pathname + location.search);
+      document.getElementById('panel-share-btn').hidden = true;
       map.closePopup();
       map.fitBounds(bounds, defaultBoundsOptions);
-      map.once('moveend', function () {
-        history.replaceState(null, '', location.pathname + location.search);
-        suppressHashUpdate = false;
-        updateSidebarForMapView();
-      });
+      map.once('moveend', updateSidebarForMapView);
     }
 
     var clusterGroup = L.markerClusterGroup({
@@ -1358,22 +1403,22 @@
     });
     map.addLayer(clusterGroup);
 
-    map.on('moveend zoomend resize', function () {
-      scheduleHashSync();
-      scheduleSidebarUpdate();
-    });
+    map.on('moveend zoomend resize', scheduleSidebarUpdate);
 
-    var initialHash = parseHashState();
-    if (initialHash && (initialHash.loc || initialHash.lat != null)) {
-      applyHashState(initialHash);
-    } else {
-      map.fitBounds(bounds, defaultBoundsOptions);
-      map.once('moveend', updateSidebarForMapView);
+    if (location.hash) {
+      history.replaceState(null, '', location.pathname + location.search);
     }
+    map.fitBounds(bounds, defaultBoundsOptions);
+    map.once('moveend', updateSidebarForMapView);
 
     document.getElementById('home-btn').addEventListener('click', resetToHome);
-    window.addEventListener('hashchange', function () {
-      applyHashState(parseHashState());
+    document.getElementById('header-share-btn').addEventListener('click', function () {
+      shareCurrentView(activeId && locById[activeId] ? locById[activeId].title : null);
+    });
+    document.getElementById('panel-share-btn').addEventListener('click', function () {
+      if (activeId && locById[activeId]) {
+        shareCurrentView(locById[activeId].title);
+      }
     });
   </script>
 </body>
