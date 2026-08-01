@@ -210,13 +210,23 @@
       border-bottom: 1px solid var(--line);
     }
     .loc-btn {
-      display: block;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.35rem;
       width: 100%;
-      text-align: left;
-      padding: 0.75rem 0.85rem;
       border: 0;
       border-bottom: 1px solid var(--line);
       background: var(--paper);
+      color: inherit;
+    }
+    .loc-main {
+      flex: 1;
+      min-width: 0;
+      display: block;
+      text-align: left;
+      padding: 0.75rem 0.85rem;
+      border: 0;
+      background: transparent;
       cursor: pointer;
       font: inherit;
       color: inherit;
@@ -227,6 +237,8 @@
     }
     .loc-btn.active {
       border-left: 3px solid var(--accent);
+    }
+    .loc-btn.active .loc-main {
       padding-left: calc(0.85rem - 3px);
     }
     .loc-btn .title {
@@ -303,9 +315,10 @@
       background: #fee;
       border-color: #b33;
     }
-    .loc-btn.suggested .loc-dismiss {
-      float: right;
-      margin-left: 0.35rem;
+    .loc-dismiss {
+      flex-shrink: 0;
+      align-self: center;
+      margin-right: 0.65rem;
       width: 1.35rem;
       height: 1.35rem;
       border-radius: 50%;
@@ -314,13 +327,23 @@
       color: #b33;
       font-size: 0.85rem;
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1;
       padding: 0;
       cursor: pointer;
-      flex-shrink: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     }
-    .loc-btn.suggested .loc-dismiss:hover {
+    .loc-dismiss:hover {
       background: #fee;
+      border-color: #b33;
+    }
+    .loc-dismiss:focus {
+      outline: none;
+    }
+    .loc-dismiss:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
     .review-nav-actions {
       display: flex;
@@ -626,10 +649,11 @@
           <span class="review-nav-label" id="review-nav-label"></span>
           <button type="button" id="review-next" aria-label="Next area">▶</button>
           <div class="review-nav-actions">
-            <button type="button" id="review-copy-btn" title="Copy removed slugs for Trippin sync">Copy removals</button>
+            <button type="button" id="review-copy-btn" title="Copy review session for Trippin sync">Copy session</button>
+            <button type="button" id="review-add-btn" title="Add draft location at map center">+ Add</button>
           </div>
         </div>
-        <span class="build-meta" id="build-meta">700d451</span>
+        <span class="build-meta" id="build-meta">test-build</span>
       </div>
     </header>
     <div class="main">
@@ -653,7 +677,7 @@
       <p class="embed-loading">Select a location on the map.</p>
     </div>
     <div class="panel-review-actions" id="panel-review-actions" hidden>
-      <button type="button" class="panel-dismiss-btn" id="panel-dismiss-btn">Remove suggestion</button>
+      <button type="button" class="panel-dismiss-btn" id="panel-dismiss-btn">Remove</button>
       <button type="button" class="panel-skip-btn" id="panel-skip-btn">Skip</button>
     </div>
     <div class="panel-footer">
@@ -674,6 +698,251 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script async src="https://www.instagram.com/embed.js"></script>
+  <script>
+(function(global){
+/**
+ * Client-side review session state (localStorage draft queue).
+ * Pure functions — testable in Node; bundled into the map page at build time.
+ */
+
+const LEGACY_DISMISS_KEY = 'trippin-review-dismissed';
+const SESSION_STORAGE_KEY = 'trippin-review-session';
+
+function emptySession() {
+  return {
+    dismissed: [],
+    additions: [],
+    promotions: [],
+    mapsUpdates: [],
+    updated: null,
+  };
+}
+
+function normalizeSession(raw) {
+  if (!raw || typeof raw !== 'object') return emptySession();
+  return {
+    dismissed: uniqueStrings(raw.dismissed),
+    additions: Array.isArray(raw.additions) ? raw.additions.map(normalizeAddition).filter(Boolean) : [],
+    promotions: Array.isArray(raw.promotions) ? raw.promotions : [],
+    mapsUpdates: Array.isArray(raw.mapsUpdates) ? raw.mapsUpdates : [],
+    updated: raw.updated || null,
+  };
+}
+
+function uniqueStrings(list) {
+  return [...new Set((list || []).filter((s) => typeof s === 'string' && s))].sort();
+}
+
+function normalizeAddition(entry) {
+  if (!entry?.title || entry.lat == null || entry.lng == null) return null;
+  const slug = entry.slug || slugifyTitle(entry.title);
+  return {
+    id: entry.id || `draft-${slug}`,
+    slug,
+    title: entry.title,
+    lat: Number(entry.lat),
+    lng: Number(entry.lng),
+    region: entry.region || 'Draft · added in review',
+    notes: entry.notes || 'Draft location — export to sync to vault',
+    googleMaps: entry.googleMaps || null,
+    target: entry.target === 'suggestion' ? 'suggestion' : 'saved',
+    reviewCluster: entry.reviewCluster ?? null,
+    addedAt: entry.addedAt || new Date().toISOString(),
+    draft: true,
+  };
+}
+
+function slugifyTitle(title) {
+  return title
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .toLowerCase()
+    .replace(/&amp;/g, 'and')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function parseStoredSession(rawJson, legacyDismissJson) {
+  if (rawJson) {
+    try {
+      return normalizeSession(JSON.parse(rawJson));
+    } catch {
+      return emptySession();
+    }
+  }
+  if (legacyDismissJson) {
+    try {
+      const legacy = JSON.parse(legacyDismissJson);
+      if (Array.isArray(legacy.dismissed)) {
+        return normalizeSession({ dismissed: legacy.dismissed, updated: legacy.updated });
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+  return emptySession();
+}
+
+function serializeSession(session) {
+  const normalized = normalizeSession(session);
+  return JSON.stringify({
+    ...normalized,
+    updated: new Date().toISOString(),
+  });
+}
+
+function isDismissed(session, id) {
+  return normalizeSession(session).dismissed.includes(id);
+}
+
+function dismissSuggestion(session, id) {
+  const next = normalizeSession(session);
+  if (!id || next.dismissed.includes(id)) return next;
+  next.dismissed = uniqueStrings([...next.dismissed, id]);
+  return next;
+}
+
+function undoDismiss(session, id) {
+  const next = normalizeSession(session);
+  next.dismissed = next.dismissed.filter((s) => s !== id);
+  return next;
+}
+
+function addDraftLocation(session, draft) {
+  const next = normalizeSession(session);
+  const addition = normalizeAddition(draft);
+  if (!addition) throw new Error('Draft location requires title, lat, and lng');
+  next.additions = next.additions.filter((a) => a.slug !== addition.slug);
+  next.additions.push(addition);
+  next.additions.sort((a, b) => a.title.localeCompare(b.title));
+  return next;
+}
+
+function removeDraftLocation(session, slugOrId) {
+  const next = normalizeSession(session);
+  next.additions = next.additions.filter((a) => a.slug !== slugOrId && a.id !== slugOrId);
+  return next;
+}
+
+function draftToLocation(draft) {
+  const addition = normalizeAddition(draft);
+  if (!addition) return null;
+  return {
+    id: addition.id,
+    slug: addition.slug,
+    title: addition.title,
+    region: addition.region,
+    notes: addition.notes,
+    lat: addition.lat,
+    lng: addition.lng,
+    googleMaps: addition.googleMaps,
+    googleMapsEmbed: null,
+    googleRating: null,
+    googleReviewCount: null,
+    suggested: addition.target === 'suggestion',
+    draft: true,
+    reviewCluster: addition.reviewCluster,
+    nearPins: null,
+    instagram: null,
+  };
+}
+
+function mergeDraftLocations(locations, session) {
+  const base = Array.isArray(locations) ? locations : [];
+  const drafts = normalizeSession(session).additions.map(draftToLocation).filter(Boolean);
+  const baseIds = new Set(base.map((l) => l.id));
+  const merged = [...base];
+  for (const draft of drafts) {
+    if (!baseIds.has(draft.id)) merged.push(draft);
+  }
+  return merged;
+}
+
+function shouldShowLocation(loc, ctx) {
+  const session = normalizeSession(ctx.session);
+  if (isDismissed(session, loc.id)) return false;
+
+  if (loc.draft) {
+    return !!(ctx.reviewEnabled && ctx.reviewMode);
+  }
+
+  if (loc.suggested && !ctx.reviewMode) return false;
+  if (ctx.reviewMode) {
+    return loc.suggested && loc.reviewCluster === ctx.reviewClusterIndex;
+  }
+  return true;
+}
+
+function visibleSuggestions(locations, ctx) {
+  return locations.filter((loc) => loc.suggested && shouldShowLocation(loc, ctx));
+}
+
+function nextClusterIndex(reviewClusterIndex, reviewClusters, locations, session) {
+  const ctx = {
+    reviewEnabled: true,
+    reviewMode: true,
+    reviewClusterIndex,
+    session,
+  };
+  for (let i = 1; i <= reviewClusters.length; i++) {
+    const idx = (reviewClusterIndex + i) % reviewClusters.length;
+    const has = locations.some(
+      (l) => l.suggested && l.reviewCluster === idx && shouldShowLocation(l, { ...ctx, reviewClusterIndex: idx })
+    );
+    if (has) return idx;
+  }
+  return null;
+}
+
+function formatExportText(session) {
+  const s = normalizeSession(session);
+  const lines = [];
+
+  if (s.dismissed.length) {
+    lines.push('Remove these suggestions:');
+    lines.push(...s.dismissed.map((slug) => `- ${slug}`));
+    lines.push('');
+  }
+
+  if (s.additions.length) {
+    lines.push('Add these locations:');
+    for (const a of s.additions) {
+      const maps = a.googleMaps ? ` | ${a.googleMaps}` : '';
+      lines.push(`- ${a.slug} | ${a.title} | ${a.lat},${a.lng}${maps} | target=${a.target}`);
+    }
+    lines.push('');
+  }
+
+  if (s.promotions.length) {
+    lines.push('Promote these suggestions:');
+    lines.push(...s.promotions.map((p) => `- ${typeof p === 'string' ? p : p.slug}`));
+    lines.push('');
+  }
+
+  if (s.mapsUpdates.length) {
+    lines.push('Update Maps links:');
+    for (const u of s.mapsUpdates) {
+      lines.push(`- ${u.slug} | ${u.googleMaps}`);
+    }
+    lines.push('');
+  }
+
+  return lines.join('\n').trim();
+}
+
+function sessionSummary(session) {
+  const s = normalizeSession(session);
+  return {
+    dismissed: s.dismissed.length,
+    additions: s.additions.length,
+    promotions: s.promotions.length,
+    mapsUpdates: s.mapsUpdates.length,
+  };
+}
+
+global.TrippinReview={LEGACY_DISMISS_KEY,SESSION_STORAGE_KEY,emptySession,normalizeSession,parseStoredSession,serializeSession,isDismissed,dismissSuggestion,undoDismiss,addDraftLocation,removeDraftLocation,draftToLocation,mergeDraftLocations,shouldShowLocation,visibleSuggestions,nextClusterIndex,formatExportText,sessionSummary,slugifyTitle};
+})(window);
+  </script>
   <script>
     var LOCATIONS = [
   {
@@ -1863,34 +2132,6 @@
     "reviewCluster": 18
   },
   {
-    "id": "dennis-the-menace-playground",
-    "title": "Dennis The Menace Playground",
-    "region": "Suggested · near China Cove, Gibson Beach, Bird Island Lookout…",
-    "notes": "Review candidate · 4.8 ★ · 3,829 reviews",
-    "lat": 36.5981022,
-    "lng": -121.8862696,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "3,829 reviews",
-    "suggested": true,
-    "nearPins": [
-      "China Cove",
-      "Gibson Beach",
-      "Bird Island Lookout",
-      "Cypress Grove Trail",
-      "Lovers Point",
-      "Kissing Rock",
-      "Monarch Butterfly Sanctuary",
-      "Asilomar State Beach",
-      "Otter Point",
-      "Point Pinos Lighthouse",
-      "Sunset Beach"
-    ],
-    "reviewCluster": 0
-  },
-  {
     "id": "devil-s-garden-trail",
     "title": "Devil's Garden Trail",
     "region": "Suggested · near Arches National Park",
@@ -2979,6 +3220,12 @@
     "label": "Southwest South Dakota"
   }
 ];
+    var TrippinReview = window.TrippinReview;
+    var reviewSession = TrippinReview.parseStoredSession(
+      localStorage.getItem(TrippinReview.SESSION_STORAGE_KEY),
+      localStorage.getItem(TrippinReview.LEGACY_DISMISS_KEY)
+    );
+    LOCATIONS = TrippinReview.mergeDraftLocations(LOCATIONS, reviewSession);
 
     var panel = document.getElementById('panel');
     var backdrop = document.getElementById('backdrop');
@@ -2988,7 +3235,7 @@
     var reviewMode = false;
     var reviewClusterIndex = 0;
     var reviewEnabled = new URLSearchParams(location.search).get('review') === '1';
-    var BUILD_VERSION = '700d451';
+    var BUILD_VERSION = 'test-build';
     var markerInCluster = {};
     var locById = {};
     var suppressHashUpdate = false;
@@ -2996,37 +3243,29 @@
     var sidebarViewTimer = null;
     var locButtons = {};
     var sidebarHint = null;
-    var REVIEW_STORAGE_KEY = 'trippin-review-dismissed';
-    var dismissedSuggestions = loadDismissedSuggestions();
 
-    function loadDismissedSuggestions() {
-      try {
-        var raw = localStorage.getItem(REVIEW_STORAGE_KEY);
-        if (!raw) return new Set();
-        var data = JSON.parse(raw);
-        return new Set(Array.isArray(data.dismissed) ? data.dismissed : []);
-      } catch (e) {
-        return new Set();
-      }
+    function saveReviewSession() {
+      localStorage.setItem(TrippinReview.SESSION_STORAGE_KEY, TrippinReview.serializeSession(reviewSession));
+      localStorage.removeItem(TrippinReview.LEGACY_DISMISS_KEY);
+      updateReviewCopyLabel();
+      updateBuildMeta();
     }
 
-    function saveDismissedSuggestions() {
-      localStorage.setItem(
-        REVIEW_STORAGE_KEY,
-        JSON.stringify({
-          dismissed: Array.from(dismissedSuggestions).sort(),
-          updated: new Date().toISOString(),
-        })
-      );
-      updateReviewCopyLabel();
+    function reviewCtx(overrides) {
+      return Object.assign({
+        reviewEnabled: reviewEnabled,
+        reviewMode: reviewMode,
+        reviewClusterIndex: reviewClusterIndex,
+        session: reviewSession,
+      }, overrides || {});
     }
 
     function isDismissed(id) {
-      return dismissedSuggestions.has(id);
+      return TrippinReview.isDismissed(reviewSession, id);
     }
 
-    function dismissedCount() {
-      return dismissedSuggestions.size;
+    function sessionCounts() {
+      return TrippinReview.sessionSummary(reviewSession);
     }
 
     function updateBuildMeta() {
@@ -3046,27 +3285,56 @@
     function updateReviewCopyLabel() {
       var btn = document.getElementById('review-copy-btn');
       if (!btn) return;
-      var n = dismissedCount();
-      btn.textContent = n ? 'Copy removals (' + n + ')' : 'Copy removals';
+      var counts = sessionCounts();
+      var parts = [];
+      if (counts.dismissed) parts.push(counts.dismissed + ' removed');
+      if (counts.additions) parts.push(counts.additions + ' added');
+      btn.textContent = parts.length ? 'Copy session (' + parts.join(', ') + ')' : 'Copy session';
     }
 
-    function copyRemovalsToClipboard() {
-      var slugs = Array.from(dismissedSuggestions).sort();
-      if (!slugs.length) {
-        showShareToast('No removals saved yet');
+    function copyReviewSessionToClipboard() {
+      var text = TrippinReview.formatExportText(reviewSession);
+      if (!text) {
+        showShareToast('No review changes yet');
         return;
       }
-      var text = 'Remove these suggestions:\n' + slugs.map(function (s) { return '- ' + s; }).join('\n');
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
-          showShareToast('Copied ' + slugs.length + ' removal(s)');
+          showShareToast('Copied review session');
         }).catch(function () {
-          showShareToast('Copy failed — use panel list');
+          showShareToast('Copy failed — see console');
+          console.log(text);
         });
       } else {
-        showShareToast(slugs.length + ' removed — paste from console');
+        showShareToast('Copied to console');
         console.log(text);
       }
+    }
+
+    function pinIconForLoc(loc, showDismiss) {
+      if (loc.draft) {
+        var emoji = loc.suggested ? '🌲' : '📍';
+        var html =
+          '<div class="pin-emoji-wrap">' +
+          '<span aria-hidden="true">' + emoji + '</span>' +
+          (showDismiss
+            ? '<button type="button" class="pin-dismiss" aria-label="Remove draft">×</button>'
+            : '') +
+          '</div>';
+        return L.divIcon({
+          className: 'pin-emoji pin-emoji-suggested',
+          html: html,
+          iconSize: showDismiss ? [28, 28] : [24, 24],
+          iconAnchor: showDismiss ? [14, 24] : [12, 22],
+        });
+      }
+      if (loc.suggested) return suggestedPinIcon(showDismiss);
+      return L.divIcon({
+        className: 'pin-emoji',
+        html: '<span aria-hidden="true">🥾</span>',
+        iconSize: [24, 24],
+        iconAnchor: [12, 22],
+      });
     }
 
     function bindPinDismiss(marker, locId) {
@@ -3100,9 +3368,10 @@
 
     function updateSuggestedMarkerIcons() {
       LOCATIONS.forEach(function (loc) {
-        if (!loc.suggested || !markers[loc.id]) return;
-        var showDismiss = reviewMode && !isDismissed(loc.id);
-        markers[loc.id].setIcon(suggestedPinIcon(showDismiss));
+        if (!markers[loc.id]) return;
+        if (!loc.suggested && !loc.draft) return;
+        var showDismiss = reviewMode && (loc.draft || !isDismissed(loc.id));
+        markers[loc.id].setIcon(pinIconForLoc(loc, showDismiss));
         markers[loc.id].once('add', function () {
           bindPinDismiss(markers[loc.id], loc.id);
         });
@@ -3111,10 +3380,7 @@
     }
 
     function shouldShowLocation(loc) {
-      if (isDismissed(loc.id)) return false;
-      if (loc.suggested && !reviewMode) return false;
-      if (reviewMode) return loc.suggested && loc.reviewCluster === reviewClusterIndex;
-      return true;
+      return TrippinReview.shouldShowLocation(loc, reviewCtx());
     }
 
     function applyLocationVisibility() {
@@ -3136,7 +3402,7 @@
         var cluster = REVIEW_CLUSTERS[reviewClusterIndex];
         var sb = L.latLngBounds([]);
         LOCATIONS.forEach(function (loc) {
-          if (loc.suggested && loc.reviewCluster === reviewClusterIndex && !isDismissed(loc.id)) {
+          if ((loc.suggested || loc.draft) && loc.reviewCluster === reviewClusterIndex && shouldShowLocation(loc)) {
             sb.extend([loc.lat, loc.lng]);
           }
         });
@@ -3156,45 +3422,114 @@
     function maybeAdvanceAfterDismiss() {
       if (!reviewMode) return;
       var remaining = LOCATIONS.filter(function (l) {
-        return l.suggested && l.reviewCluster === reviewClusterIndex && !isDismissed(l.id);
+        return l.suggested && l.reviewCluster === reviewClusterIndex && shouldShowLocation(l);
       });
       if (remaining.length) return;
-      for (var i = 1; i <= REVIEW_CLUSTERS.length; i++) {
-        var idx = (reviewClusterIndex + i) % REVIEW_CLUSTERS.length;
-        var has = LOCATIONS.some(function (l) {
-          return l.suggested && l.reviewCluster === idx && !isDismissed(l.id);
-        });
-        if (has) {
-          setReviewCluster(idx);
-          return;
-        }
+      var next = TrippinReview.nextClusterIndex(
+        reviewClusterIndex,
+        REVIEW_CLUSTERS,
+        LOCATIONS,
+        reviewSession
+      );
+      if (next != null) {
+        setReviewCluster(next);
+        return;
       }
       showShareToast('All suggestions reviewed locally');
     }
 
-    function confirmDismiss(id) {
+    function confirmRemoveLoc(id) {
       var loc = locById[id];
-      if (!loc || !loc.suggested || isDismissed(id)) return;
-      if (!window.confirm('Remove "' + loc.title + '" from suggestions?\n\nSaved in this browser until you copy removals for sync.')) {
+      if (!loc) return;
+      var label = loc.draft ? 'draft' : 'suggestion';
+      if (!window.confirm('Remove "' + loc.title + '" from this ' + label + ' session?\n\nSaved in this browser until you copy session for sync.')) {
         return;
       }
-      dismissSuggestion(id);
-      updateBuildMeta();
+      if (loc.draft) removeDraftLocation(id);
+      else dismissSuggestion(id);
+    }
+
+    function confirmDismiss(id) {
+      confirmRemoveLoc(id);
     }
 
     function dismissSuggestion(id) {
       var loc = locById[id];
       if (!loc || !loc.suggested || isDismissed(id)) return;
-      dismissedSuggestions.add(id);
-      saveDismissedSuggestions();
+      reviewSession = TrippinReview.dismissSuggestion(reviewSession, id);
+      saveReviewSession();
       if (activeId === id) closePanel();
       var btn = locButtons[id];
       if (btn) btn.setAttribute('hidden', '');
       updateSuggestedMarkerIcons();
       applyLocationVisibility();
-      updateBuildMeta();
       showShareToast('Removed: ' + loc.title);
       maybeAdvanceAfterDismiss();
+    }
+
+    function removeDraftLocation(id) {
+      var loc = locById[id];
+      if (!loc || !loc.draft) return;
+      reviewSession = TrippinReview.removeDraftLocation(reviewSession, id);
+      saveReviewSession();
+      if (activeId === id) closePanel();
+      if (markers[id] && markerInCluster[id]) {
+        clusterGroup.removeLayer(markers[id]);
+        markerInCluster[id] = false;
+      }
+      delete markers[id];
+      delete locById[id];
+      LOCATIONS = LOCATIONS.filter(function (l) { return l.id !== id; });
+      if (locButtons[id]) {
+        locButtons[id].remove();
+        delete locButtons[id];
+      }
+      applyLocationVisibility();
+      showShareToast('Removed draft: ' + loc.title);
+    }
+
+    function registerLocationMarker(loc) {
+      var marker = L.marker([loc.lat, loc.lng], {
+        icon: pinIconForLoc(loc, false),
+      });
+      var popupHint = loc.draft
+        ? 'Draft — review'
+        : loc.suggested
+          ? 'Suggested — review'
+          : 'Click pin again or use list';
+      marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">' + popupHint + '</span>');
+      marker.on('click', function () {
+        openLocation(loc);
+      });
+      markers[loc.id] = marker;
+      markerInCluster[loc.id] = false;
+      return marker;
+    }
+
+    function addDraftAtMapCenter() {
+      if (!reviewMode || !map) return;
+      var center = map.getCenter();
+      var title = window.prompt('Place name');
+      if (!title || !title.trim()) return;
+      var maps = window.prompt('Google Maps link (optional)') || null;
+      reviewSession = TrippinReview.addDraftLocation(reviewSession, {
+        title: title.trim(),
+        lat: center.lat,
+        lng: center.lng,
+        googleMaps: maps,
+        reviewCluster: reviewClusterIndex,
+        target: 'saved',
+      });
+      saveReviewSession();
+      var addition = reviewSession.additions[reviewSession.additions.length - 1];
+      var draft = TrippinReview.draftToLocation(addition);
+      LOCATIONS.push(draft);
+      locById[draft.id] = draft;
+      registerLocationMarker(draft);
+      sidebar.appendChild(createLocButton(draft));
+      applyLocationVisibility();
+      openLocation(draft);
+      showShareToast('Added draft: ' + draft.title);
     }
 
     function skipToNextSuggestion() {
@@ -3237,7 +3572,7 @@
       LOCATIONS.forEach(function (loc) {
         var btn = locButtons[loc.id];
         if (!btn) return;
-        if (loc.suggested && !reviewMode) {
+        if ((loc.suggested || loc.draft) && !reviewMode) {
           btn.setAttribute('hidden', '');
           btn.classList.add('is-offscreen');
           return;
@@ -3263,17 +3598,33 @@
       if (!cluster) return;
       document.querySelectorAll('.sidebar-section-label').forEach(function (el) { el.remove(); });
       var sugLocs = LOCATIONS.filter(function (l) {
-        return l.suggested && l.reviewCluster === reviewClusterIndex && !isDismissed(l.id);
+        return l.suggested && l.reviewCluster === reviewClusterIndex && shouldShowLocation(l);
+      });
+      var draftLocs = LOCATIONS.filter(function (l) {
+        return l.draft && shouldShowLocation(l) && l.reviewCluster === reviewClusterIndex;
       });
       LOCATIONS.forEach(function (loc) {
         var btn = locButtons[loc.id];
         if (!btn) return;
-        var show = loc.suggested && loc.reviewCluster === reviewClusterIndex && !isDismissed(loc.id);
+        var show = (loc.suggested || loc.draft) && shouldShowLocation(loc) &&
+          (loc.draft ? loc.reviewCluster === reviewClusterIndex : loc.reviewCluster === reviewClusterIndex);
         btn.classList.toggle('is-offscreen', !show);
         if (show) btn.removeAttribute('hidden');
         else btn.setAttribute('hidden', '');
       });
       var anchor = sidebarHint;
+      if (draftLocs.length) {
+        var draftLabel = document.createElement('p');
+        draftLabel.className = 'sidebar-section-label';
+        draftLabel.textContent = 'Draft additions (' + draftLocs.length + ')';
+        sidebar.insertBefore(draftLabel, anchor.nextSibling);
+        anchor = draftLabel;
+        draftLocs.forEach(function (loc) {
+          var btn = locButtons[loc.id];
+          sidebar.insertBefore(btn, anchor.nextSibling);
+          anchor = btn;
+        });
+      }
       if (sugLocs.length) {
         var sugLabel = document.createElement('p');
         sugLabel.className = 'sidebar-section-label';
@@ -3286,10 +3637,12 @@
           anchor = btn;
         });
       }
+      var counts = sessionCounts();
       sidebarHint.textContent =
         'Area ' + (reviewClusterIndex + 1) + '/' + REVIEW_CLUSTERS.length +
         ' · ' + cluster.label + ' · ' + sugLocs.length + ' 🌲' +
-        (dismissedCount() ? ' · ' + dismissedCount() + ' removed locally' : '');
+        (draftLocs.length ? ' · ' + draftLocs.length + ' draft' : '') +
+        (counts.dismissed ? ' · ' + counts.dismissed + ' removed locally' : '');
     }
 
     function applyReviewClusterFilter() {
@@ -3400,6 +3753,10 @@
           finish();
           return;
         }
+        if (hashLoc.draft && !reviewMode) {
+          finish();
+          return;
+        }
         clusterGroup.zoomToShowLayer(markers[state.loc], function () {
           openLocation(hashLoc);
           finish();
@@ -3507,14 +3864,17 @@
 
     function openLocation(loc) {
       activeId = loc.id;
-      document.getElementById('panel-suggested-badge').hidden = !(reviewEnabled && loc.suggested);
+      document.getElementById('panel-suggested-badge').hidden = !(reviewEnabled && reviewMode && (loc.suggested || loc.draft));
+      if (!document.getElementById('panel-suggested-badge').hidden) {
+        document.getElementById('panel-suggested-badge').textContent = loc.draft ? 'Draft — review' : 'Suggested — review';
+      }
       document.getElementById('panel-title').textContent = loc.title;
       document.getElementById('panel-region').textContent = loc.region;
       document.getElementById('panel-notes').textContent = loc.notes;
       document.getElementById('panel-maps').href = googleMapsPlaceUrl(loc);
       document.getElementById('panel-share-btn').hidden = false;
       var reviewActions = document.getElementById('panel-review-actions');
-      var showReviewActions = reviewMode && loc.suggested && !isDismissed(loc.id);
+      var showReviewActions = reviewMode && (loc.suggested || loc.draft) && shouldShowLocation(loc);
       reviewActions.hidden = !showReviewActions;
 
       renderPanel(loc);
@@ -3559,38 +3919,50 @@
       if (e.key === 'Escape') closePanel();
     });
 
+    function createLocButton(loc) {
+      var row = document.createElement('div');
+      row.className = 'loc-btn' + (loc.suggested || loc.draft ? ' suggested' : '');
+      row.dataset.id = loc.id;
+
+      var main = document.createElement('button');
+      main.type = 'button';
+      main.className = 'loc-main';
+      main.innerHTML =
+        '<span class="title">' + loc.title + (loc.draft ? ' (draft)' : '') + '</span>' +
+        '<span class="region">' + loc.region + '</span>';
+      main.addEventListener('click', function () {
+        clusterGroup.zoomToShowLayer(markers[loc.id], function () {
+          openLocation(loc);
+        });
+      });
+      row.appendChild(main);
+
+      if (loc.suggested || loc.draft) {
+        var dismiss = document.createElement('button');
+        dismiss.type = 'button';
+        dismiss.className = 'loc-dismiss';
+        dismiss.setAttribute('aria-label', 'Remove');
+        dismiss.title = 'Remove';
+        dismiss.textContent = '×';
+        dismiss.addEventListener('click', function (e) {
+          e.stopPropagation();
+          confirmRemoveLoc(loc.id);
+        });
+        row.appendChild(dismiss);
+      }
+
+      locButtons[loc.id] = row;
+      if ((loc.suggested || loc.draft) && !reviewEnabled) row.setAttribute('hidden', '');
+      return row;
+    }
+
     /* Sidebar list */
     sidebarHint = document.createElement('p');
     sidebarHint.className = 'sidebar-hint';
     sidebarHint.id = 'sidebar-hint';
     sidebar.appendChild(sidebarHint);
     LOCATIONS.forEach(function (loc) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'loc-btn' + (loc.suggested ? ' suggested' : '');
-      btn.dataset.id = loc.id;
-      var dismissBtn = loc.suggested
-        ? '<button type="button" class="loc-dismiss" aria-label="Remove suggestion" title="Remove">×</button>'
-        : '';
-      btn.innerHTML =
-        dismissBtn +
-        '<span class="title">' + loc.title + '</span><span class="region">' + loc.region + '</span>';
-      btn.addEventListener('click', function (e) {
-        if (e.target.closest('.loc-dismiss')) return;
-        clusterGroup.zoomToShowLayer(markers[loc.id], function () {
-          openLocation(loc);
-        });
-      });
-      if (loc.suggested) {
-        var locDismiss = btn.querySelector('.loc-dismiss');
-        locDismiss.addEventListener('click', function (e) {
-          e.stopPropagation();
-          confirmDismiss(loc.id);
-        });
-      }
-      locButtons[loc.id] = btn;
-      if (loc.suggested && !reviewEnabled) btn.setAttribute('hidden', '');
-      sidebar.appendChild(btn);
+      sidebar.appendChild(createLocButton(loc));
     });
 
     /* Map */
@@ -3683,26 +4055,8 @@
     });
 
     LOCATIONS.forEach(function (loc) {
-      if (!loc.suggested) bounds.extend([loc.lat, loc.lng]);
-      var pinEmoji = loc.suggested ? '🌲' : '🥾';
-      var pinClass = loc.suggested ? 'pin-emoji pin-emoji-suggested' : 'pin-emoji';
-      var marker = L.marker([loc.lat, loc.lng], {
-        icon: loc.suggested
-          ? suggestedPinIcon(false)
-          : L.divIcon({
-              className: pinClass,
-              html: '<span aria-hidden="true">' + pinEmoji + '</span>',
-              iconSize: [24, 24],
-              iconAnchor: [12, 22],
-            }),
-      });
-      var popupHint = loc.suggested ? 'Suggested — review' : 'Click pin again or use list';
-      marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">' + popupHint + '</span>');
-      marker.on('click', function () {
-        openLocation(loc);
-      });
-      markers[loc.id] = marker;
-      markerInCluster[loc.id] = false;
+      if (!loc.suggested && !loc.draft) bounds.extend([loc.lat, loc.lng]);
+      registerLocationMarker(loc);
     });
     map.addLayer(clusterGroup);
     applyLocationVisibility();
@@ -3728,9 +4082,10 @@
     document.getElementById('review-next').addEventListener('click', function () {
       setReviewCluster(reviewClusterIndex + 1);
     });
-    document.getElementById('review-copy-btn').addEventListener('click', copyRemovalsToClipboard);
+    document.getElementById('review-copy-btn').addEventListener('click', copyReviewSessionToClipboard);
+    document.getElementById('review-add-btn').addEventListener('click', addDraftAtMapCenter);
     document.getElementById('panel-dismiss-btn').addEventListener('click', function () {
-      if (activeId) confirmDismiss(activeId);
+      if (activeId) confirmRemoveLoc(activeId);
     });
     document.getElementById('panel-skip-btn').addEventListener('click', skipToNextSuggestion);
 
