@@ -299,7 +299,7 @@
   <div class="app">
     <header>
       <h1>Saved locations</h1>
-      <span class="build-meta">Updated Jul 31, 2026 · a00e494</span>
+      <span class="build-meta">Updated Jul 31, 2026 · da10f7d</span>
     </header>
     <div class="main">
       <aside class="sidebar" id="sidebar" aria-label="Location list"></aside>
@@ -953,6 +953,89 @@
     var sidebar = document.getElementById('sidebar');
     var markers = {};
     var activeId = null;
+    var locById = {};
+    var suppressHashUpdate = false;
+    var hashSyncTimer = null;
+
+    LOCATIONS.forEach(function (loc) {
+      locById[loc.id] = loc;
+    });
+
+    function parseHashState() {
+      var raw = location.hash.replace(/^#/, '');
+      if (!raw) return null;
+      var params = new URLSearchParams(raw);
+      var state = {};
+      var loc = params.get('loc');
+      if (loc) state.loc = loc;
+      var z = parseFloat(params.get('z'));
+      var lat = parseFloat(params.get('lat'));
+      var lng = parseFloat(params.get('lng'));
+      if (!isNaN(z) && !isNaN(lat) && !isNaN(lng)) {
+        state.z = z;
+        state.lat = lat;
+        state.lng = lng;
+      }
+      return state;
+    }
+
+    function syncHashToUrl() {
+      if (suppressHashUpdate || !map) return;
+      var center = map.getCenter();
+      var params = new URLSearchParams();
+      params.set('z', String(map.getZoom()));
+      params.set('lat', center.lat.toFixed(5));
+      params.set('lng', center.lng.toFixed(5));
+      if (activeId) params.set('loc', activeId);
+      var next = location.pathname + location.search + '#' + params.toString();
+      if (location.pathname + location.search + location.hash !== next) {
+        history.replaceState(null, '', next);
+      }
+    }
+
+    function scheduleHashSync() {
+      clearTimeout(hashSyncTimer);
+      hashSyncTimer = setTimeout(syncHashToUrl, 300);
+    }
+
+    function applyHashState(state) {
+      suppressHashUpdate = true;
+      function finish() {
+        suppressHashUpdate = false;
+        syncHashToUrl();
+      }
+
+      if (!state) {
+        finish();
+        return;
+      }
+
+      if (state.lat != null && state.lng != null && state.z != null) {
+        map.setView([state.lat, state.lng], state.z, { animate: false });
+      }
+
+      if (state.loc && locById[state.loc]) {
+        clusterGroup.zoomToShowLayer(markers[state.loc], function () {
+          openLocation(locById[state.loc]);
+          finish();
+        });
+        return;
+      }
+
+      if (activeId) {
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        backdrop.classList.remove('open');
+        backdrop.hidden = true;
+        activeId = null;
+        document.querySelectorAll('.loc-btn').forEach(function (btn) {
+          btn.classList.remove('active');
+        });
+        document.getElementById('panel-embed').innerHTML =
+          '<p class="embed-loading">Select a location on the map.</p>';
+      }
+      finish();
+    }
 
     function googleMapsPlaceUrl(loc) {
       if (loc.googleMaps) return loc.googleMaps;
@@ -1027,6 +1110,7 @@
       if (markers[loc.id]) {
         markers[loc.id].openPopup();
       }
+      scheduleHashSync();
     }
 
     function closePanel() {
@@ -1040,6 +1124,7 @@
       });
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
+      scheduleHashSync();
     }
 
     document.getElementById('panel-close').addEventListener('click', closePanel);
@@ -1106,7 +1191,18 @@
       clusterGroup.addLayer(marker);
     });
     map.addLayer(clusterGroup);
-    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 7 });
+
+    var initialHash = parseHashState();
+    if (initialHash && (initialHash.loc || initialHash.lat != null)) {
+      applyHashState(initialHash);
+    } else {
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 7 });
+    }
+
+    map.on('moveend zoomend', scheduleHashSync);
+    window.addEventListener('hashchange', function () {
+      applyHashState(parseHashState());
+    });
   </script>
 </body>
 </html>
