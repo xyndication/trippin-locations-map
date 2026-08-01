@@ -451,6 +451,9 @@
       padding: 0.15rem 0.45rem;
       margin-bottom: 0.35rem;
     }
+    .panel-suggested-badge[hidden] {
+      display: none !important;
+    }
     .panel-header-text { flex: 1; min-width: 0; }
     .panel-header h2 {
       margin: 0;
@@ -3504,7 +3507,7 @@
 
     function openLocation(loc) {
       activeId = loc.id;
-      document.getElementById('panel-suggested-badge').hidden = !loc.suggested;
+      document.getElementById('panel-suggested-badge').hidden = !(reviewEnabled && loc.suggested);
       document.getElementById('panel-title').textContent = loc.title;
       document.getElementById('panel-region').textContent = loc.region;
       document.getElementById('panel-notes').textContent = loc.notes;
@@ -3544,6 +3547,8 @@
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
       document.getElementById('panel-share-btn').hidden = true;
+      document.getElementById('panel-suggested-badge').hidden = true;
+      document.getElementById('panel-review-actions').hidden = true;
       scheduleHashSync();
       updateSidebarForMapView();
     }
