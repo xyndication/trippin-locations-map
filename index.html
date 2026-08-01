@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Locations — map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
   <style>
     :root {
       --bg: #f7f5f0;
@@ -116,6 +118,39 @@
       line-height: 1;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
       cursor: pointer;
+    }
+    .marker-cluster {
+      background-clip: padding-box;
+      border-radius: 50%;
+    }
+    .marker-cluster div {
+      width: 30px;
+      height: 30px;
+      margin-left: 5px;
+      margin-top: 5px;
+      border-radius: 50%;
+      font: 600 13px/30px system-ui, -apple-system, sans-serif;
+      color: #fff;
+      text-align: center;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+    }
+    .marker-cluster-sm {
+      background-color: rgba(61, 107, 140, 0.28);
+    }
+    .marker-cluster-sm div {
+      background-color: rgba(61, 107, 140, 0.92);
+    }
+    .marker-cluster-md {
+      background-color: rgba(201, 122, 46, 0.28);
+    }
+    .marker-cluster-md div {
+      background-color: rgba(201, 122, 46, 0.92);
+    }
+    .marker-cluster-lg {
+      background-color: rgba(160, 69, 69, 0.28);
+    }
+    .marker-cluster-lg div {
+      background-color: rgba(160, 69, 69, 0.92);
     }
     /* Floating panel */
     .panel {
@@ -264,7 +299,7 @@
   <div class="app">
     <header>
       <h1>Saved locations</h1>
-      <span class="build-meta">Updated Jul 31, 2026 · fdab335</span>
+      <span class="build-meta">Updated Jul 31, 2026 · d76b9c6</span>
     </header>
     <div class="main">
       <aside class="sidebar" id="sidebar" aria-label="Location list"></aside>
@@ -291,6 +326,7 @@
   </aside>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script async src="https://www.instagram.com/embed.js"></script>
   <script>
     var LOCATIONS = [
@@ -790,8 +826,9 @@
       btn.dataset.id = loc.id;
       btn.innerHTML = '<span class="title">' + loc.title + '</span><span class="region">' + loc.region + '</span>';
       btn.addEventListener('click', function () {
-        openLocation(loc);
-        map.setView([loc.lat, loc.lng], 10, { animate: true });
+        clusterGroup.zoomToShowLayer(markers[loc.id], function () {
+          openLocation(loc);
+        });
       });
       sidebar.appendChild(btn);
     });
@@ -804,6 +841,22 @@
     }).addTo(map);
 
     var bounds = L.latLngBounds();
+    var clusterGroup = L.markerClusterGroup({
+      maxClusterRadius: 48,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      zoomToBoundsOnClick: true,
+      iconCreateFunction: function (cluster) {
+        var count = cluster.getChildCount();
+        var sizeClass = count < 5 ? 'marker-cluster-sm' : count < 10 ? 'marker-cluster-md' : 'marker-cluster-lg';
+        return L.divIcon({
+          html: '<div><span>' + count + '</span></div>',
+          className: 'marker-cluster ' + sizeClass,
+          iconSize: L.point(40, 40)
+        });
+      }
+    });
+
     LOCATIONS.forEach(function (loc) {
       bounds.extend([loc.lat, loc.lng]);
       var marker = L.marker([loc.lat, loc.lng], {
@@ -813,13 +866,15 @@
           iconSize: [24, 24],
           iconAnchor: [12, 22]
         })
-      }).addTo(map);
+      });
       marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">Click pin again or use list</span>');
       marker.on('click', function () {
         openLocation(loc);
       });
       markers[loc.id] = marker;
+      clusterGroup.addLayer(marker);
     });
+    map.addLayer(clusterGroup);
     map.fitBounds(bounds, { padding: [40, 40], maxZoom: 7 });
   </script>
 </body>
