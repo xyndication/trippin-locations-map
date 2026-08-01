@@ -181,7 +181,7 @@
       margin-top: 0.15rem;
     }
     .loc-btn.suggested .title::before {
-      content: '✨ ';
+      content: '🌲 ';
     }
     .loc-btn.suggested {
       background: #fffbf0;
@@ -468,7 +468,7 @@
         </button>
       </div>
       <div class="header-end">
-        <span class="build-meta">e240875 · 🥾 saved · ✨ suggested</span>
+        <span class="build-meta">0f03b81 · 🥾 saved · 🌲 suggested</span>
       </div>
     </header>
     <div class="main">
@@ -1824,32 +1824,13 @@
     "title": "Kilauea Lighthouse",
     "region": "Suggested · near Queen's Bath, Hanalei Beach, Ke'e Beach",
     "notes": "Review candidate · 4.6 ★ · 3,833 reviews",
-    "lat": 22.2317025,
-    "lng": -159.4020048,
+    "lat": 22.2316946,
+    "lng": -159.4019598,
     "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
+    "googleMaps": "https://www.google.com/maps/place/Kilauea+Lighthouse/@22.2316946,-159.4019598,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!8m2!3d22.2316946!4d-159.4019598!16zL20vMGczOHEx",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.4019598!3d22.2316946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!2sKilauea%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.6,
     "googleReviewCount": "3,833 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Queen's Bath",
-      "Hanalei Beach",
-      "Ke'e Beach"
-    ]
-  },
-  {
-    "id": "queen-s-bath",
-    "title": "Queen’s Bath",
-    "region": "Suggested · near Queen's Bath, Hanalei Beach, Ke'e Beach",
-    "notes": "Review candidate · 4.5 ★ · 3,154 reviews",
-    "lat": 22.2291269,
-    "lng": -159.4875338,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.5,
-    "googleReviewCount": "3,154 reviews",
     "suggested": true,
     "nearPins": [
       "Queen's Bath",
@@ -3342,7 +3323,7 @@
 
     LOCATIONS.forEach(function (loc) {
       bounds.extend([loc.lat, loc.lng]);
-      var pinEmoji = loc.suggested ? '✨' : '🥾';
+      var pinEmoji = loc.suggested ? '🌲' : '🥾';
       var pinClass = loc.suggested ? 'pin-emoji pin-emoji-suggested' : 'pin-emoji';
       var marker = L.marker([loc.lat, loc.lng], {
         icon: L.divIcon({
