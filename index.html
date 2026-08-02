@@ -104,91 +104,10 @@
       color: var(--accent);
     }
     .home-btn:hover,
-    .share-btn:hover,
-    .review-btn:hover {
+    .share-btn:hover {
       background: var(--bg);
       color: var(--accent-hover);
     }
-    .review-btn {
-      flex-shrink: 0;
-      height: 2rem;
-      padding: 0 0.55rem;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: var(--paper);
-      cursor: pointer;
-      font-size: 0.85rem;
-      line-height: 1;
-      color: var(--accent);
-    }
-    .review-btn.active {
-      background: #fff3d6;
-      border-color: #f0d080;
-      color: #9a6700;
-    }
-    .review-nav {
-      display: none;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      max-width: min(42vw, 320px);
-    }
-    .review-nav.open {
-      display: flex;
-    }
-    .review-nav button {
-      flex-shrink: 0;
-      width: 1.75rem;
-      height: 1.75rem;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      background: var(--paper);
-      cursor: pointer;
-      color: var(--accent);
-      font-size: 0.85rem;
-      line-height: 1;
-    }
-    .review-nav button:hover { background: var(--bg); }
-    .review-nav-label {
-      flex: 1;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: center;
-    }
-    .sidebar-section-label {
-      padding: 0.55rem 0.85rem 0.25rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-    }
-    .loc-btn.saved-context {
-      background: #f4f8f4;
-    }
-    .loc-btn.saved-context:hover,
-    .loc-btn.saved-context.active {
-      background: #e8f0e8;
-    }
-    .loc-btn.saved-context .title::before {
-      content: '🥾 ';
-    }
-    .panel-nearby-saved {
-      margin: 0 1rem 0.75rem;
-      padding: 0.55rem 0.65rem;
-      font-size: 0.82rem;
-      line-height: 1.45;
-      color: #2d5a2d;
-      background: #f3faf3;
-      border: 1px solid #c8dcc8;
-      border-radius: 6px;
-    }
-    .panel-nearby-saved[hidden] { display: none !important; }
     .share-btn {
       flex-shrink: 0;
       width: 2rem;
@@ -273,16 +192,6 @@
       color: var(--muted);
       margin-top: 0.15rem;
     }
-    .loc-btn.suggested .title::before {
-      content: '🌲 ';
-    }
-    .loc-btn.suggested {
-      background: #fffbf0;
-    }
-    .loc-btn.suggested:hover,
-    .loc-btn.suggested.active {
-      background: #fff3d6;
-    }
     .loc-btn[hidden],
     .loc-btn.is-offscreen {
       display: none !important;
@@ -306,70 +215,6 @@
       line-height: 1;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
       cursor: pointer;
-    }
-    .pin-emoji-suggested span {
-      font-size: 1.35rem;
-    }
-    .pin-emoji-wrap {
-      position: relative;
-      display: inline-block;
-      line-height: 1;
-    }
-    .loc-vote {
-      display: none;
-      flex-shrink: 0;
-      align-self: center;
-      flex-direction: row;
-      gap: 0.25rem;
-      margin-right: 0.55rem;
-    }
-    body.review-mode .loc-btn.suggested .loc-vote {
-      display: flex;
-    }
-    .loc-vote-btn {
-      width: 1.75rem;
-      height: 1.75rem;
-      border-radius: 6px;
-      border: 1px solid var(--line);
-      background: #fff;
-      font-size: 1rem;
-      line-height: 1;
-      padding: 0;
-      cursor: pointer;
-      -webkit-appearance: none;
-      appearance: none;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
-    }
-    .loc-vote-btn:hover {
-      transform: scale(1.06);
-    }
-    .loc-vote-btn:focus {
-      outline: none;
-    }
-    .loc-vote-btn:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-    .loc-vote-up:hover {
-      background: #eef8ee;
-      border-color: #8ab88a;
-    }
-    .loc-vote-down:hover {
-      background: #fff5f5;
-      border-color: #d4a8a8;
-    }
-    .review-nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      margin-left: 0.25rem;
-    }
-    .review-nav-actions button {
-      width: auto;
-      height: auto;
-      padding: 0.2rem 0.45rem;
-      font-size: 0.68rem;
-      white-space: nowrap;
     }
     .marker-cluster {
       background-clip: padding-box;
@@ -442,22 +287,6 @@
       gap: 0.5rem;
       padding: 0.85rem 1rem;
       border-bottom: 1px solid var(--line);
-    }
-    .panel-suggested-badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      color: #9a6700;
-      background: #fff3d6;
-      border: 1px solid #f0d080;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      margin-bottom: 0.35rem;
-    }
-    .panel-suggested-badge[hidden] {
-      display: none !important;
     }
     .panel-header-text { flex: 1; min-width: 0; }
     .panel-header h2 {
@@ -616,8 +445,7 @@
         <img class="site-logo" src="logo.png" width="40" height="64" alt="">
         <h1 class="site-title">Trippin</h1>
         <button type="button" class="home-btn" id="home-btn" aria-label="Reset map view" title="Reset map">⌂</button>
-        <button type="button" class="review-btn" id="review-btn" aria-pressed="false" title="Review nearby suggestions by area" hidden>🌲</button>
-        <button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
+<button type="button" class="share-btn" id="header-share-btn" aria-label="Share map" title="Share map">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 16V4"/>
             <path d="m7 9 5-5 5 5"/>
@@ -626,15 +454,7 @@
         </button>
       </div>
       <div class="header-end">
-        <div class="review-nav" id="review-nav" hidden>
-          <button type="button" id="review-prev" aria-label="Previous area">◀</button>
-          <span class="review-nav-label" id="review-nav-label"></span>
-          <button type="button" id="review-next" aria-label="Next area">▶</button>
-          <div class="review-nav-actions">
-            <button type="button" id="review-copy-btn" title="Copy review session for Trippin sync">Copy session</button>
-          </div>
-        </div>
-        <span class="build-meta" id="build-meta">42d98c4</span>
+<span class="build-meta" id="build-meta">9c6055b</span>
       </div>
     </header>
     <div class="main">
@@ -647,14 +467,12 @@
   <aside class="panel" id="panel" aria-label="Location details" aria-hidden="true">
     <div class="panel-header">
       <div class="panel-header-text">
-        <div id="panel-suggested-badge" class="panel-suggested-badge" hidden>Suggested — review</div>
-        <h2 id="panel-title"></h2>
+<h2 id="panel-title"></h2>
         <div class="region" id="panel-region"></div>
       </div>
       <button type="button" class="panel-close" id="panel-close" aria-label="Close">&times;</button>
     </div>
-    <p class="panel-notes" id="panel-notes"></p>
-    <p class="panel-nearby-saved" id="panel-nearby-saved" hidden></p>
+<p class="panel-notes" id="panel-notes"></p>
     <div class="panel-embed" id="panel-embed">
       <p class="embed-loading">Select a location on the map.</p>
     </div>
@@ -676,199 +494,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
   <script async src="https://www.instagram.com/embed.js"></script>
-  <script>
-(function(global){
-/**
- * Client-side review session state (localStorage).
- * Pure functions — testable in Node; bundled into the map page at build time.
- */
-
-const LEGACY_DISMISS_KEY = 'trippin-review-dismissed';
-const SESSION_STORAGE_KEY = 'trippin-review-session';
-
-function emptySession() {
-  return {
-    dismissed: [],
-    promotions: [],
-    mapsUpdates: [],
-    updated: null,
-  };
-}
-
-function normalizeSession(raw) {
-  if (!raw || typeof raw !== 'object') return emptySession();
-  return {
-    dismissed: uniqueStrings(raw.dismissed),
-    promotions: Array.isArray(raw.promotions) ? raw.promotions : [],
-    mapsUpdates: Array.isArray(raw.mapsUpdates) ? raw.mapsUpdates : [],
-    updated: raw.updated || null,
-  };
-}
-
-function uniqueStrings(list) {
-  return [...new Set((list || []).filter((s) => typeof s === 'string' && s))].sort();
-}
-
-function parseStoredSession(rawJson, legacyDismissJson) {
-  if (rawJson) {
-    try {
-      return normalizeSession(JSON.parse(rawJson));
-    } catch {
-      return emptySession();
-    }
-  }
-  if (legacyDismissJson) {
-    try {
-      const legacy = JSON.parse(legacyDismissJson);
-      if (Array.isArray(legacy.dismissed)) {
-        return normalizeSession({ dismissed: legacy.dismissed, updated: legacy.updated });
-      }
-    } catch {
-      /* ignore */
-    }
-  }
-  return emptySession();
-}
-
-function serializeSession(session) {
-  const normalized = normalizeSession(session);
-  return JSON.stringify({
-    ...normalized,
-    updated: new Date().toISOString(),
-  });
-}
-
-function isDismissed(session, id) {
-  return normalizeSession(session).dismissed.includes(id);
-}
-
-function isPromoted(session, id) {
-  return normalizeSession(session).promotions.includes(id);
-}
-
-function approveSuggestion(session, id) {
-  const next = normalizeSession(session);
-  if (!id || next.promotions.includes(id)) return next;
-  next.dismissed = next.dismissed.filter((s) => s !== id);
-  next.promotions = uniqueStrings([...next.promotions, id]);
-  return next;
-}
-
-function undoApprove(session, id) {
-  const next = normalizeSession(session);
-  next.promotions = next.promotions.filter((s) => s !== id);
-  return next;
-}
-
-function dismissSuggestion(session, id) {
-  const next = normalizeSession(session);
-  if (!id || next.dismissed.includes(id)) return next;
-  next.dismissed = uniqueStrings([...next.dismissed, id]);
-  return next;
-}
-
-function undoDismiss(session, id) {
-  const next = normalizeSession(session);
-  next.dismissed = next.dismissed.filter((s) => s !== id);
-  return next;
-}
-
-/** Drop session entries already applied to the vault build. */
-function pruneSyncedSession(session, locations) {
-  const savedSlugs = new Set(
-    (locations || []).filter((l) => !l.suggested).map((l) => l.slug || l.id)
-  );
-  const suggestionIds = new Set(
-    (locations || []).filter((l) => l.suggested).map((l) => l.id)
-  );
-  const next = normalizeSession(session);
-  const dismissedBefore = next.dismissed.length;
-  const promotionsBefore = next.promotions.length;
-  next.dismissed = next.dismissed.filter((id) => suggestionIds.has(id));
-  next.promotions = next.promotions.filter((id) => !savedSlugs.has(id));
-  if (
-    next.dismissed.length !== dismissedBefore ||
-    next.promotions.length !== promotionsBefore
-  ) {
-    return next;
-  }
-  return session;
-}
-
-function shouldShowLocation(loc, ctx) {
-  const session = normalizeSession(ctx.session);
-  if (isDismissed(session, loc.id)) return false;
-  if (isPromoted(session, loc.id)) return false;
-
-  if (loc.suggested && !ctx.reviewMode) return false;
-
-  if (ctx.reviewMode) {
-    return loc.reviewCluster === ctx.reviewClusterIndex;
-  }
-
-  return true;
-}
-
-function visibleSuggestions(locations, ctx) {
-  return locations.filter((loc) => loc.suggested && shouldShowLocation(loc, ctx));
-}
-
-function nextClusterIndex(reviewClusterIndex, reviewClusters, locations, session) {
-  const ctx = {
-    reviewEnabled: true,
-    reviewMode: true,
-    reviewClusterIndex,
-    session,
-  };
-  for (let i = 1; i <= reviewClusters.length; i++) {
-    const idx = (reviewClusterIndex + i) % reviewClusters.length;
-    const has = locations.some(
-      (l) => l.suggested && l.reviewCluster === idx && shouldShowLocation(l, { ...ctx, reviewClusterIndex: idx })
-    );
-    if (has) return idx;
-  }
-  return null;
-}
-
-function formatExportText(session) {
-  const s = normalizeSession(session);
-  const lines = [];
-
-  if (s.dismissed.length) {
-    lines.push('Remove these suggestions:');
-    lines.push(...s.dismissed.map((slug) => `- ${slug}`));
-    lines.push('');
-  }
-
-  if (s.promotions.length) {
-    lines.push('Promote these suggestions:');
-    lines.push(...s.promotions.map((p) => `- ${typeof p === 'string' ? p : p.slug}`));
-    lines.push('');
-  }
-
-  if (s.mapsUpdates.length) {
-    lines.push('Update Maps links:');
-    for (const u of s.mapsUpdates) {
-      lines.push(`- ${u.slug} | ${u.googleMaps}`);
-    }
-    lines.push('');
-  }
-
-  return lines.join('\n').trim();
-}
-
-function sessionSummary(session) {
-  const s = normalizeSession(session);
-  return {
-    dismissed: s.dismissed.length,
-    promotions: s.promotions.length,
-    mapsUpdates: s.mapsUpdates.length,
-  };
-}
-
-global.TrippinReview={LEGACY_DISMISS_KEY,SESSION_STORAGE_KEY,emptySession,normalizeSession,parseStoredSession,serializeSession,isDismissed,dismissSuggestion,undoDismiss,shouldShowLocation,visibleSuggestions,nextClusterIndex,formatExportText,sessionSummary,isPromoted,approveSuggestion,undoApprove,pruneSyncedSession};
-})(window);
-  </script>
   <script>
 (function(global){
 /**
@@ -971,19 +596,17 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
   <script>
     var LOCATIONS = [
   {
-    "id": "drive-thru-tree-park-leggett",
-    "title": "Drive-Thru Tree Park Leggett",
-    "region": "Leggett, Mendocino County",
-    "notes": "Classic drive-through coast redwood — NorCal roadside stop in the redwoods.",
-    "lat": 39.8597956,
-    "lng": -123.7171565,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.5,
-    "googleReviewCount": "5,345 reviews",
-    "suggested": false,
-    "reviewCluster": 13
+    "id": "partington-cove-trail",
+    "title": "Partington Cove Trail",
+    "region": "Big Sur / Julia Pfeiffer Burns State Park",
+    "notes": "Hidden coastal gem — 1880s hand-carved tunnel down to an emerald cove where lumber was once loaded onto ships; dramatic cliffs and turquoise water.",
+    "lat": 36.1749332,
+    "lng": -121.6960314,
+    "instagram": "https://www.instagram.com/p/DW66Ua9jYPw/",
+    "googleMaps": "https://www.google.com/maps/place/Partington+Cove/@36.1749332,-121.6960314,17z/data=!3m1!4b1!4m6!3m5!1s0x808d81752fc3af99:0x6783b810782ced34!8m2!3d36.1749332!4d-121.6960314!16s%2Fg%2F1hf23cyvh",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.6556538388136!2d-121.70079500321046!3d36.1749332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d81752fc3af99%3A0x6783b810782ced34!2sPartington%20Cove!5e0!3m2!1sen!2sus!4v1785543882661!5m2!1sen!2sus",
+    "googleRating": 4.9,
+    "googleReviewCount": "487 reviews"
   },
   {
     "id": "pfeiffer-beach",
@@ -996,999 +619,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Pfeiffer+Beach/@36.2433286,-121.8225566,13z/data=!4m6!3m5!1s0x808d9ab54b03f951:0xb2d672c653ce25b0!8m2!3d36.2380659!4d-121.816232!16s%2Fg%2F1tgq6wmt",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.816232!3d36.2380659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d9ab54b03f951:0xb2d672c653ce25b0!2sPfeiffer%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.6,
-    "googleReviewCount": "1,252 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "torre-canyon-bridge",
-    "title": "Torre Canyon Bridge",
-    "region": "Big Sur / Garrapata State Park area",
-    "notes": "Iconic Hwy 1 bridge over Torre Canyon — dramatic coastal drive photo stop.",
-    "lat": 36.1963087,
-    "lng": -121.7108704,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Torre+Canyon+Bridge/@36.1942072,-121.7164728,16z/data=!4m6!3m5!1s0x808d81001f205c9b:0xaa835b0558a15f44!8m2!3d36.1963087!4d-121.7108704!16s%2Fg%2F11ykp2pxc3",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.7108704!3d36.1963087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d81001f205c9b:0xaa835b0558a15f44!2sTorre%20Canyon%20Bridge!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "kissing-rock",
-    "title": "Kissing Rock",
-    "region": "Monterey Peninsula, Monterey County",
-    "notes": "Selfie stop on the Coastal Recreation Trail — spring blooms and ocean bluffs.",
-    "lat": 36.6344954,
-    "lng": -121.9245937,
-    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
-    "googleMaps": "https://www.google.com/maps/place/Kissing+Rock+View+Point/@36.6344954,-121.9245937,17z/data=!3m1!4b1!4m6!3m5!1s0x808de11532697fe1:0xab8971c0a910712a!8m2!3d36.6344954!4d-121.9245937!16s%2Fg%2F11dfkzzftz",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3201.6630962586137!2d-121.9245937!3d36.6344954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de11532697fe1%3A0xab8971c0a910712a!2sKissing%20Rock%20View%20Point!5e0!3m2!1sen!2sus!4v1785544734924!5m2!1sen!2sus",
-    "googleRating": 4.7,
-    "googleReviewCount": "823 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "monarch-butterfly-sanctuary",
-    "title": "Monarch Butterfly Sanctuary",
-    "region": "Monterey Peninsula, Monterey County",
-    "notes": "Free exterior viewing of overwintering monarchs in a residential grove.",
-    "lat": 36.626004,
-    "lng": -121.9295244,
-    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
-    "googleMaps": "https://www.google.com/maps/place/Monarch+Butterfly+Sanctuary/@36.6325993,-121.9366483,15z/data=!4m6!3m5!1s0x808de139565eed31:0x6a9de3088ea89239!8m2!3d36.626004!4d-121.9295244!16s%2Fg%2F11h1k4ql5",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9295244!3d36.626004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de139565eed31:0x6a9de3088ea89239!2sMonarch%20Butterfly%20Sanctuary!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.5,
-    "googleReviewCount": "1,896 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "asilomar-state-beach",
-    "title": "Asilomar State Beach",
-    "region": "Monterey Peninsula, Monterey County",
-    "notes": "Dune boardwalks and rocky shoreline — classic PG west-end walk.",
-    "lat": 36.6180088,
-    "lng": -121.9419115,
-    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
-    "googleMaps": "https://www.google.com/maps/place/Asilomar+State+Beach/@36.6180088,-121.9419115,17z/data=!3m1!4b1!4m6!3m5!1s0x808de125fdd7c0f5:0xbd02e27eb1cc42b8!8m2!3d36.6180088!4d-121.9419115!16zL20vMDJkeGQw",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.348015689714!2d-121.94191149999999!3d36.6180088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de125fdd7c0f5%3A0xbd02e27eb1cc42b8!2sAsilomar%20State%20Beach!5e0!3m2!1sen!2sus!4v1785544849149!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "3,176 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "point-pinos-lighthouse",
-    "title": "Point Pinos Lighthouse",
-    "region": "Monterey Peninsula, Monterey County",
-    "notes": "Oldest continuously operating lighthouse on the West Coast.",
-    "lat": 36.6334207,
-    "lng": -121.9337418,
-    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
-    "googleMaps": "https://www.google.com/maps/place/Point+Pinos+Lighthouse+(1855)/@36.6334131,-121.9440973,15z/data=!4m6!3m5!1s0x808de14eea8185b5:0x1347eaffb9bca39a!8m2!3d36.6334207!4d-121.9337418!16zL20vMDZmdzU4",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9337418!3d36.6334207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de14eea8185b5:0x1347eaffb9bca39a!2sPoint%20Pinos%20Lighthouse%20(1855)!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "1,284 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "pinnacles-national-park-high-peaks-trail",
-    "title": "Pinnacles National Park — High Peaks Trail",
-    "region": "Central California (east of Salinas / Hollister)",
-    "notes": "Bucket-list volcanic spire hike — steep switchbacks, narrow exposed sections with handrails, panoramic ridge views, and top California condor viewing in the US.",
-    "lat": 36.4933,
-    "lng": -121.1833,
-    "instagram": "https://www.instagram.com/p/DZPyE7NPJXc/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 21
-  },
-  {
-    "id": "golden-gate-national-recreation-area",
-    "title": "Golden Gate National Recreation Area",
-    "region": "Marin Headlands / San Francisco Bay Area",
-    "notes": "Sprawling NPS unit — headlands, beaches, historic forts, and Golden Gate views on both sides of the bridge.",
-    "lat": 37.8556821,
-    "lng": -122.5337247,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "16,952 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "mount-tamalpais-state-park",
-    "title": "Mount Tamalpais State Park",
-    "region": "Marin County, San Francisco Bay Area",
-    "notes": "Mount Tam — redwood canyons, ridge trails, and panoramic Bay Area views above the coast.",
-    "lat": 37.8968316,
-    "lng": -122.6135409,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "3,129 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "muir-woods-national-monument",
-    "title": "Muir Woods National Monument",
-    "region": "Marin County, San Francisco Bay Area",
-    "notes": "Cathedral old-growth coast redwoods — boardwalk groves minutes from San Francisco.",
-    "lat": 37.8963907,
-    "lng": -122.5802183,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "20,602 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "bay-area-discovery-museum",
-    "title": "Bay Area Discovery Museum",
-    "region": "Sausalito / Marin, San Francisco Bay Area",
-    "notes": "Hands-on children's museum on the bay — indoor/outdoor exhibits with Golden Gate views.",
-    "lat": 37.8356835,
-    "lng": -122.4766919,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "3,133 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "steep-ravine-dipsea-trail-loop",
-    "title": "Steep Ravine & Dipsea Trail Loop",
-    "region": "Mount Tamalpais State Park, Marin County",
-    "notes": "Must-do Bay Area waterfall hike — lush fern-lined ravine, redwoods, wooden ladders, and ocean views; best after heavy rain when streams gush.",
-    "lat": 37.8983,
-    "lng": -122.6389,
-    "instagram": "https://www.instagram.com/p/DRPkK7oEQhh/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "general-sherman-tree",
-    "title": "General Sherman Tree",
-    "region": "Sequoia National Park, Sierra Nevada",
-    "notes": "World's largest tree by volume — iconic sequoia in the Giant Forest grove.",
-    "lat": 36.5816453,
-    "lng": -118.751443,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "11,904 reviews",
-    "suggested": false,
-    "reviewCluster": 14
-  },
-  {
-    "id": "giant-forest-museum",
-    "title": "Giant Forest Museum",
-    "region": "Sequoia National Park, Sierra Nevada",
-    "notes": "Visitor center and exhibits in the heart of the Giant Forest sequoia grove.",
-    "lat": 36.5646956,
-    "lng": -118.7727017,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "2,478 reviews",
-    "suggested": false,
-    "reviewCluster": 14
-  },
-  {
-    "id": "moro-rock-trail",
-    "title": "Moro Rock Trail",
-    "region": "Sequoia National Park, Sierra Nevada",
-    "notes": "Thrilling climb up a granite dome via narrow winding stone stairs — panoramic views of the Great Western Divide and Kaweah River canyon.",
-    "lat": 36.5453,
-    "lng": -118.7653,
-    "instagram": "https://www.instagram.com/p/DRck9e0j1kt/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 14
-  },
-  {
-    "id": "kings-canyon-national-park",
-    "title": "Kings Canyon National Park",
-    "region": "Sierra Nevada, Fresno / Tulare Counties",
-    "notes": "Yosemite-scale granite cliffs, waterfalls, and alpine meadows — fewer crowds than Yosemite; ~4–5 hr from LA.",
-    "lat": 36.8879,
-    "lng": -118.5551,
-    "instagram": "https://www.instagram.com/p/DNdryi6Nvad/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 22
-  },
-  {
-    "id": "tuolumne-meadows",
-    "title": "Tuolumne Meadows",
-    "region": "Yosemite National Park, High Country",
-    "notes": "Vast subalpine meadow along Tioga Road — river, granite domes, summer wildflowers.",
-    "lat": 37.8731318,
-    "lng": -119.3591088,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Tuolumne+Meadows/@37.8731318,-119.3941277,14z/data=!4m7!3m6!1s0x809659c81b685a59:0xaf3fa8fab18840ab!8m2!3d37.8731318!4d-119.3591088!15sChtUdW9sdW1uZSBNZWFkb3dzLCBTdWdnZXN0ZWSSAQRwYXJrmgEkQ2hkRFNUaE5NRzluUzBWSlEwRm5UVU4zZFZwbWQxOTNSUkFC4AEA-gEECBUQQA!16zL20vMDFmamJn",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-119.3591088!3d37.8731318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x809659c81b685a59:0xaf3fa8fab18840ab!2sTuolumne%20Meadows!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "316 reviews",
-    "suggested": false,
-    "reviewCluster": 17
-  },
-  {
-    "id": "yosemite-national-park",
-    "title": "Yosemite National Park",
-    "region": "Sierra Nevada, Central California",
-    "notes": "Iconic granite valley — Half Dome, El Capitan, waterfalls, high-country lakes; classic moon-and-landscape night-sky destination.",
-    "lat": 37.8651,
-    "lng": -119.5383,
-    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 17
-  },
-  {
-    "id": "box-canon-falls",
-    "title": "Box Cañon Falls",
-    "region": "Ouray, San Juan Mountains, Southwest Colorado",
-    "notes": "285-ft cascade in a narrow gorge — easy walk from town.",
-    "lat": 38.0181918,
-    "lng": -107.6776344,
-    "instagram": "https://www.instagram.com/p/DYIjeLwytvf/",
-    "googleMaps": "https://www.google.com/maps/place/Box+Ca%C3%B1on+Falls+Park/@38.0181918,-107.6776344,17z/data=!3m1!4b1!4m6!3m5!1s0x873f21d6c92b1c4d:0x9ed63b409cda5c1c!8m2!3d38.0181918!4d-107.6776344!16s%2Fg%2F1tdkh3lj",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3143.2396663500735!2d-107.67763439999999!3d38.018191800000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x873f21d6c92b1c4d%3A0x9ed63b409cda5c1c!2sBox%20Ca%C3%B1on%20Falls%20Park!5e0!3m2!1sen!2sus!4v1785545181927!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "2,714 reviews",
-    "suggested": false,
-    "reviewCluster": 5
-  },
-  {
-    "id": "cape-disappointment-state-park",
-    "title": "Cape Disappointment State Park",
-    "region": "Ilwaco / Long Beach Peninsula",
-    "notes": "Clifftop trails, Lewis & Clark history, stormy-bar views; sheltered cove kayak launch.",
-    "lat": 46.2995548,
-    "lng": -124.0653812,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Cape+Disappointment+State+Park/@46.2995548,-124.0653812,14z/data=!4m6!3m5!1s0x54936c314e23108b:0xb0236fb6dae256c8!8m2!3d46.2995548!4d-124.0653812!16s%2Fm%2F06zttxq",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0653812!3d46.2995548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54936c314e23108b:0xb0236fb6dae256c8!2sCape%20Disappointment%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.7,
-    "googleReviewCount": "6,481 reviews",
-    "suggested": false,
-    "reviewCluster": 6
-  },
-  {
-    "id": "cape-disappointment-lighthouse",
-    "title": "Cape Disappointment Lighthouse",
-    "region": "Cape Disappointment State Park, Ilwaco",
-    "notes": "Cliff-top lighthouse above the Columbia bar — among the oldest on the West Coast (1856).",
-    "lat": 46.2759536,
-    "lng": -124.0520281,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Cape+Disappointment+Lighthouse/@46.2759536,-124.0520281,14z/data=!4m6!3m5!1s0x54936c25f3349f21:0x98d0974f1e09af05!8m2!3d46.2759536!4d-124.0520281!16zL20vMGc4dmpk",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0520281!3d46.2759536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54936c25f3349f21:0x98d0974f1e09af05!2sCape%20Disappointment%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "813 reviews",
-    "suggested": false,
-    "reviewCluster": 6
-  },
-  {
-    "id": "crater-lake-national-park",
-    "title": "Crater Lake National Park",
-    "region": "Southern Oregon Cascades",
-    "notes": "Deepest lake in the U.S. — vivid blue caldera inside a collapsed volcano.",
-    "lat": 42.9294762,
-    "lng": -122.1279394,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Crater+Lake+National+Park/@42.9294762,-122.1279394,11z/data=!3m1!4b1!4m6!3m5!1s0x54c6170840e5e339:0x902bf2e1452fe3a3!8m2!3d42.9294762!4d-122.1279394!16zL20vMDE3eXk0",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-122.1279394!3d42.9294762!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c6170840e5e339:0x902bf2e1452fe3a3!2sCrater%20Lake%20National%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "15,778 reviews",
-    "suggested": false,
-    "reviewCluster": 15
-  },
-  {
-    "id": "rim-visitor-center",
-    "title": "Rim Visitor Center",
-    "region": "Crater Lake National Park, Southern Oregon Cascades",
-    "notes": "North-rim visitor center — exhibits, lake views, and winter access point when rim road is closed.",
-    "lat": 42.9111796,
-    "lng": -122.1434914,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.6,
-    "googleReviewCount": "2,010 reviews",
-    "suggested": false,
-    "reviewCluster": 15
-  },
-  {
-    "id": "steel-visitor-center",
-    "title": "Steel Visitor Center",
-    "region": "Crater Lake National Park, Southern Oregon Cascades",
-    "notes": "Main park visitor center near the south entrance — maps, exhibits, and caldera orientation.",
-    "lat": 42.8970078,
-    "lng": -122.1343152,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.6,
-    "googleReviewCount": "589 reviews",
-    "suggested": false,
-    "reviewCluster": 15
-  },
-  {
-    "id": "woodburn-premium-outlets",
-    "title": "Woodburn Premium Outlets",
-    "region": "Woodburn / Willamette Valley (I-5)",
-    "notes": "Oregon's largest outlet center — 110+ stores; easy I-5 stop between Portland and Salem.",
-    "lat": 45.1561674,
-    "lng": -122.8785613,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Woodburn+Premium+Outlets/@45.1561674,-122.8785613,17z/data=!3m1!4b1!4m6!3m5!1s0x54955c451f42e579:0xf61e6c7552a070a1!8m2!3d45.1561674!4d-122.8785613!16zL20vMGg0Ympy",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-122.8785613!3d45.1561674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54955c451f42e579:0xf61e6c7552a070a1!2sWoodburn%20Premium%20Outlets!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.4,
-    "googleReviewCount": "11,780 reviews",
-    "suggested": false,
-    "reviewCluster": 23
-  },
-  {
-    "id": "cape-meares-lighthouse",
-    "title": "Cape Meares Lighthouse",
-    "region": "Cape Meares, Oregon Coast",
-    "notes": "Historic 1890s lighthouse on a sea-cliff cape — short walk and ocean views.",
-    "lat": 45.4864809,
-    "lng": -123.9783036,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "1,444 reviews",
-    "suggested": false,
-    "reviewCluster": 7
-  },
-  {
-    "id": "cape-meares-state-scenic-viewpoint",
-    "title": "Cape Meares State Scenic Viewpoint",
-    "region": "Cape Meares, Oregon Coast",
-    "notes": "Clifftop Octopus Tree and panoramic ocean views at Cape Meares.",
-    "lat": 45.4858966,
-    "lng": -123.9735272,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "2,089 reviews",
-    "suggested": false,
-    "reviewCluster": 7
-  },
-  {
-    "id": "haystack-rock",
-    "title": "Haystack Rock",
-    "region": "Cannon Beach, Oregon Coast",
-    "notes": "Iconic 235-ft sea stack on the main beach — tidepool wildlife refuge and north-coast landmark.",
-    "lat": 45.8841173,
-    "lng": -123.9684844,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Haystack+Rock/@45.8841173,-123.9684844,17z/data=!3m1!4b1!4m6!3m5!1s0x5494a4e035d8201b:0x8d6303935747e922!8m2!3d45.8841173!4d-123.9684844!16zL20vMDRyNDRi",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9684844!3d45.8841173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494a4e035d8201b:0x8d6303935747e922!2sHaystack%20Rock!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "10,601 reviews",
-    "suggested": false,
-    "reviewCluster": 16
-  },
-  {
-    "id": "hug-point-state-recreation-site",
-    "title": "Hug Point State Recreation Site",
-    "region": "Near Cannon Beach, Oregon Coast",
-    "notes": "Sea caves, seasonal waterfall on the sand, historic cliff-side road at low tide.",
-    "lat": 45.8287018,
-    "lng": -123.9625061,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Hug+Point+State+Recreation+Site/@45.8287018,-123.9625061,17z/data=!3m1!4b1!4m6!3m5!1s0x5494b07f5ed4c25b:0xe1b8dfe318e5264c!8m2!3d45.8287018!4d-123.9625061!16s%2Fm%2F047rl62",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9625061!3d45.8287018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494b07f5ed4c25b:0xe1b8dfe318e5264c!2sHug%20Point%20State%20Recreation%20Site!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "2,560 reviews",
-    "suggested": false,
-    "reviewCluster": 16
-  },
-  {
-    "id": "yaquina-head-outstanding-natural-area",
-    "title": "Yaquina Head Outstanding Natural Area",
-    "region": "Newport, Oregon Coast",
-    "notes": "Federal headland — historic lighthouse, Cobble Beach tidepools, and seabird cliffs on Oregon's central coast.",
-    "lat": 44.675124,
-    "lng": -124.0712126,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "6,144 reviews",
-    "suggested": false,
-    "reviewCluster": 9
-  },
-  {
-    "id": "devils-punchbowl-state-natural-area",
-    "title": "Devils Punchbowl State Natural Area",
-    "region": "Depoe Bay / Newport area, Oregon Coast",
-    "notes": "Collapsed sea cave turned surf churn — dramatic waves crash into a rocky bowl at high tide.",
-    "lat": 44.747477,
-    "lng": -124.0622486,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "5,748 reviews",
-    "suggested": false,
-    "reviewCluster": 9
-  },
-  {
-    "id": "otter-crest-state-scenic-viewpoint",
-    "title": "Otter Crest State Scenic Viewpoint",
-    "region": "Newport area, Oregon Coast",
-    "notes": "Clifftop Hwy 101 pullout with wide Pacific views above the central coast.",
-    "lat": 44.7606918,
-    "lng": -124.0672871,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "1,133 reviews",
-    "suggested": false,
-    "reviewCluster": 9
-  },
-  {
-    "id": "sea-lion-caves",
-    "title": "Sea Lion Caves",
-    "region": "Florence area, Oregon Coast",
-    "notes": "World's largest sea cave — wild Steller sea lions on the rocks; cliff-side elevator to the viewing chamber.",
-    "lat": 44.1217756,
-    "lng": -124.1267085,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Sea+Lion+Caves/@44.1217756,-124.1267085,17z/data=!3m1!4b1!4m6!3m5!1s0x54c185ede1a2ad5d:0x6d8ccef87b60c11f!8m2!3d44.1217756!4d-124.1267085!16zL20vMGM1bDE2",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.1267085!3d44.1217756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c185ede1a2ad5d:0x6d8ccef87b60c11f!2sSea%20Lion%20Caves!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.4,
-    "googleReviewCount": "7,410 reviews",
-    "suggested": false,
-    "reviewCluster": 10
-  },
-  {
-    "id": "carl-g-washburne-memorial-state-park",
-    "title": "Carl G. Washburne Memorial State Park",
-    "region": "Florence / Yachats area, Oregon Coast",
-    "notes": "Beach and forest state park on Hwy 101 — driftwood, surf, and short trails between Sea Lion Caves and Heceta Head.",
-    "lat": 44.1558466,
-    "lng": -124.1106555,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "593 reviews",
-    "suggested": false,
-    "reviewCluster": 10
-  },
-  {
-    "id": "darlingtonia-state-natural-site",
-    "title": "Darlingtonia State Natural Site",
-    "region": "Florence area, Oregon Coast",
-    "notes": "Boardwalk through a carnivorous cobra lily bog — unique botanical stop on the central coast.",
-    "lat": 44.0464905,
-    "lng": -124.0967201,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "1,083 reviews",
-    "suggested": false,
-    "reviewCluster": 10
-  },
-  {
-    "id": "heceta-head-lighthouse",
-    "title": "Heceta Head Lighthouse",
-    "region": "Florence / Yachats area, Oregon Coast",
-    "notes": "One of the most photographed lighthouses on the coast — 205-ft headland above a cove and beach.",
-    "lat": 44.1373757,
-    "lng": -124.1281224,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Heceta+Head+Lighthouse/@44.1373757,-124.1281224,17z/data=!3m1!4b1!4m6!3m5!1s0x54c18f638d78ea8b:0xf8d4f33d4bfe56ba!8m2!3d44.1373757!4d-124.1281224!16zL20vMGJkZjVj",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.1281224!3d44.1373757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c18f638d78ea8b:0xf8d4f33d4bfe56ba!2sHeceta%20Head%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "2,670 reviews",
-    "suggested": false,
-    "reviewCluster": 10
-  },
-  {
-    "id": "harris-beach-state-park",
-    "title": "Harris Beach State Park",
-    "region": "Brookings",
-    "notes": "Sea stacks, tidepools, sandy beach near the CA border.",
-    "lat": 42.0674363,
-    "lng": -124.3110792,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Harris+Beach+State+Park/@42.0674363,-124.3110792,17z/data=!4m6!3m5!1s0x54daa205c9dfe353:0x821e5aa0f476fbec!8m2!3d42.0674363!4d-124.3110792!16s%2Fm%2F02z328w",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3110792!3d42.0674363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54daa205c9dfe353:0x821e5aa0f476fbec!2sHarris%20Beach%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "3,803 reviews",
-    "suggested": false,
-    "reviewCluster": 2
-  },
-  {
-    "id": "face-rock-state-scenic-viewpoint",
-    "title": "Face Rock State Scenic Viewpoint",
-    "region": "Bandon",
-    "notes": "Dramatic sea stacks and viewpoint over Bandon's coastline.",
-    "lat": 43.1053223,
-    "lng": -124.4340947,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Face+Rock+State+Scenic+Viewpoint/@43.105386,-124.4415044,15z/data=!4m6!3m5!1s0x54c49bbca380e155:0x6d2bf3c5c1791d47!8m2!3d43.1053223!4d-124.4340947!16s%2Fm%2F04q3g5m",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.4340947!3d43.1053223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c49bbca380e155:0x6d2bf3c5c1791d47!2sFace%20Rock%20State%20Scenic%20Viewpoint!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "1,863 reviews",
-    "suggested": false,
-    "reviewCluster": 24
-  },
-  {
-    "id": "garibaldi-museum",
-    "title": "Garibaldi Museum",
-    "region": "Garibaldi, Oregon north coast",
-    "notes": "Maritime and local history museum on the bay — pairs with the scenic railroad stop.",
-    "lat": 45.560328,
-    "lng": -123.9086297,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Garibaldi+Museum/@45.560328,-123.9086297,14z/data=!3m1!4b1!4m6!3m5!1s0x54eb32b11cc7ae0b:0xe80080746d3b7cbe!8m2!3d45.560328!4d-123.9086297!16s%2Fg%2F1tdpfy1t",
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "196 reviews",
-    "suggested": false,
-    "reviewCluster": 7
-  },
-  {
-    "id": "fort-stevens-state-park",
-    "title": "Fort Stevens State Park",
-    "region": "Columbia River mouth, north Oregon coast",
-    "notes": "Large state park — shipwreck, historic batteries, beach, and Columbia bar views.",
-    "lat": 46.1995125,
-    "lng": -123.9807372,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "7,549 reviews",
-    "suggested": false,
-    "reviewCluster": 6
-  },
-  {
-    "id": "arches-national-park",
-    "title": "Arches National Park",
-    "region": "Moab, Southeast Utah",
-    "notes": "2,000+ natural stone arches — Delicate Arch, Landscape Arch, Fiery Furnace; red-rock desert under big skies and moonlit nights.",
-    "lat": 38.7331,
-    "lng": -109.5925,
-    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "delicate-arch",
-    "title": "Delicate Arch",
-    "region": "Arches National Park, Moab, Southeast Utah",
-    "notes": "Utah's most famous free-standing arch — sunset icon on the slickrock above Arches NP.",
-    "lat": 38.7434703,
-    "lng": -109.4993193,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.9,
-    "googleReviewCount": "6,686 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "lower-delicate-arch-viewpoint",
-    "title": "Lower Delicate Arch Viewpoint",
-    "region": "Arches National Park, Moab, Southeast Utah",
-    "notes": "Roadside viewpoint of Delicate Arch from afar — no hike required.",
-    "lat": 38.7341874,
-    "lng": -109.5001393,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Lower+Delicate+Arch+Viewpoint/@38.7341874,-109.5001393,14z/data=!3m1!4b1!4m6!3m5!1s0x8747d9369b525a6f:0x9ef55ba8a36fee99!8m2!3d38.7341874!4d-109.5001393!16s%2Fg%2F1hdzhwvdn",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-109.5001393!3d38.7341874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8747d9369b525a6f:0x9ef55ba8a36fee99!2sLower%20Delicate%20Arch%20Viewpoint!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "709 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "sand-dune-arch",
-    "title": "Sand Dune Arch",
-    "region": "Arches National Park, Moab, Southeast Utah",
-    "notes": "Short side trail to an arch tucked in orange sand fins — family-friendly Arches stop.",
-    "lat": 38.7642937,
-    "lng": -109.5811041,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Sand+Dune+Arch/@38.7642937,-109.5811041,14z/data=!3m1!4b1!4m6!3m5!1s0x874877cfd2cce871:0x2a6d045f7a110511!8m2!3d38.7642937!4d-109.5811041!16s%2Fg%2F1td6n3t0",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-109.5811041!3d38.7642937!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874877cfd2cce871:0x2a6d045f7a110511!2sSand%20Dune%20Arch!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "954 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "broken-arch",
-    "title": "Broken Arch",
-    "region": "Arches National Park, Moab, Southeast Utah",
-    "notes": "Arch spanning a sandstone fin near Devils Garden — often paired with Sand Dune Arch.",
-    "lat": 38.7717904,
-    "lng": -109.5776985,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Broken+Arch/@38.7717904,-109.5776985,14z/data=!3m1!4b1!4m6!3m5!1s0x874877c528cce811:0xa44417ba1df7da36!8m2!3d38.7717904!4d-109.5776985!16s%2Fg%2F11h4qhv0dl",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-109.5776985!3d38.7717904!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874877c528cce811:0xa44417ba1df7da36!2sBroken%20Arch!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "125 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "devil-s-garden-trail",
-    "title": "Devil's Garden Trail",
-    "region": "Arches National Park, Moab, Southeast Utah",
-    "notes": "Longest maintained trail in Arches — Landscape Arch, fin trails, and optional primitive loop.",
-    "lat": 38.7870236,
-    "lng": -109.5993373,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.9,
-    "googleReviewCount": "1,137 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "la-sal-mountains-viewpoint",
-    "title": "La Sal Mountains Viewpoint",
-    "region": "Arches National Park / Moab, Southeast Utah",
-    "notes": "Pullout with La Sal Mountains backdrop behind the red-rock desert — classic Arches scenic drive stop.",
-    "lat": 38.6263303,
-    "lng": -109.5911955,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "494 reviews",
-    "suggested": false,
-    "reviewCluster": 1
-  },
-  {
-    "id": "red-dirt-waterfall",
-    "title": "Red Dirt Waterfall",
-    "region": "Kauai (west)",
-    "notes": "Roadside red-clay waterfall on the Waimea Canyon drive — quick photo stop, pairs with canyon day.",
-    "lat": 22.0092742,
-    "lng": -159.6769858,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Red+Dirt+Waterfall/@22.0092742,-159.6769858,17z/data=!3m1!4b1!4m6!3m5!1s0x7c07aa732d28d1d5:0xf26963d227aeb7d!8m2!3d22.0092742!4d-159.6769858!16s%2Fg%2F11gbl4zkwx",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.6769858!3d22.0092742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c07aa732d28d1d5:0xf26963d227aeb7d!2sRed%20Dirt%20Waterfall!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "1,503 reviews",
-    "suggested": false,
-    "reviewCluster": 8
-  },
-  {
-    "id": "waimea-canyon-lookout",
-    "title": "Waimea Canyon Lookout",
-    "region": "Kauai (west)",
-    "notes": "Grand Canyon of the Pacific — layered red-and-green canyon from the main rim overlook.",
-    "lat": 22.0718059,
-    "lng": -159.6616058,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Waimea+Canyon+Lookout/@22.0718109,-159.6641807,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06fffc49c4488b:0xc9d7684e1fb15b94!8m2!3d22.0718059!4d-159.6616058!16s%2Fg%2F1q5bsszsr",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.6616058!3d22.0718059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06fffc49c4488b:0xc9d7684e1fb15b94!2sWaimea%20Canyon%20Lookout!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "4,389 reviews",
-    "suggested": false,
-    "reviewCluster": 8
-  },
-  {
-    "id": "queen-s-bath",
-    "title": "Queen's Bath",
-    "region": "Kauai (north)",
-    "notes": "Natural tide pools in lava rock — dramatic when calm, iconic north-shore stop.",
-    "lat": 22.2292315,
-    "lng": -159.4874367,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Queen%E2%80%99s+Bath/@22.2292315,-159.4874367,17z/data=!3m1!4b1!4m6!3m5!1s0x795476a11876130b:0x7f6f89de06cda6de!8m2!3d22.2292315!4d-159.4874367!16s%2Fm%2F03nskg8",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.4874367!3d22.2292315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x795476a11876130b:0x7f6f89de06cda6de!2sQueen%E2%80%99s%20Bath!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.5,
-    "googleReviewCount": "3,154 reviews",
-    "suggested": false,
-    "reviewCluster": 11
-  },
-  {
-    "id": "polihale-state-park",
-    "title": "Polihale State Park",
-    "region": "Kauai (west)",
-    "notes": "Miles of empty golden beach below Na Pali cliffs — one of the island's most remote shorelines.",
-    "lat": 22.0794713,
-    "lng": -159.7647939,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Polihale+State+Park/@22.0794763,-159.7673688,17z/data=!3m1!4b1!4m6!3m5!1s0x7c0654ab6c792e8b:0x3d5a6b70664a244d!8m2!3d22.0794713!4d-159.7647939!16zL20vMGMxYjQ4",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.7647939!3d22.0794713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c0654ab6c792e8b:0x3d5a6b70664a244d!2sPolihale%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "1,650 reviews",
-    "suggested": false,
-    "reviewCluster": 8
-  },
-  {
-    "id": "kalalau-lookout",
-    "title": "Kalalau Lookout",
-    "region": "Kauai (west) / Kōkeʻe State Park",
-    "notes": "Rim lookout over the Na Pali coast and Kalalau Valley — one of Kauai's best cliff views.",
-    "lat": 22.1511199,
-    "lng": -159.6458545,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "2,037 reviews",
-    "suggested": false,
-    "reviewCluster": 8
-  },
-  {
-    "id": "na-pali-coast-state-wilderness-park",
-    "title": "Nā Pali Coast State Wilderness Park",
-    "region": "Kauai (northwest coast)",
-    "notes": "Rugged Na Pali cliffs — wilderness coast from lookouts, boats, and the Kalalau Trail.",
-    "lat": 22.1677686,
-    "lng": -159.6440871,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.8,
-    "googleReviewCount": "2,046 reviews",
-    "suggested": false,
-    "reviewCluster": 8
-  },
-  {
-    "id": "hanalei-beach",
-    "title": "Hanalei Beach",
-    "region": "Kauai (north)",
-    "notes": "Crescent bay backed by taro fields and mountains — pier, surf, and classic north-shore views.",
-    "lat": 22.2028472,
-    "lng": -159.5046669,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Hanalei+Beach/@22.2077174,-159.6426948,11z/data=!4m6!3m5!1s0x7c06fa954e5ed7bb:0xa791fff2cf042eca!8m2!3d22.2028472!4d-159.5046669!16s%2Fg%2F1tfrxp_q",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.5046669!3d22.2028472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06fa954e5ed7bb:0xa791fff2cf042eca!2sHanalei%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "964 reviews",
-    "suggested": false,
-    "reviewCluster": 11
-  },
-  {
-    "id": "kilauea-lighthouse",
-    "title": "Kilauea Lighthouse",
-    "region": "Kauai (north)",
-    "notes": "Historic lighthouse on a cliff at Kīlauea Point — seabird sanctuary views and classic north-shore photo stop.",
-    "lat": 22.2316946,
-    "lng": -159.4019598,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Kilauea+Lighthouse/@22.2316946,-159.4019598,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!8m2!3d22.2316946!4d-159.4019598!16zL20vMGczOHEx",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.4019598!3d22.2316946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!2sKilauea%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "3,833 reviews",
-    "suggested": false,
-    "reviewCluster": 11
-  },
-  {
-    "id": "lake-clark-national-park",
-    "title": "Lake Clark National Park",
-    "region": "South-central Alaska · Lake and Peninsula Borough",
-    "notes": "Remote volcano-and-lake wilderness — turquoise lakes, coastal brown bears, glaciers; mostly fly-in access.",
-    "lat": 60.4127,
-    "lng": -154.3245,
-    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 25
-  },
-  {
-    "id": "partington-cove-trail",
-    "title": "Partington Cove Trail",
-    "region": "Big Sur / Julia Pfeiffer Burns State Park",
-    "notes": "Hidden coastal gem — 1880s hand-carved tunnel down to an emerald cove where lumber was once loaded onto ships; dramatic cliffs and turquoise water.",
-    "lat": 36.1749332,
-    "lng": -121.6960314,
-    "instagram": "https://www.instagram.com/p/DW66Ua9jYPw/",
-    "googleMaps": "https://www.google.com/maps/place/Partington+Cove/@36.1749332,-121.6960314,17z/data=!3m1!4b1!4m6!3m5!1s0x808d81752fc3af99:0x6783b810782ced34!8m2!3d36.1749332!4d-121.6960314!16s%2Fg%2F1hf23cyvh",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3220.6556538388136!2d-121.70079500321046!3d36.1749332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d81752fc3af99%3A0x6783b810782ced34!2sPartington%20Cove!5e0!3m2!1sen!2sus!4v1785543882661!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "487 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "china-cove",
-    "title": "China Cove",
-    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
-    "notes": "Turquoise pocket cove with seals — signature Point Lobos photo stop.",
-    "lat": 36.5086123,
-    "lng": -121.9408101,
-    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
-    "googleMaps": "https://www.google.com/maps/place/China+Cove/@36.5086123,-121.9408101,17z/data=!3m1!4b1!4m6!3m5!1s0x808de8f3eca96d43:0xf1c5798704287a52!8m2!3d36.5086123!4d-121.9408101!16s%2Fg%2F11b807gg84",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.8860651638893!2d-121.9408101!3d36.508612299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de8f3eca96d43%3A0xf1c5798704287a52!2sChina%20Cove!5e0!3m2!1sen!2sus!4v1785545075388!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "429 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "gibson-beach",
-    "title": "Gibson Beach",
-    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
-    "notes": "Small hidden beach with crystal-clear water.",
-    "lat": 36.5067301,
-    "lng": -121.9390709,
-    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
-    "googleMaps": "https://www.google.com/maps/place/Gibson's+Beach/@36.5067685,-121.9391417,17z/data=!3m1!4b1!4m6!3m5!1s0x808de8f1798f1419:0xc8130c7e801bb051!8m2!3d36.5067301!4d-121.9390709!16s%2Fg%2F11bw50cflx",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.962450617513!2d-121.93914174999999!3d36.5067685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de8f1798f1419%3A0xc8130c7e801bb051!2sGibson's%20Beach!5e0!3m2!1sen!2sus!4v1785544993270!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "68 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "bird-island-lookout",
-    "title": "Bird Island Lookout",
-    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
-    "notes": "Coastal overlook with seabird activity and sea stacks.",
-    "lat": 36.507487,
-    "lng": -121.9420138,
-    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
-    "googleMaps": "https://www.google.com/maps/place/Bird+Island+Lookout/@36.507487,-121.9420138,17z/data=!3m1!4b1!4m6!3m5!1s0x808de9a09ebd8ee5:0xc40d825e92764c3e!8m2!3d36.507487!4d-121.9420138!16s%2Fg%2F11g1lg3_yv",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.9326847967754!2d-121.9420138!3d36.507487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de9a09ebd8ee5%3A0xc40d825e92764c3e!2sBird%20Island%20Lookout!5e0!3m2!1sen!2sus!4v1785545085556!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "63 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "cypress-grove-trail",
-    "title": "Cypress Grove Trail",
-    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
-    "notes": "One of the last native Monterey cypress groves on Earth — kelp-bed sea otters below the cliffs.",
-    "lat": 36.5189215,
-    "lng": -121.9497493,
-    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
-    "googleMaps": "https://www.google.com/maps/place/Cypress+Grove+%26+Sea+Lion+Point+Parking+Lot/@36.5184742,-121.9501375,19z/data=!4m6!3m5!1s0x808de97d3e6d4e6b:0x7059b9bfb26158a8!8m2!3d36.5189215!4d-121.9497493!16s%2Fg%2F11q1pm6lxx",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9497493!3d36.5189215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de97d3e6d4e6b:0x7059b9bfb26158a8!2sCypress%20Grove%20%26%20Sea%20Lion%20Point%20Parking%20Lot!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 5,
-    "googleReviewCount": "3 reviews",
-    "suggested": false,
-    "reviewCluster": 0
-  },
-  {
-    "id": "ouray-via-ferrata",
-    "title": "Ouray Via Ferrata",
-    "region": "Ouray, San Juan Mountains, Southwest Colorado",
-    "notes": "Clipped cable route on the canyon walls — 3 of ~10 Via Ferratas in North America are in Ouray.",
-    "lat": 38.0154861,
-    "lng": -107.673344,
-    "instagram": "https://www.instagram.com/p/DYIjeLwytvf/",
-    "googleMaps": "https://www.google.com/maps/place/Ouray+Via+Ferrata/@38.0154861,-107.673344,17z/data=!3m1!4b1!4m6!3m5!1s0x873f2125048c8383:0x87bafbfef4f679b1!8m2!3d38.0154861!4d-107.673344!16s%2Fg%2F11jg62hxjz",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3143.3557084091876!2d-107.673344!3d38.0154861!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x873f2125048c8383%3A0x87bafbfef4f679b1!2sOuray%20Via%20Ferrata!5e0!3m2!1sen!2sus!4v1785545192220!5m2!1sen!2sus",
-    "googleRating": 5,
-    "googleReviewCount": "72 reviews",
-    "suggested": false,
-    "reviewCluster": 5
-  },
-  {
-    "id": "million-dollar-highway",
-    "title": "Million Dollar Highway",
-    "region": "Ouray → Silverton, San Juan Mountains, Southwest Colorado",
-    "notes": "One of the most scenic drives in the US — exposed alpine highway through the San Juan Mountains.",
-    "lat": 37.9152446,
-    "lng": -107.7004867,
-    "instagram": "https://www.instagram.com/p/DYIjeLwytvf/",
-    "googleMaps": "https://www.google.com/maps/place/Million+Dollar+Highway/@37.9045003,-107.7419631,13z/data=!4m6!3m5!1s0x873edcfba4e85705:0xcdf92134740bb62e!8m2!3d37.9152446!4d-107.7004867!16s%2Fg%2F11f2wmpb_4",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-107.7004867!3d37.9152446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x873edcfba4e85705:0xcdf92134740bb62e!2sMillion%20Dollar%20Highway!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "631 reviews",
-    "suggested": false,
-    "reviewCluster": 5
-  },
-  {
-    "id": "ouray-hot-springs-pool",
-    "title": "Ouray Hot Springs Pool",
-    "region": "Ouray, San Juan Mountains, Southwest Colorado",
-    "notes": "FDR-era hot springs pool in the middle of town — soak after hiking or via ferrata.",
-    "lat": 38.0288821,
-    "lng": -107.6725709,
-    "instagram": "https://www.instagram.com/p/DYIjeLwytvf/",
-    "googleMaps": "https://www.google.com/maps/place/Ouray+Hot+Springs+Pool/@38.0228,-107.6714,17z/data=!4m6!3m5!1s0x873f21de59d41d6f:0xeaba1d57342dfff1!8m2!3d38.0288821!4d-107.6725709!16s%2Fg%2F1q67qy0kj",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3143.0420137373417!2d-107.6714!3d38.0228!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x873f21de59d41d6f%3A0xeaba1d57342dfff1!2sOuray%20Hot%20Springs%20Pool!5e0!3m2!1sen!2sus!4v1785545156589!5m2!1sen!2sus",
-    "googleRating": 4.1,
-    "googleReviewCount": "140 reviews",
-    "suggested": false,
-    "reviewCluster": 5
-  },
-  {
-    "id": "baby-bathtubs-trail",
-    "title": "Baby Bathtubs Trail",
-    "region": "Ouray, San Juan Mountains, Southwest Colorado",
-    "notes": "Short creekside trail to sculpted rock pools in the Uncompahgre River canyon — easy Ouray-area hike.",
-    "lat": 38.0178752,
-    "lng": -107.6652733,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "210 reviews",
-    "suggested": false,
-    "reviewCluster": 5
-  },
-  {
-    "id": "usal-beach",
-    "title": "Usal Beach",
-    "region": "Lost Coast, Mendocino County · Usal Road",
-    "notes": "Secluded Lost Coast beach at the end of rough Usal Road — camp or explore the shoreline before the redwood grove.",
-    "lat": 39.8317707,
-    "lng": -123.8471394,
-    "instagram": "https://www.instagram.com/p/DZz-gCfPmGI/",
-    "googleMaps": "https://www.google.com/maps/place/Usal+Beach+Campground/@39.8317707,-123.8471394,17z/data=!3m1!4b1!4m6!3m5!1s0x54d4d73dec241931:0x4eedd4ac4577a2b3!8m2!3d39.8317707!4d-123.8471394!16s%2Fg%2F1td2z5xf",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3063.895048571734!2d-123.84713939999999!3d39.8317707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54d4d73dec241931%3A0x4eedd4ac4577a2b3!2sUsal%20Beach%20Campground!5e0!3m2!1sen!2sus!4v1785545171678!5m2!1sen!2sus",
-    "googleRating": 4.4,
-    "googleReviewCount": "280 reviews",
-    "suggested": false,
-    "reviewCluster": 13
-  },
-  {
-    "id": "candelabra-redwood",
-    "title": "Candelabra Redwood",
-    "region": "Lost Coast, Mendocino County · Usal Road",
-    "notes": "Rare Candelabra Redwood — wind-sculpted coastal redwood with candle-like branches from centuries of salt spray.",
-    "lat": 39.8354978,
-    "lng": -123.8436413,
-    "instagram": "https://www.instagram.com/p/DZz-gCfPmGI/",
-    "googleMaps": "https://www.google.com/maps/place/Shady+Dell+%2F+Enchanted+Forest+of+Candelabra+Redwoods/@39.8354978,-123.8436413,17z/data=!3m1!4b1!4m6!3m5!1s0x54d4d73dd776b1eb:0x239e805f72796854!8m2!3d39.8354978!4d-123.8436413!16s%2Fg%2F1pp2x82tj",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3063.728798534677!2d-123.8436413!3d39.8354978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54d4d73dd776b1eb%3A0x239e805f72796854!2sShady%20Dell%20%2F%20Enchanted%20Forest%20of%20Candelabra%20Redwoods!5e0!3m2!1sen!2sus!4v1785545116011!5m2!1sen!2sus",
-    "googleRating": 4.5,
-    "googleReviewCount": "58 reviews",
-    "suggested": false,
-    "reviewCluster": 13
+    "googleReviewCount": "1,252 reviews"
   },
   {
     "id": "seal-beach-overlook",
@@ -2001,9 +632,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Seal+Beach+Overlook/@36.2013933,-121.7344973,16z/data=!4m6!3m5!1s0x808d832495475229:0x1fd429bcbe376486!8m2!3d36.2015368!4d-121.7284798!16s%2Fg%2F11gy4tkmwd",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.7284798!3d36.2015368!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d832495475229:0x1fd429bcbe376486!2sSeal%20Beach%20Overlook!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "127 reviews",
-    "suggested": false,
-    "reviewCluster": 0
+    "googleReviewCount": "127 reviews"
   },
   {
     "id": "boronda-trailhead",
@@ -2016,9 +645,85 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Boronda+Trailhead/@36.1990904,-121.7187259,16z/data=!4m6!3m5!1s0x808d8132bf902591:0x1d31dd558bbc4bcd!8m2!3d36.1983558!4d-121.7177848!16s%2Fg%2F11ghq4r94_",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.7177848!3d36.1983558!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d8132bf902591:0x1d31dd558bbc4bcd!2sBoronda%20Trailhead!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "32 reviews",
-    "suggested": false,
-    "reviewCluster": 0
+    "googleReviewCount": "32 reviews"
+  },
+  {
+    "id": "torre-canyon-bridge",
+    "title": "Torre Canyon Bridge",
+    "region": "Big Sur / Garrapata State Park area",
+    "notes": "Iconic Hwy 1 bridge over Torre Canyon — dramatic coastal drive photo stop.",
+    "lat": 36.1963087,
+    "lng": -121.7108704,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Torre+Canyon+Bridge/@36.1942072,-121.7164728,16z/data=!4m6!3m5!1s0x808d81001f205c9b:0xaa835b0558a15f44!8m2!3d36.1963087!4d-121.7108704!16s%2Fg%2F11ykp2pxc3",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.7108704!3d36.1963087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808d81001f205c9b:0xaa835b0558a15f44!2sTorre%20Canyon%20Bridge!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": null,
+    "googleReviewCount": null
+  },
+  {
+    "id": "point-sur-state-historic-park",
+    "title": "Point Sur State Historic Park",
+    "region": "Big Sur, Monterey County",
+    "notes": "Volcanic headland with 1889 lighthouse — guided tours only; dramatic ocean views from Hwy 1.",
+    "lat": 36.3069138,
+    "lng": -121.8983757,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "156 reviews"
+  },
+  {
+    "id": "china-cove",
+    "title": "China Cove",
+    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
+    "notes": "Turquoise pocket cove with seals — signature Point Lobos photo stop.",
+    "lat": 36.5086123,
+    "lng": -121.9408101,
+    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
+    "googleMaps": "https://www.google.com/maps/place/China+Cove/@36.5086123,-121.9408101,17z/data=!3m1!4b1!4m6!3m5!1s0x808de8f3eca96d43:0xf1c5798704287a52!8m2!3d36.5086123!4d-121.9408101!16s%2Fg%2F11b807gg84",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.8860651638893!2d-121.9408101!3d36.508612299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de8f3eca96d43%3A0xf1c5798704287a52!2sChina%20Cove!5e0!3m2!1sen!2sus!4v1785545075388!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "429 reviews"
+  },
+  {
+    "id": "gibson-beach",
+    "title": "Gibson Beach",
+    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
+    "notes": "Small hidden beach with crystal-clear water.",
+    "lat": 36.5067301,
+    "lng": -121.9390709,
+    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
+    "googleMaps": "https://www.google.com/maps/place/Gibson's+Beach/@36.5067685,-121.9391417,17z/data=!3m1!4b1!4m6!3m5!1s0x808de8f1798f1419:0xc8130c7e801bb051!8m2!3d36.5067301!4d-121.9390709!16s%2Fg%2F11bw50cflx",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.962450617513!2d-121.93914174999999!3d36.5067685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de8f1798f1419%3A0xc8130c7e801bb051!2sGibson's%20Beach!5e0!3m2!1sen!2sus!4v1785544993270!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "68 reviews"
+  },
+  {
+    "id": "bird-island-lookout",
+    "title": "Bird Island Lookout",
+    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
+    "notes": "Coastal overlook with seabird activity and sea stacks.",
+    "lat": 36.507487,
+    "lng": -121.9420138,
+    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
+    "googleMaps": "https://www.google.com/maps/place/Bird+Island+Lookout/@36.507487,-121.9420138,17z/data=!3m1!4b1!4m6!3m5!1s0x808de9a09ebd8ee5:0xc40d825e92764c3e!8m2!3d36.507487!4d-121.9420138!16s%2Fg%2F11g1lg3_yv",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3206.9326847967754!2d-121.9420138!3d36.507487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de9a09ebd8ee5%3A0xc40d825e92764c3e!2sBird%20Island%20Lookout!5e0!3m2!1sen!2sus!4v1785545085556!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "63 reviews"
+  },
+  {
+    "id": "cypress-grove-trail",
+    "title": "Cypress Grove Trail",
+    "region": "Point Lobos State Natural Reserve, Carmel / Monterey County",
+    "notes": "One of the last native Monterey cypress groves on Earth — kelp-bed sea otters below the cliffs.",
+    "lat": 36.5189215,
+    "lng": -121.9497493,
+    "instagram": "https://www.instagram.com/p/DaIqirNOdqn/",
+    "googleMaps": "https://www.google.com/maps/place/Cypress+Grove+%26+Sea+Lion+Point+Parking+Lot/@36.5184742,-121.9501375,19z/data=!4m6!3m5!1s0x808de97d3e6d4e6b:0x7059b9bfb26158a8!8m2!3d36.5189215!4d-121.9497493!16s%2Fg%2F11q1pm6lxx",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9497493!3d36.5189215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de97d3e6d4e6b:0x7059b9bfb26158a8!2sCypress%20Grove%20%26%20Sea%20Lion%20Point%20Parking%20Lot!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 5,
+    "googleReviewCount": "3 reviews"
   },
   {
     "id": "lovers-point",
@@ -2031,9 +736,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Lovers+Point/@36.6266255,-121.9155104,17z/data=!3m1!4b1!4m6!3m5!1s0x808de145708f2d0d:0xbc006cf98e21c422!8m2!3d36.6266261!4d-121.9155104!16s%2Fg%2F12qfv27fp",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12807.960297745181!2d-121.9155104!3d36.62662555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de145708f2d0d%3A0xbc006cf98e21c422!2sLovers%20Point!5e0!3m2!1sen!2sus!4v1785544509025!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "264 reviews",
-    "suggested": false,
-    "reviewCluster": 0
+    "googleReviewCount": "264 reviews"
+  },
+  {
+    "id": "kissing-rock",
+    "title": "Kissing Rock",
+    "region": "Monterey Peninsula, Monterey County",
+    "notes": "Selfie stop on the Coastal Recreation Trail — spring blooms and ocean bluffs.",
+    "lat": 36.6344954,
+    "lng": -121.9245937,
+    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
+    "googleMaps": "https://www.google.com/maps/place/Kissing+Rock+View+Point/@36.6344954,-121.9245937,17z/data=!3m1!4b1!4m6!3m5!1s0x808de11532697fe1:0xab8971c0a910712a!8m2!3d36.6344954!4d-121.9245937!16s%2Fg%2F11dfkzzftz",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3201.6630962586137!2d-121.9245937!3d36.6344954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de11532697fe1%3A0xab8971c0a910712a!2sKissing%20Rock%20View%20Point!5e0!3m2!1sen!2sus!4v1785544734924!5m2!1sen!2sus",
+    "googleRating": 4.7,
+    "googleReviewCount": "823 reviews"
+  },
+  {
+    "id": "asilomar-state-beach",
+    "title": "Asilomar State Beach",
+    "region": "Monterey Peninsula, Monterey County",
+    "notes": "Dune boardwalks and rocky shoreline — classic PG west-end walk.",
+    "lat": 36.6180088,
+    "lng": -121.9419115,
+    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
+    "googleMaps": "https://www.google.com/maps/place/Asilomar+State+Beach/@36.6180088,-121.9419115,17z/data=!3m1!4b1!4m6!3m5!1s0x808de125fdd7c0f5:0xbd02e27eb1cc42b8!8m2!3d36.6180088!4d-121.9419115!16zL20vMDJkeGQw",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3202.348015689714!2d-121.94191149999999!3d36.6180088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de125fdd7c0f5%3A0xbd02e27eb1cc42b8!2sAsilomar%20State%20Beach!5e0!3m2!1sen!2sus!4v1785544849149!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "3,176 reviews"
   },
   {
     "id": "otter-point",
@@ -2046,9 +775,20 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Otter+Point/@36.6325993,-121.9366483,15z/data=!4m6!3m5!1s0x808de1d50ec5432b:0xa4e0ba56d1d7e5d2!8m2!3d36.6322258!4d-121.9223025!16s%2Fg%2F11l1dq_8x4",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9223025!3d36.6322258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de1d50ec5432b:0xa4e0ba56d1d7e5d2!2sOtter%20Point!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.6,
-    "googleReviewCount": "45 reviews",
-    "suggested": false,
-    "reviewCluster": 0
+    "googleReviewCount": "45 reviews"
+  },
+  {
+    "id": "point-pinos-lighthouse",
+    "title": "Point Pinos Lighthouse",
+    "region": "Monterey Peninsula, Monterey County",
+    "notes": "Oldest continuously operating lighthouse on the West Coast.",
+    "lat": 36.6334207,
+    "lng": -121.9337418,
+    "instagram": "https://www.instagram.com/p/DaYQdOPxIIy/",
+    "googleMaps": "https://www.google.com/maps/place/Point+Pinos+Lighthouse+(1855)/@36.6334131,-121.9440973,15z/data=!4m6!3m5!1s0x808de14eea8185b5:0x1347eaffb9bca39a!8m2!3d36.6334207!4d-121.9337418!16zL20vMDZmdzU4",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9337418!3d36.6334207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de14eea8185b5:0x1347eaffb9bca39a!2sPoint%20Pinos%20Lighthouse%20(1855)!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.6,
+    "googleReviewCount": "1,284 reviews"
   },
   {
     "id": "sunset-beach",
@@ -2061,39 +801,20 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Sunset+Beach/@36.6211043,-121.9397316,15z/data=!4m6!3m5!1s0x808de186adaaf21b:0xe8f0eeaa1a2e315e!8m2!3d36.6252709!4d-121.9397782!16s%2Fg%2F11rpl7qyf4",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.9397782!3d36.6252709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808de186adaaf21b:0xe8f0eeaa1a2e315e!2sSunset%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.9,
-    "googleReviewCount": "250 reviews",
-    "suggested": false,
-    "reviewCluster": 0
+    "googleReviewCount": "250 reviews"
   },
   {
-    "id": "grand-teton-national-park",
-    "title": "Grand Teton National Park",
-    "region": "Jackson Hole, Northwest Wyoming",
-    "notes": "Jagged Teton Range rising from Jackson Hole — alpine lakes, wildlife, Snake River views, dramatic night skies.",
-    "lat": 43.7904,
-    "lng": -110.6818,
-    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
+    "id": "pinnacles-national-park-high-peaks-trail",
+    "title": "Pinnacles National Park — High Peaks Trail",
+    "region": "Central California (east of Salinas / Hollister)",
+    "notes": "Bucket-list volcanic spire hike — steep switchbacks, narrow exposed sections with handrails, panoramic ridge views, and top California condor viewing in the US.",
+    "lat": 36.4933,
+    "lng": -121.1833,
+    "instagram": "https://www.instagram.com/p/DZPyE7NPJXc/",
     "googleMaps": null,
     "googleMapsEmbed": null,
     "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 2
-  },
-  {
-    "id": "jenny-lake-visitor-center",
-    "title": "Jenny Lake Visitor Center",
-    "region": "Grand Teton National Park, Jackson Hole, Wyoming",
-    "notes": "Main visitor hub at Jenny Lake — boat shuttle, trailheads, and Teton views.",
-    "lat": 43.7514919,
-    "lng": -110.7223345,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "1,763 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": null
   },
   {
     "id": "little-lakes-valley-mosquito-flat-trail",
@@ -2106,9 +827,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Little+Lakes+and+Mono+Pass+Trailhead+(Gem+Lakes)/@37.4347663,-118.7475786,17z/data=!3m1!4b1!4m6!3m5!1s0x8095f9e6b60d63fb:0xb18e01f3c14a8d1e!8m2!3d37.4347663!4d-118.7475786!16s%2Fg%2F11b7ynnqvc",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.0989863749082!2d-118.7475786!3d37.4347663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8095f9e6b60d63fb%3A0xb18e01f3c14a8d1e!2sLittle%20Lakes%20and%20Mono%20Pass%20Trailhead%20(Gem%20Lakes)!5e0!3m2!1sen!2sus!4v1785544361047!5m2!1sen!2sus",
     "googleRating": 4.9,
-    "googleReviewCount": "141 reviews",
-    "suggested": false,
-    "reviewCluster": 19
+    "googleReviewCount": "141 reviews"
   },
   {
     "id": "gem-lakes",
@@ -2121,84 +840,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Gem+Lakes/@37.4468665,-118.8758891,11z/data=!4m6!3m5!1s0x8095f7290f55d53f:0x73c658610c4e101!8m2!3d37.3894544!4d-118.7587898!16s%2Fg%2F1hhnrrgkn",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-118.7587898!3d37.3894544!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8095f7290f55d53f:0x73c658610c4e101!2sGem%20Lakes!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 5,
-    "googleReviewCount": "25 reviews",
-    "suggested": false,
-    "reviewCluster": 19
+    "googleReviewCount": "25 reviews"
   },
   {
-    "id": "badlands-national-park",
-    "title": "Badlands National Park",
-    "region": "Southwest South Dakota",
-    "notes": "Striking layered eroded buttes, pinnacles, and prairie — otherworldly landscape under wide open skies.",
-    "lat": 43.8554,
-    "lng": -102.3397,
-    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
+    "id": "kings-canyon-national-park",
+    "title": "Kings Canyon National Park",
+    "region": "Sierra Nevada, Fresno / Tulare Counties",
+    "notes": "Yosemite-scale granite cliffs, waterfalls, and alpine meadows — fewer crowds than Yosemite; ~4–5 hr from LA.",
+    "lat": 36.8879,
+    "lng": -118.5551,
+    "instagram": "https://www.instagram.com/p/DNdryi6Nvad/",
     "googleMaps": null,
     "googleMapsEmbed": null,
     "googleRating": null,
-    "googleReviewCount": null,
-    "suggested": false,
-    "reviewCluster": 20
+    "googleReviewCount": null
   },
   {
-    "id": "roberts-prairie-dog-town",
-    "title": "Roberts Prairie Dog Town",
-    "region": "Badlands National Park, Southwest South Dakota",
-    "notes": "Active prairie dog colony beside the park loop road — easy wildlife stop.",
-    "lat": 43.9051984,
-    "lng": -102.3070097,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "545 reviews",
-    "suggested": false,
-    "reviewCluster": 20
-  },
-  {
-    "id": "ke-e-beach",
-    "title": "Ke'e Beach",
-    "region": "Kauai (north)",
-    "notes": "End of the road beach at the Na Pali trailhead — turquoise water against cliff backdrop.",
-    "lat": 22.2235082,
-    "lng": -159.5798426,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Ke'e+Beach/@22.2221215,-159.5785028,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06f9f3c4e6f35b:0xc24870f1c7a2009d!8m2!3d22.2235082!4d-159.5798426!16s%2Fg%2F1260lhtsp",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.5798426!3d22.2235082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06f9f3c4e6f35b:0xc24870f1c7a2009d!2sKe'e%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.5,
-    "googleReviewCount": "344 reviews",
-    "suggested": false,
-    "reviewCluster": 11
-  },
-  {
-    "id": "indian-beach",
-    "title": "Indian Beach",
-    "region": "Ecola State Park / Cannon Beach, Oregon Coast",
-    "notes": "Dramatic cove framed by sea stacks and coastal rainforest — strong photo spot above Cannon Beach.",
-    "lat": 45.9298804,
-    "lng": -123.9784913,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Indian+Beach/@45.9298804,-123.9784913,17z/data=!3m1!4b1!4m6!3m5!1s0x5494a415a9843dd5:0xebd598ab57598a93!8m2!3d45.9298804!4d-123.9784913!16s%2Fg%2F11c5rpvz3q",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9784913!3d45.9298804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494a415a9843dd5:0xebd598ab57598a93!2sIndian%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "678 reviews",
-    "suggested": false,
-    "reviewCluster": 16
-  },
-  {
-    "id": "cape-disappointment",
-    "title": "Cape Disappointment",
+    "id": "cape-disappointment-state-park",
+    "title": "Cape Disappointment State Park",
     "region": "Ilwaco / Long Beach Peninsula",
-    "notes": "Southwesternmost point of Washington — Lewis & Clark reached the Pacific here; Columbia River bar and ocean views.",
-    "lat": 46.2898224,
-    "lng": -124.0604319,
+    "notes": "Clifftop trails, Lewis & Clark history, stormy-bar views; sheltered cove kayak launch.",
+    "lat": 46.2995548,
+    "lng": -124.0653812,
     "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Cape+Disappointment/@46.2898224,-124.0604319,14z/data=!4m6!3m5!1s0x54936c4a2644e679:0x70e7440af26b350a!8m2!3d46.2898224!4d-124.0604319!16s%2Fm%2F03mb23w",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0604319!3d46.2898224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54936c4a2644e679:0x70e7440af26b350a!2sCape%20Disappointment!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "230 reviews",
-    "suggested": false,
-    "reviewCluster": 6
+    "googleMaps": "https://www.google.com/maps/place/Cape+Disappointment+State+Park/@46.2995548,-124.0653812,14z/data=!4m6!3m5!1s0x54936c314e23108b:0xb0236fb6dae256c8!8m2!3d46.2995548!4d-124.0653812!16s%2Fm%2F06zttxq",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0653812!3d46.2995548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54936c314e23108b:0xb0236fb6dae256c8!2sCape%20Disappointment%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.7,
+    "googleReviewCount": "6,481 reviews"
   },
   {
     "id": "deadman-s-cove",
@@ -2211,24 +879,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Deadman's+Cove/@46.2774844,-124.0505583,17z/data=!3m1!4b1!4m6!3m5!1s0x54936c2f0b93c2c7:0x577af1c00c260fe6!8m2!3d46.2774844!4d-124.0505583!16s%2Fg%2F11ckky7y1q",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0505583!3d46.2774844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54936c2f0b93c2c7:0x577af1c00c260fe6!2sDeadman%27s%20Cove!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "467 reviews",
-    "suggested": false,
-    "reviewCluster": 6
+    "googleReviewCount": "467 reviews"
   },
   {
-    "id": "twin-rocks-arch",
-    "title": "Twin Rocks Arch",
-    "region": "Oregon north coast",
-    "notes": "Twin sea stacks offshore from Rockaway Beach — iconic north-coast photo stop.",
-    "lat": 45.5968528,
-    "lng": -123.9593662,
+    "id": "woodburn-premium-outlets",
+    "title": "Woodburn Premium Outlets",
+    "region": "Woodburn / Willamette Valley (I-5)",
+    "notes": "Oregon's largest outlet center — 110+ stores; easy I-5 stop between Portland and Salem.",
+    "lat": 45.1561674,
+    "lng": -122.8785613,
     "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Twin+Rocks+Arch/@45.5978815,-123.9593007,15z/data=!4m6!3m5!1s0x54eb33492956f27b:0xdc8e872862faabf8!8m2!3d45.5968528!4d-123.9593662!16s%2Fg%2F1tgb728m",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9593662!3d45.5968528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eb33492956f27b:0xdc8e872862faabf8!2sTwin%20Rocks%20Arch!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.7,
-    "googleReviewCount": "63 reviews",
-    "suggested": false,
-    "reviewCluster": 7
+    "googleMaps": "https://www.google.com/maps/place/Woodburn+Premium+Outlets/@45.1561674,-122.8785613,17z/data=!3m1!4b1!4m6!3m5!1s0x54955c451f42e579:0xf61e6c7552a070a1!8m2!3d45.1561674!4d-122.8785613!16zL20vMGg0Ympy",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-122.8785613!3d45.1561674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54955c451f42e579:0xf61e6c7552a070a1!2sWoodburn%20Premium%20Outlets!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.4,
+    "googleReviewCount": "11,780 reviews"
+  },
+  {
+    "id": "cape-kiwanda-state-natural-area",
+    "title": "Cape Kiwanda State Natural Area",
+    "region": "Pacific City, Oregon Coast",
+    "notes": "327-ft Haystack Rock, massive sandstone dunes, surf views.",
+    "lat": 45.2195478,
+    "lng": -123.9756728,
+    "instagram": "https://www.instagram.com/p/DW4eFKuiU3p/",
+    "googleMaps": "https://www.google.com/maps/place/Cape+Kiwanda/@45.2195478,-123.9756728,15z/data=!4m6!3m5!1s0x54eadd0f7a2ae419:0x8bcdfdf880c7ff28!8m2!3d45.2195478!4d-123.9756728!16s%2Fg%2F1tpn291z",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9756728!3d45.2195478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eadd0f7a2ae419:0x8bcdfdf880c7ff28!2sCape%20Kiwanda!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.9,
+    "googleReviewCount": "124 reviews"
   },
   {
     "id": "oceanside-beach-tunnel-beach",
@@ -2241,84 +918,46 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Tunnel+Beach/@45.463705,-123.9737685,18z/data=!3m1!4b1!4m6!3m5!1s0x54eb2ee65cb92245:0x8b7d2cc0a173ba0!8m2!3d45.463705!4d-123.9737685!16s%2Fg%2F1pzx7_khz",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9737685!3d45.463705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eb2ee65cb92245:0x8b7d2cc0a173ba0!2sTunnel%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.9,
-    "googleReviewCount": "367 reviews",
-    "suggested": false,
-    "reviewCluster": 7
+    "googleReviewCount": "367 reviews"
   },
   {
-    "id": "cape-kiwanda-state-natural-area",
-    "title": "Cape Kiwanda State Natural Area",
-    "region": "Pacific City, Oregon Coast",
-    "notes": "327-ft Haystack Rock, massive sandstone dunes, surf views.",
-    "lat": 45.2195478,
-    "lng": -123.9756728,
+    "id": "haystack-rock",
+    "title": "Haystack Rock",
+    "region": "Cannon Beach, Oregon Coast",
+    "notes": "Iconic 235-ft sea stack on the main beach — tidepool wildlife refuge and north-coast landmark.",
+    "lat": 45.8841173,
+    "lng": -123.9684844,
     "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/Cape+Kiwanda/@45.2195478,-123.9756728,15z/data=!3m1!4b1!4m6!3m5!1s0x54eadd0f7a2ae419:0x8bcdfdf880c7ff28!8m2!3d45.2195478!4d-123.9756728!16s%2Fg%2F1tpn291z",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9756728!3d45.2195478!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eadd0f7a2ae419:0x8bcdfdf880c7ff28!2sCape%20Kiwanda!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.9,
-    "googleReviewCount": "124 reviews",
-    "suggested": false,
-    "reviewCluster": 12
+    "googleMaps": "https://www.google.com/maps/place/Haystack+Rock/@45.8841173,-123.9684844,17z/data=!3m1!4b1!4m6!3m5!1s0x5494a4e035d8201b:0x8d6303935747e922!8m2!3d45.8841173!4d-123.9684844!16zL20vMDRyNDRi",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9684844!3d45.8841173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494a4e035d8201b:0x8d6303935747e922!2sHaystack%20Rock!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "10,601 reviews"
   },
   {
-    "id": "bob-straub-state-park",
-    "title": "Bob Straub State Park",
-    "region": "Pacific City area, Oregon Coast",
-    "notes": "Beach and dune state park at the mouth of the Nestucca — wide sand, surf, and estuary views south of Pacific City.",
-    "lat": 45.1792433,
-    "lng": -123.9650947,
+    "id": "indian-beach",
+    "title": "Indian Beach",
+    "region": "Ecola State Park / Cannon Beach, Oregon Coast",
+    "notes": "Dramatic cove framed by sea stacks and coastal rainforest — strong photo spot above Cannon Beach.",
+    "lat": 45.9298804,
+    "lng": -123.9784913,
     "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.6,
-    "googleReviewCount": "552 reviews",
-    "suggested": false,
-    "reviewCluster": 12
+    "googleMaps": "https://www.google.com/maps/place/Indian+Beach/@45.9298804,-123.9784913,17z/data=!3m1!4b1!4m6!3m5!1s0x5494a415a9843dd5:0xebd598ab57598a93!8m2!3d45.9298804!4d-123.9784913!16s%2Fg%2F11c5rpvz3q",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9784913!3d45.9298804!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494a415a9843dd5:0xebd598ab57598a93!2sIndian%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "678 reviews"
   },
   {
-    "id": "neskowin-ghost-forest",
-    "title": "Neskowin Ghost Forest",
-    "region": "Neskowin, Oregon Coast",
-    "notes": "Ancient stumps exposed on the beach at low tide — eerie north-coast natural history stop.",
-    "lat": 45.0989428,
-    "lng": -123.9873139,
+    "id": "hug-point-state-recreation-site",
+    "title": "Hug Point State Recreation Site",
+    "region": "Near Cannon Beach, Oregon Coast",
+    "notes": "Sea caves, seasonal waterfall on the sand, historic cliff-side road at low tide.",
+    "lat": 45.8287018,
+    "lng": -123.9625061,
     "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.5,
-    "googleReviewCount": "303 reviews",
-    "suggested": false,
-    "reviewCluster": 12
-  },
-  {
-    "id": "sitka-sedge-state-natural-area",
-    "title": "Sitka Sedge State Natural Area",
-    "region": "Pacific City / Tillamook area, Oregon Coast",
-    "notes": "Quiet coastal estuary and beach — dunes, tideflats, and forest edge north of Pacific City.",
-    "lat": 45.2664819,
-    "lng": -123.9601879,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "154 reviews",
-    "suggested": false,
-    "reviewCluster": 12
-  },
-  {
-    "id": "god-s-thumb-overlook",
-    "title": "God's Thumb overlook",
-    "region": "Lincoln City area (Roads End)",
-    "notes": "Coastal bluff overlook above the Pacific; short hike to a dramatic viewpoint.",
-    "lat": 44.974003,
-    "lng": -124.012663,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/God's+Thumb/@44.974003,-124.012663,14z/data=!4m6!3m5!1s0x54ea8d3bafec4377:0x648776906d917ac3!8m2!3d44.974003!4d-124.012663!16s%2Fg%2F11nxwbsn6h",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.012663!3d44.974003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ea8d3bafec4377:0x648776906d917ac3!2sGod%27s%20Thumb!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.6,
-    "googleReviewCount": "66 reviews",
-    "suggested": false,
-    "reviewCluster": 3
+    "googleMaps": "https://www.google.com/maps/place/Hug+Point+State+Recreation+Site/@45.8287018,-123.9625061,17z/data=!3m1!4b1!4m6!3m5!1s0x5494b07f5ed4c25b:0xe1b8dfe318e5264c!8m2!3d45.8287018!4d-123.9625061!16s%2Fm%2F047rl62",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9625061!3d45.8287018!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5494b07f5ed4c25b:0xe1b8dfe318e5264c!2sHug%20Point%20State%20Recreation%20Site!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "2,560 reviews"
   },
   {
     "id": "cobble-beach",
@@ -2331,9 +970,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Cobble+Beach/@44.6750309,-124.0771383,14z/data=!3m1!4b1!4m6!3m5!1s0x54ea78eec93d1047:0xc1bf9a16644f0cf2!8m2!3d44.6750309!4d-124.0771383!16s%2Fg%2F11btxmfqrk",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0771383!3d44.6750309!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ea78eec93d1047:0xc1bf9a16644f0cf2!2sCobble%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.7,
-    "googleReviewCount": "507 reviews",
-    "suggested": false,
-    "reviewCluster": 9
+    "googleReviewCount": "507 reviews"
+  },
+  {
+    "id": "sea-lion-caves",
+    "title": "Sea Lion Caves",
+    "region": "Florence area, Oregon Coast",
+    "notes": "World's largest sea cave — wild Steller sea lions on the rocks; cliff-side elevator to the viewing chamber.",
+    "lat": 44.1217756,
+    "lng": -124.1267085,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Sea+Lion+Caves/@44.1217756,-124.1267085,17z/data=!3m1!4b1!4m6!3m5!1s0x54c185ede1a2ad5d:0x6d8ccef87b60c11f!8m2!3d44.1217756!4d-124.1267085!16zL20vMGM1bDE2",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.1267085!3d44.1217756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c185ede1a2ad5d:0x6d8ccef87b60c11f!2sSea%20Lion%20Caves!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.4,
+    "googleReviewCount": "7,410 reviews"
+  },
+  {
+    "id": "heceta-head-lighthouse",
+    "title": "Heceta Head Lighthouse",
+    "region": "Florence / Yachats area, Oregon Coast",
+    "notes": "One of the most photographed lighthouses on the coast — 205-ft headland above a cove and beach.",
+    "lat": 44.1373757,
+    "lng": -124.1281224,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Heceta+Head+Lighthouse/@44.1373757,-124.1281224,17z/data=!3m1!4b1!4m6!3m5!1s0x54c18f638d78ea8b:0xf8d4f33d4bfe56ba!8m2!3d44.1373757!4d-124.1281224!16zL20vMGJkZjVj",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.1281224!3d44.1373757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c18f638d78ea8b:0xf8d4f33d4bfe56ba!2sHeceta%20Head%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "2,670 reviews"
   },
   {
     "id": "secret-beach",
@@ -2346,9 +1009,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Secret+Beach/@42.1949799,-124.3718869,15z/data=!4m6!3m5!1s0x54dabc02bc36e833:0xf38c954c78c8104d!8m2!3d42.1949799!4d-124.3718869!16s%2Fg%2F11b7cd368z",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3718869!3d42.1949799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54dabc02bc36e833:0xf38c954c78c8104d!2sSecret%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "379 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": "379 reviews"
   },
   {
     "id": "natural-bridges-viewpoint",
@@ -2361,9 +1022,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Natural+Bridges+Viewpoint/@42.1893596,-124.3659917,17z/data=!3m1!4b1!4m6!3m5!1s0x54dabd001a3e078d:0xaa4e8bfedbbc3217!8m2!3d42.1893596!4d-124.3659917!16s%2Fg%2F11nc5z7vvg",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3659917!3d42.1893596!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54dabd001a3e078d:0xaa4e8bfedbbc3217!2sNatural%20Bridges%20Viewpoint!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.9,
-    "googleReviewCount": "10 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": "10 reviews"
   },
   {
     "id": "arch-rock",
@@ -2376,9 +1035,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Arch+Rock+State+Park/@42.2049515,-124.3738671,17z/data=!3m1!4b1!4m6!3m5!1s0x54dabeb28140452d:0xc4ce75ba47e23a3a!8m2!3d42.2049515!4d-124.3738671!16s%2Fg%2F11bv1s8tlp",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3738671!3d42.2049515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54dabeb28140452d:0xc4ce75ba47e23a3a!2sArch%20Rock%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "796 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": "796 reviews"
   },
   {
     "id": "indian-sands",
@@ -2391,9 +1048,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/Indian+Sands+Trailhead/@42.1568143,-124.3613567,17z/data=!3m1!4b1!4m6!3m5!1s0x54dabcf9051c48d9:0xa3a08edff3f72db4!8m2!3d42.1568143!4d-124.3613567!16s%2Fg%2F11dym08hgc",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3613567!3d42.1568143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54dabcf9051c48d9:0xa3a08edff3f72db4!2sIndian%20Sands%20Trailhead!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.7,
-    "googleReviewCount": "128 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": "128 reviews"
   },
   {
     "id": "house-rock-viewpoint",
@@ -2406,324 +1061,407 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMaps": "https://www.google.com/maps/place/House+Rock+Viewpoint/@42.1180438,-124.3523575,17z/data=!3m1!4b1!4m6!3m5!1s0x54daa2c9933f90ab:0x1d0aded89c19d7a1!8m2!3d42.1180438!4d-124.3523575!16s%2Fg%2F11dfpqpjld",
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3523575!3d42.1180438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54daa2c9933f90ab:0x1d0aded89c19d7a1!2sHouse%20Rock%20Viewpoint!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.8,
-    "googleReviewCount": "228 reviews",
-    "suggested": false,
-    "reviewCluster": 2
+    "googleReviewCount": "228 reviews"
+  },
+  {
+    "id": "harris-beach-state-park",
+    "title": "Harris Beach State Park",
+    "region": "Brookings",
+    "notes": "Sea stacks, tidepools, sandy beach near the CA border.",
+    "lat": 42.0674363,
+    "lng": -124.3110792,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Harris+Beach+State+Park/@42.0674363,-124.3110792,17z/data=!4m6!3m5!1s0x54daa205c9dfe353:0x821e5aa0f476fbec!8m2!3d42.0674363!4d-124.3110792!16s%2Fm%2F02z328w",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.3110792!3d42.0674363!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54daa205c9dfe353:0x821e5aa0f476fbec!2sHarris%20Beach%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "3,803 reviews"
+  },
+  {
+    "id": "face-rock-state-scenic-viewpoint",
+    "title": "Face Rock State Scenic Viewpoint",
+    "region": "Bandon",
+    "notes": "Dramatic sea stacks and viewpoint over Bandon's coastline.",
+    "lat": 43.1053223,
+    "lng": -124.4340947,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Face+Rock+State+Scenic+Viewpoint/@43.105386,-124.4415044,15z/data=!4m6!3m5!1s0x54c49bbca380e155:0x6d2bf3c5c1791d47!8m2!3d43.1053223!4d-124.4340947!16s%2Fm%2F04q3g5m",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.4340947!3d43.1053223!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54c49bbca380e155:0x6d2bf3c5c1791d47!2sFace%20Rock%20State%20Scenic%20Viewpoint!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "1,863 reviews"
+  },
+  {
+    "id": "god-s-thumb-overlook",
+    "title": "God's Thumb overlook",
+    "region": "Lincoln City area (Roads End)",
+    "notes": "Coastal bluff overlook above the Pacific; short hike to a dramatic viewpoint.",
+    "lat": 44.974003,
+    "lng": -124.012663,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/God's+Thumb/@44.974003,-124.012663,14z/data=!4m6!3m5!1s0x54ea8d3bafec4377:0x648776906d917ac3!8m2!3d44.974003!4d-124.012663!16s%2Fg%2F11nxwbsn6h",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.012663!3d44.974003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ea8d3bafec4377:0x648776906d917ac3!2sGod%27s%20Thumb!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.6,
+    "googleReviewCount": "66 reviews"
   },
   {
     "id": "d-river-state-recreation-site",
     "title": "D River State Recreation Site",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.6 ★ · 3,455 reviews",
+    "region": "Lincoln City area, Oregon Coast",
+    "notes": "World's shortest river meets the Pacific — beach access and classic Lincoln City stop.",
     "lat": 44.9674653,
     "lng": -124.0171576,
     "instagram": null,
     "googleMaps": null,
     "googleMapsEmbed": null,
     "googleRating": 4.6,
-    "googleReviewCount": "3,455 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 0.5,
-    "reviewCluster": 3
-  },
-  {
-    "id": "fort-cronkhite",
-    "title": "Fort Cronkhite",
-    "region": "Suggested · near Steep Ravine & Dipsea Trail Loop",
-    "notes": "Review candidate · 4.7 ★ · 434 reviews",
-    "lat": 37.8339054,
-    "lng": -122.5322434,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "434 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Steep Ravine & Dipsea Trail Loop"
-    ],
-    "distanceMi": 7.3,
-    "reviewCluster": 1
-  },
-  {
-    "id": "glacier-view-turnout",
-    "title": "Glacier View Turnout",
-    "region": "Suggested · near Grand Teton National Park",
-    "notes": "Review candidate · 4.9 ★ · 992 reviews",
-    "lat": 43.6908616,
-    "lng": -110.6726077,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.9,
-    "googleReviewCount": "992 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Grand Teton National Park"
-    ],
-    "distanceMi": 6.9,
-    "reviewCluster": 2
-  },
-  {
-    "id": "jackson-lake-dam",
-    "title": "Jackson Lake Dam",
-    "region": "Suggested · near Grand Teton National Park",
-    "notes": "Review candidate · 4.7 ★ · 1,436 reviews",
-    "lat": 43.8632687,
-    "lng": -110.5936932,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "1,436 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Grand Teton National Park"
-    ],
-    "distanceMi": 6.7,
-    "reviewCluster": 2
-  },
-  {
-    "id": "north-lincoln-county-historical-museum",
-    "title": "North Lincoln County Historical Museum",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.8 ★ · 145 reviews",
-    "lat": 44.9288196,
-    "lng": -124.0161906,
-    "instagram": null,
-    "googleMaps": "https://www.google.com/maps/place/North+Lincoln+County+Historical+Museum/@44.9288196,-124.0161906,14z/data=!3m1!4b1!4m6!3m5!1s0x54ea8c2dffc11983:0x96406b1476740547!8m2!3d44.9288196!4d-124.0161906!16s%2Fg%2F1tg4l39w",
-    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.0161906!3d44.9288196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ea8c2dffc11983:0x96406b1476740547!2sNorth%20Lincoln%20County%20Historical%20Museum!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
-    "googleRating": 4.8,
-    "googleReviewCount": "145 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 3.1,
-    "reviewCluster": 3
-  },
-  {
-    "id": "point-sur-lighthouse",
-    "title": "Point Sur Lighthouse",
-    "region": "Suggested · near Partington Cove Trail, Pfeiffer Beach, Seal Beach Overlook…",
-    "notes": "Review candidate · 4.6 ★ · 96 reviews",
-    "lat": 36.3063724,
-    "lng": -121.9017238,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.6,
-    "googleReviewCount": "96 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Partington Cove Trail",
-      "Pfeiffer Beach",
-      "Seal Beach Overlook",
-      "Boronda Trailhead",
-      "Torre Canyon Bridge"
-    ],
-    "distanceMi": 6.7,
-    "reviewCluster": 0
-  },
-  {
-    "id": "point-sur-state-historic-park",
-    "title": "Point Sur State Historic Park",
-    "region": "Suggested · near Partington Cove Trail, Pfeiffer Beach, Seal Beach Overlook…",
-    "notes": "Review candidate · 4.7 ★ · 156 reviews",
-    "lat": 36.3069138,
-    "lng": -121.8983757,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "156 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Partington Cove Trail",
-      "Pfeiffer Beach",
-      "Seal Beach Overlook",
-      "Boronda Trailhead",
-      "Torre Canyon Bridge"
-    ],
-    "distanceMi": 6.6,
-    "reviewCluster": 0
-  },
-  {
-    "id": "regatta-park",
-    "title": "Regatta Park",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.7 ★ · 1,611 reviews",
-    "lat": 44.9745722,
-    "lng": -123.999176,
-    "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
-    "googleRating": 4.7,
-    "googleReviewCount": "1,611 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 0.7,
-    "reviewCluster": 3
+    "googleReviewCount": "3,455 reviews"
   },
   {
     "id": "roads-end-state-recreation-site",
     "title": "Roads End State Recreation Site",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.6 ★ · 2,269 reviews",
+    "region": "Lincoln City area (Roads End), Oregon Coast",
+    "notes": "Sandy beach at the north end of Lincoln City — tidepools, surf, and access to coastal hikes.",
     "lat": 45.0082069,
     "lng": -124.0086831,
     "instagram": null,
     "googleMaps": null,
     "googleMapsEmbed": null,
     "googleRating": 4.6,
-    "googleReviewCount": "2,269 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 2.4,
-    "reviewCluster": 3
+    "googleReviewCount": "2,269 reviews"
   },
   {
-    "id": "siletz-bay-park",
-    "title": "Siletz Bay Park",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.7 ★ · 942 reviews",
-    "lat": 44.9264681,
-    "lng": -124.0143318,
+    "id": "regatta-park",
+    "title": "Regatta Park",
+    "region": "Lincoln City area, Oregon Coast",
+    "notes": "Waterfront park on the D River outlet — grassy lawns, bay views, and easy access from Hwy 101.",
+    "lat": 44.9741053,
+    "lng": -123.9991536,
     "instagram": null,
-    "googleMaps": null,
-    "googleMapsEmbed": null,
+    "googleMaps": "https://www.google.com/maps/place/Regatta+Park/@44.9741053,-124.0372624,14z/data=!4m7!3m6!1s0x54ea8d7d069bcbcf:0xac3c402df9c75eb!8m2!3d44.9741053!4d-123.9991536!15sChdSZWdhdHRhIFBhcmssIFN1Z2dlc3RlZFoYIhZyZWdhdHRhIHBhcmsgc3VnZ2VzdGVkkgEEcGFya5oBI0NoWkRTVWhOTUc5blMwVkpRMEZuU1VOV2NVd3pRV1pSRUFF4AEA-gEECAAQOA!16s%2Fg%2F1tfssmbj",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9991536!3d44.9741053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54ea8d7d069bcbcf:0xac3c402df9c75eb!2sRegatta%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.7,
-    "googleReviewCount": "942 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 3.3,
-    "reviewCluster": 3
+    "googleReviewCount": "1,611 reviews"
   },
   {
     "id": "spring-lake-open-space",
     "title": "Spring Lake Open Space",
-    "region": "Suggested · near God's Thumb overlook",
-    "notes": "Review candidate · 4.6 ★ · 136 reviews",
+    "region": "Lincoln City area, Oregon Coast",
+    "notes": "Small open-space pond and walking paths near the Roads End neighborhood.",
     "lat": 44.9762283,
     "lng": -124.0053229,
     "instagram": null,
     "googleMaps": null,
     "googleMapsEmbed": null,
     "googleRating": 4.6,
-    "googleReviewCount": "136 reviews",
-    "suggested": true,
-    "nearPins": [
-      "God's Thumb overlook"
-    ],
-    "distanceMi": 0.4,
-    "reviewCluster": 3
+    "googleReviewCount": "136 reviews"
   },
   {
-    "id": "teton-point-turnout",
-    "title": "Teton Point Turnout",
-    "region": "Suggested · near Grand Teton National Park",
-    "notes": "Review candidate · 4.9 ★ · 908 reviews",
-    "lat": 43.7179612,
-    "lng": -110.6600798,
+    "id": "siletz-bay-park",
+    "title": "Siletz Bay Park",
+    "region": "Lincoln City area, Oregon Coast",
+    "notes": "Bayfront park with estuary views — birds, sunsets, and easy strolls along Siletz Bay.",
+    "lat": 44.9264681,
+    "lng": -124.0143318,
     "instagram": null,
     "googleMaps": null,
     "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "942 reviews"
+  },
+  {
+    "id": "twin-rocks-arch",
+    "title": "Twin Rocks Arch",
+    "region": "Oregon north coast",
+    "notes": "Twin sea stacks offshore from Rockaway Beach — iconic north-coast photo stop.",
+    "lat": 45.5968528,
+    "lng": -123.9593662,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Twin+Rocks+Arch/@45.5978815,-123.9593007,15z/data=!4m6!3m5!1s0x54eb33492956f27b:0xdc8e872862faabf8!8m2!3d45.5968528!4d-123.9593662!16s%2Fg%2F1tgb728m",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-123.9593662!3d45.5968528!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eb33492956f27b:0xdc8e872862faabf8!2sTwin%20Rocks%20Arch!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.7,
+    "googleReviewCount": "63 reviews"
+  },
+  {
+    "id": "red-dirt-waterfall",
+    "title": "Red Dirt Waterfall",
+    "region": "Kauai (west)",
+    "notes": "Roadside red-clay waterfall on the Waimea Canyon drive — quick photo stop, pairs with canyon day.",
+    "lat": 22.0092742,
+    "lng": -159.6769858,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Red+Dirt+Waterfall/@22.0092742,-159.6769858,17z/data=!3m1!4b1!4m6!3m5!1s0x7c07aa732d28d1d5:0xf26963d227aeb7d!8m2!3d22.0092742!4d-159.6769858!16s%2Fg%2F11gbl4zkwx",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.6769858!3d22.0092742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c07aa732d28d1d5:0xf26963d227aeb7d!2sRed%20Dirt%20Waterfall!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.6,
+    "googleReviewCount": "1,503 reviews"
+  },
+  {
+    "id": "waimea-canyon-lookout",
+    "title": "Waimea Canyon Lookout",
+    "region": "Kauai (west)",
+    "notes": "Grand Canyon of the Pacific — layered red-and-green canyon from the main rim overlook.",
+    "lat": 22.0718059,
+    "lng": -159.6616058,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Waimea+Canyon+Lookout/@22.0718109,-159.6641807,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06fffc49c4488b:0xc9d7684e1fb15b94!8m2!3d22.0718059!4d-159.6616058!16s%2Fg%2F1q5bsszsr",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.6616058!3d22.0718059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06fffc49c4488b:0xc9d7684e1fb15b94!2sWaimea%20Canyon%20Lookout!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.9,
-    "googleReviewCount": "908 reviews",
-    "suggested": true,
-    "nearPins": [
-      "Grand Teton National Park"
-    ],
-    "distanceMi": 5.1,
-    "reviewCluster": 2
+    "googleReviewCount": "4,389 reviews"
+  },
+  {
+    "id": "queen-s-bath",
+    "title": "Queen's Bath",
+    "region": "Kauai (north)",
+    "notes": "Natural tide pools in lava rock — dramatic when calm, iconic north-shore stop.",
+    "lat": 22.2292315,
+    "lng": -159.4874367,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Queen%E2%80%99s+Bath/@22.2292315,-159.4874367,17z/data=!3m1!4b1!4m6!3m5!1s0x795476a11876130b:0x7f6f89de06cda6de!8m2!3d22.2292315!4d-159.4874367!16s%2Fm%2F03nskg8",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.4874367!3d22.2292315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x795476a11876130b:0x7f6f89de06cda6de!2sQueen%E2%80%99s%20Bath!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.5,
+    "googleReviewCount": "3,154 reviews"
+  },
+  {
+    "id": "polihale-state-park",
+    "title": "Polihale State Park",
+    "region": "Kauai (west)",
+    "notes": "Miles of empty golden beach below Na Pali cliffs — one of the island's most remote shorelines.",
+    "lat": 22.0794713,
+    "lng": -159.7647939,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Polihale+State+Park/@22.0794763,-159.7673688,17z/data=!3m1!4b1!4m6!3m5!1s0x7c0654ab6c792e8b:0x3d5a6b70664a244d!8m2!3d22.0794713!4d-159.7647939!16zL20vMGMxYjQ4",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.7647939!3d22.0794713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c0654ab6c792e8b:0x3d5a6b70664a244d!2sPolihale%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "1,650 reviews"
+  },
+  {
+    "id": "hanalei-beach",
+    "title": "Hanalei Beach",
+    "region": "Kauai (north)",
+    "notes": "Crescent bay backed by taro fields and mountains — pier, surf, and classic north-shore views.",
+    "lat": 22.2028472,
+    "lng": -159.5046669,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Hanalei+Beach/@22.2077174,-159.6426948,11z/data=!4m6!3m5!1s0x7c06fa954e5ed7bb:0xa791fff2cf042eca!8m2!3d22.2028472!4d-159.5046669!16s%2Fg%2F1tfrxp_q",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.5046669!3d22.2028472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06fa954e5ed7bb:0xa791fff2cf042eca!2sHanalei%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "964 reviews"
+  },
+  {
+    "id": "ke-e-beach",
+    "title": "Ke'e Beach",
+    "region": "Kauai (north)",
+    "notes": "End of the road beach at the Na Pali trailhead — turquoise water against cliff backdrop.",
+    "lat": 22.2235082,
+    "lng": -159.5798426,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Ke'e+Beach/@22.2221215,-159.5785028,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06f9f3c4e6f35b:0xc24870f1c7a2009d!8m2!3d22.2235082!4d-159.5798426!16s%2Fg%2F1260lhtsp",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.5798426!3d22.2235082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06f9f3c4e6f35b:0xc24870f1c7a2009d!2sKe'e%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.5,
+    "googleReviewCount": "344 reviews"
+  },
+  {
+    "id": "kilauea-lighthouse",
+    "title": "Kilauea Lighthouse",
+    "region": "Kauai (north)",
+    "notes": "Historic lighthouse on a cliff at Kīlauea Point — seabird sanctuary views and classic north-shore photo stop.",
+    "lat": 22.2316946,
+    "lng": -159.4019598,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Kilauea+Lighthouse/@22.2316946,-159.4019598,17z/data=!3m1!4b1!4m6!3m5!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!8m2!3d22.2316946!4d-159.4019598!16zL20vMGczOHEx",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-159.4019598!3d22.2316946!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x7c06ef5ccefd7cbd:0xa0bd623c5475a7d4!2sKilauea%20Lighthouse!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.6,
+    "googleReviewCount": "3,833 reviews"
+  },
+  {
+    "id": "cape-meares-lighthouse",
+    "title": "Cape Meares Lighthouse",
+    "region": "Cape Meares, Oregon Coast",
+    "notes": "Historic 1890s lighthouse on a sea-cliff cape — short walk and ocean views.",
+    "lat": 45.4864809,
+    "lng": -123.9783036,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "1,444 reviews"
+  },
+  {
+    "id": "cape-meares-state-scenic-viewpoint",
+    "title": "Cape Meares State Scenic Viewpoint",
+    "region": "Cape Meares, Oregon Coast",
+    "notes": "Clifftop Octopus Tree and panoramic ocean views at Cape Meares.",
+    "lat": 45.4858966,
+    "lng": -123.9735272,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "2,089 reviews"
+  },
+  {
+    "id": "yaquina-head-outstanding-natural-area",
+    "title": "Yaquina Head Outstanding Natural Area",
+    "region": "Newport, Oregon Coast",
+    "notes": "Federal headland — historic lighthouse, Cobble Beach tidepools, and seabird cliffs on Oregon's central coast.",
+    "lat": 44.675124,
+    "lng": -124.0712126,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "6,144 reviews"
+  },
+  {
+    "id": "devils-punchbowl-state-natural-area",
+    "title": "Devils Punchbowl State Natural Area",
+    "region": "Depoe Bay / Newport area, Oregon Coast",
+    "notes": "Collapsed sea cave turned surf churn — dramatic waves crash into a rocky bowl at high tide.",
+    "lat": 44.747477,
+    "lng": -124.0622486,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "5,748 reviews"
+  },
+  {
+    "id": "otter-crest-state-scenic-viewpoint",
+    "title": "Otter Crest State Scenic Viewpoint",
+    "region": "Newport area, Oregon Coast",
+    "notes": "Clifftop Hwy 101 pullout with wide Pacific views above the central coast.",
+    "lat": 44.7606918,
+    "lng": -124.0672871,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "1,133 reviews"
+  },
+  {
+    "id": "carl-g-washburne-memorial-state-park",
+    "title": "Carl G. Washburne Memorial State Park",
+    "region": "Florence / Yachats area, Oregon Coast",
+    "notes": "Beach and forest state park on Hwy 101 — driftwood, surf, and short trails between Sea Lion Caves and Heceta Head.",
+    "lat": 44.1558466,
+    "lng": -124.1106555,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "593 reviews"
+  },
+  {
+    "id": "darlingtonia-state-natural-site",
+    "title": "Darlingtonia State Natural Site",
+    "region": "Florence area, Oregon Coast",
+    "notes": "Boardwalk through a carnivorous cobra lily bog — unique botanical stop on the central coast.",
+    "lat": 44.0464905,
+    "lng": -124.0967201,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "1,083 reviews"
+  },
+  {
+    "id": "garibaldi-museum",
+    "title": "Garibaldi Museum",
+    "region": "Garibaldi, Oregon north coast",
+    "notes": "Maritime and local history museum on the bay — pairs with the scenic railroad stop.",
+    "lat": 45.560328,
+    "lng": -123.9086297,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Garibaldi+Museum/@45.560328,-123.9086297,14z/data=!3m1!4b1!4m6!3m5!1s0x54eb32b11cc7ae0b:0xe80080746d3b7cbe!8m2!3d45.560328!4d-123.9086297!16s%2Fg%2F1tdpfy1t",
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "196 reviews"
+  },
+  {
+    "id": "fort-stevens-state-park",
+    "title": "Fort Stevens State Park",
+    "region": "Columbia River mouth, north Oregon coast",
+    "notes": "Large state park — shipwreck, historic batteries, beach, and Columbia bar views.",
+    "lat": 46.1995125,
+    "lng": -123.9807372,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "7,549 reviews"
+  },
+  {
+    "id": "kalalau-lookout",
+    "title": "Kalalau Lookout",
+    "region": "Kauai (west) / Kōkeʻe State Park",
+    "notes": "Rim lookout over the Na Pali coast and Kalalau Valley — one of Kauai's best cliff views.",
+    "lat": 22.1511199,
+    "lng": -159.6458545,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "2,037 reviews"
+  },
+  {
+    "id": "na-pali-coast-state-wilderness-park",
+    "title": "Nā Pali Coast State Wilderness Park",
+    "region": "Kauai (northwest coast)",
+    "notes": "Rugged Na Pali cliffs — wilderness coast from lookouts, boats, and the Kalalau Trail.",
+    "lat": 22.1677686,
+    "lng": -159.6440871,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.8,
+    "googleReviewCount": "2,046 reviews"
+  },
+  {
+    "id": "bob-straub-state-park",
+    "title": "Bob Straub State Park",
+    "region": "Pacific City area, Oregon Coast",
+    "notes": "Beach and dune state park at the mouth of the Nestucca — wide sand, surf, and estuary views south of Pacific City.",
+    "lat": 45.1792433,
+    "lng": -123.9650947,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.6,
+    "googleReviewCount": "552 reviews"
+  },
+  {
+    "id": "neskowin-ghost-forest",
+    "title": "Neskowin Ghost Forest",
+    "region": "Neskowin, Oregon Coast",
+    "notes": "Ancient stumps exposed on the beach at low tide — eerie north-coast natural history stop.",
+    "lat": 45.0989428,
+    "lng": -123.9873139,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.5,
+    "googleReviewCount": "303 reviews"
+  },
+  {
+    "id": "sitka-sedge-state-natural-area",
+    "title": "Sitka Sedge State Natural Area",
+    "region": "Pacific City / Tillamook area, Oregon Coast",
+    "notes": "Quiet coastal estuary and beach — dunes, tideflats, and forest edge north of Pacific City.",
+    "lat": 45.2664819,
+    "lng": -123.9601879,
+    "instagram": null,
+    "googleMaps": null,
+    "googleMapsEmbed": null,
+    "googleRating": 4.7,
+    "googleReviewCount": "154 reviews"
   }
 ];
-    var REVIEW_CLUSTERS = [
-  {
-    "id": 0,
-    "center": {
-      "lat": 36.20184008,
-      "lng": -121.73387968
-    },
-    "pins": [
-      "pfeiffer-beach",
-      "torre-canyon-bridge",
-      "partington-cove-trail",
-      "seal-beach-overlook",
-      "boronda-trailhead"
-    ],
-    "label": "Big Sur (Los Padres NF coastline)"
-  },
-  {
-    "id": 1,
-    "center": {
-      "lat": 37.87657758,
-      "lng": -122.56861516
-    },
-    "pins": [
-      "golden-gate-national-recreation-area",
-      "mount-tamalpais-state-park",
-      "muir-woods-national-monument",
-      "bay-area-discovery-museum",
-      "steep-ravine-dipsea-trail-loop"
-    ],
-    "label": "Marin Headlands / San Francisco Bay Area"
-  },
-  {
-    "id": 2,
-    "center": {
-      "lat": 43.77094595,
-      "lng": -110.70206725
-    },
-    "pins": [
-      "grand-teton-national-park",
-      "jenny-lake-visitor-center"
-    ],
-    "label": "Jackson Hole"
-  },
-  {
-    "id": 3,
-    "center": {
-      "lat": 44.974003,
-      "lng": -124.012663
-    },
-    "pins": [
-      "god-s-thumb-overlook"
-    ],
-    "label": "Lincoln City area (Roads End)"
-  }
-];
-    var TrippinReview = window.TrippinReview;
     var TrippinMaps = window.TrippinMaps;
-    var reviewSession = TrippinReview.parseStoredSession(
-      localStorage.getItem(TrippinReview.SESSION_STORAGE_KEY),
-      localStorage.getItem(TrippinReview.LEGACY_DISMISS_KEY)
-    );
-    var baseLocations = LOCATIONS.slice();
-    var pruned = TrippinReview.pruneSyncedSession(reviewSession, baseLocations);
-    if (pruned !== reviewSession) {
-      reviewSession = pruned;
-      localStorage.setItem(TrippinReview.SESSION_STORAGE_KEY, TrippinReview.serializeSession(reviewSession));
-    }
+    var BUILD_VERSION = '9c6055b';
 
     var panel = document.getElementById('panel');
     var backdrop = document.getElementById('backdrop');
     var sidebar = document.getElementById('sidebar');
     var markers = {};
     var activeId = null;
-    var reviewMode = false;
-    var reviewClusterIndex = 0;
-    var reviewEnabled = new URLSearchParams(location.search).get('review') === '1';
-    var BUILD_VERSION = '42d98c4';
     var markerInCluster = {};
     var locById = {};
     var suppressHashUpdate = false;
@@ -2731,81 +1469,19 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     var sidebarViewTimer = null;
     var locButtons = {};
     var sidebarHint = null;
-    var titleToLoc = {};
-
-    function saveReviewSession() {
-      localStorage.setItem(TrippinReview.SESSION_STORAGE_KEY, TrippinReview.serializeSession(reviewSession));
-      localStorage.removeItem(TrippinReview.LEGACY_DISMISS_KEY);
-      updateReviewCopyLabel();
-      updateBuildMeta();
-    }
-
-    function reviewCtx(overrides) {
-      return Object.assign({
-        reviewEnabled: reviewEnabled,
-        reviewMode: reviewMode,
-        reviewClusterIndex: reviewClusterIndex,
-        session: reviewSession,
-      }, overrides || {});
-    }
-
-    function isDismissed(id) {
-      return TrippinReview.isDismissed(reviewSession, id);
-    }
-
-    function isPromoted(id) {
-      return TrippinReview.isPromoted(reviewSession, id);
-    }
-
-    function sessionCounts() {
-      return TrippinReview.sessionSummary(reviewSession);
-    }
+    var shareToastTimer = null;
+    var clusterGroup = null;
+    var map = null;
+    var bounds = null;
+    var defaultBoundsOptions = { padding: [40, 40], maxZoom: 7 };
 
     function updateBuildMeta() {
       var el = document.getElementById('build-meta');
       if (!el) return;
-      var saved = LOCATIONS.filter(function (l) { return !l.suggested; }).length;
-      if (reviewEnabled) {
-        var suggested = LOCATIONS.filter(function (l) {
-          return l.suggested && !isDismissed(l.id) && !isPromoted(l.id);
-        }).length;
-        el.textContent = BUILD_VERSION + ' · ' + saved + ' saved · ' + suggested + ' 🌲';
-      } else {
-        el.textContent = BUILD_VERSION + ' · ' + saved + ' saved';
-      }
+      el.textContent = BUILD_VERSION + ' · ' + LOCATIONS.length + ' places';
     }
 
-    function updateReviewCopyLabel() {
-      var btn = document.getElementById('review-copy-btn');
-      if (!btn) return;
-      var counts = sessionCounts();
-      var parts = [];
-      if (counts.dismissed) parts.push(counts.dismissed + ' removed');
-      if (counts.promotions) parts.push(counts.promotions + ' approved');
-      btn.textContent = parts.length ? 'Copy session (' + parts.join(', ') + ')' : 'Copy session';
-    }
-
-    function copyReviewSessionToClipboard() {
-      var text = TrippinReview.formatExportText(reviewSession);
-      if (!text) {
-        showShareToast('No review changes yet');
-        return;
-      }
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(function () {
-          showShareToast('Copied review session');
-        }).catch(function () {
-          showShareToast('Copy failed — see console');
-          console.log(text);
-        });
-      } else {
-        showShareToast('Copied to console');
-        console.log(text);
-      }
-    }
-
-    function pinIconForLoc(loc) {
-      if (loc.suggested) return suggestedPinIcon();
+    function pinIconForLoc() {
       return L.divIcon({
         className: 'pin-emoji',
         html: '<span aria-hidden="true">🥾</span>',
@@ -2814,119 +1490,10 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       });
     }
 
-    function suggestedPinIcon() {
-      return L.divIcon({
-        className: 'pin-emoji pin-emoji-suggested',
-        html: '<span aria-hidden="true">🌲</span>',
-        iconSize: [24, 24],
-        iconAnchor: [12, 22],
-      });
-    }
-
-    function updateSuggestedMarkerIcons() {
-      LOCATIONS.forEach(function (loc) {
-        if (!markers[loc.id]) return;
-        if (!loc.suggested) return;
-        markers[loc.id].setIcon(pinIconForLoc(loc));
-      });
-    }
-
-    function shouldShowLocation(loc) {
-      return TrippinReview.shouldShowLocation(loc, reviewCtx());
-    }
-
-    function applyLocationVisibility() {
-      if (!clusterGroup || !map) return;
-      LOCATIONS.forEach(function (loc) {
-        var marker = markers[loc.id];
-        if (!marker) return;
-        var shouldShow = shouldShowLocation(loc);
-        var inCluster = markerInCluster[loc.id];
-        if (shouldShow && !inCluster) {
-          clusterGroup.addLayer(marker);
-          markerInCluster[loc.id] = true;
-        } else if (!shouldShow && inCluster) {
-          clusterGroup.removeLayer(marker);
-          markerInCluster[loc.id] = false;
-        }
-      });
-      if (reviewMode) {
-        var cluster = REVIEW_CLUSTERS[reviewClusterIndex];
-        var sb = L.latLngBounds([]);
-        LOCATIONS.forEach(function (loc) {
-          if (shouldShowLocation(loc)) {
-            sb.extend([loc.lat, loc.lng]);
-          }
-        });
-        if (sb.isValid()) {
-          map.fitBounds(sb.pad(0.2), { maxZoom: 13, animate: true });
-        }
-        if (cluster) {
-          document.getElementById('review-nav-label').textContent =
-            (reviewClusterIndex + 1) + '/' + REVIEW_CLUSTERS.length + ' · ' + cluster.label;
-        }
-        rebuildReviewSidebar();
-      } else {
-        updateSidebarForMapView();
-      }
-    }
-
-    function maybeAdvanceAfterDismiss() {
-      if (!reviewMode) return;
-      var remaining = LOCATIONS.filter(function (l) {
-        return l.suggested && l.reviewCluster === reviewClusterIndex && shouldShowLocation(l);
-      });
-      if (remaining.length) return;
-      var next = TrippinReview.nextClusterIndex(
-        reviewClusterIndex,
-        REVIEW_CLUSTERS,
-        LOCATIONS,
-        reviewSession
-      );
-      if (next != null) {
-        setReviewCluster(next);
-        return;
-      }
-      showShareToast('All suggestions reviewed locally');
-    }
-
-    function approveSuggestionLoc(id) {
-      var loc = locById[id];
-      if (!loc || !loc.suggested || isPromoted(id)) return;
-      reviewSession = TrippinReview.approveSuggestion(reviewSession, id);
-      saveReviewSession();
-      if (activeId === id) closePanel();
-      var btn = locButtons[id];
-      if (btn) btn.setAttribute('hidden', '');
-      updateSuggestedMarkerIcons();
-      applyLocationVisibility();
-      showShareToast('👍 ' + loc.title);
-      maybeAdvanceAfterDismiss();
-    }
-
-    function dismissSuggestion(id) {
-      var loc = locById[id];
-      if (!loc || !loc.suggested || isDismissed(id)) return;
-      reviewSession = TrippinReview.dismissSuggestion(reviewSession, id);
-      saveReviewSession();
-      if (activeId === id) closePanel();
-      var btn = locButtons[id];
-      if (btn) btn.setAttribute('hidden', '');
-      updateSuggestedMarkerIcons();
-      applyLocationVisibility();
-      showShareToast('👎 ' + loc.title);
-      maybeAdvanceAfterDismiss();
-    }
-
     function registerLocationMarker(loc) {
-      var marker = L.marker([loc.lat, loc.lng], {
-        icon: pinIconForLoc(loc),
-      });
-      var popupHint = loc.suggested ? 'Suggested — review' : 'Click pin again or use list';
-      marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">' + popupHint + '</span>');
-      marker.on('click', function () {
-        openLocation(loc);
-      });
+      var marker = L.marker([loc.lat, loc.lng], { icon: pinIconForLoc() });
+      marker.bindPopup('<strong>' + loc.title + '</strong><br><span style="font-size:12px;color:#666">Click pin again or use list</span>');
+      marker.on('click', function () { openLocation(loc); });
       markers[loc.id] = marker;
       markerInCluster[loc.id] = false;
       return marker;
@@ -2934,159 +1501,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
 
     LOCATIONS.forEach(function (loc) {
       locById[loc.id] = loc;
-      if (!loc.suggested) titleToLoc[loc.title] = loc;
     });
-
-    function nearbySavedForLoc(loc) {
-      var saved = [];
-      if (loc.nearPins && loc.nearPins.length) {
-        loc.nearPins.forEach(function (title) {
-          if (titleToLoc[title]) saved.push(titleToLoc[title]);
-        });
-      }
-      if (!saved.length && loc.reviewCluster != null) {
-        saved = LOCATIONS.filter(function (l) {
-          return !l.suggested && l.reviewCluster === loc.reviewCluster;
-        });
-      }
-      return saved;
-    }
-
-    function formatNearbySavedNote(loc) {
-      var saved = nearbySavedForLoc(loc);
-      if (!saved.length) return '';
-      var names = saved.map(function (l) { return l.title; }).join(', ');
-      if (loc.distanceMi != null) {
-        return 'Already saved nearby (within ~' + loc.distanceMi + ' mi): ' + names;
-      }
-      return 'Already saved nearby: ' + names;
-    }
-
-    function scheduleSidebarUpdate() {
-      clearTimeout(sidebarViewTimer);
-      sidebarViewTimer = setTimeout(updateSidebarForMapView, 100);
-    }
-
-    function locInReviewCluster(loc) {
-      return shouldShowLocation(loc);
-    }
-
-    function updateSidebarForMapView() {
-      if (!map || !sidebarHint) return;
-      if (reviewMode) return;
-      if (!map.getBounds || !map.getBounds().isValid()) return;
-      var mapBounds = map.getBounds();
-      var visible = 0;
-      LOCATIONS.forEach(function (loc) {
-        var btn = locButtons[loc.id];
-        if (!btn) return;
-        if (loc.suggested && !reviewMode) {
-          btn.setAttribute('hidden', '');
-          btn.classList.add('is-offscreen');
-          return;
-        }
-        var inView = mapBounds.contains([loc.lat, loc.lng]);
-        var show = inView || loc.id === activeId;
-        if (show) visible++;
-        btn.classList.toggle('is-offscreen', !show);
-        if (show) btn.removeAttribute('hidden');
-        else btn.setAttribute('hidden', '');
-      });
-      if (visible === 0 && !activeId) {
-        sidebarHint.textContent = 'No spots in this view · pan or zoom out';
-      } else {
-        var saved = LOCATIONS.filter(function (l) { return !l.suggested; }).length;
-        sidebarHint.textContent = visible + ' in view · ' + saved + ' saved';
-      }
-    }
-
-    function rebuildReviewSidebar() {
-      if (!sidebarHint) return;
-      var cluster = REVIEW_CLUSTERS[reviewClusterIndex];
-      if (!cluster) return;
-      document.querySelectorAll('.sidebar-section-label').forEach(function (el) { el.remove(); });
-      var savedLocs = LOCATIONS.filter(function (l) {
-        return !l.suggested && l.reviewCluster === reviewClusterIndex;
-      });
-      var sugLocs = LOCATIONS.filter(function (l) {
-        return l.suggested && l.reviewCluster === reviewClusterIndex && shouldShowLocation(l);
-      });
-      LOCATIONS.forEach(function (loc) {
-        var btn = locButtons[loc.id];
-        if (!btn) return;
-        var show = shouldShowLocation(loc);
-        btn.classList.toggle('saved-context', reviewMode && !loc.suggested && show);
-        btn.classList.toggle('is-offscreen', !show);
-        if (show) btn.removeAttribute('hidden');
-        else btn.setAttribute('hidden', '');
-      });
-      var anchor = sidebarHint;
-      if (savedLocs.length) {
-        var savedLabel = document.createElement('p');
-        savedLabel.className = 'sidebar-section-label';
-        savedLabel.textContent = 'Already saved nearby (' + savedLocs.length + ')';
-        sidebar.insertBefore(savedLabel, anchor.nextSibling);
-        anchor = savedLabel;
-        savedLocs.forEach(function (loc) {
-          var btn = locButtons[loc.id];
-          sidebar.insertBefore(btn, anchor.nextSibling);
-          anchor = btn;
-        });
-      }
-      if (sugLocs.length) {
-        var sugLabel = document.createElement('p');
-        sugLabel.className = 'sidebar-section-label';
-        sugLabel.textContent = 'Suggestions (' + sugLocs.length + ')';
-        sidebar.insertBefore(sugLabel, anchor.nextSibling);
-        anchor = sugLabel;
-        sugLocs.forEach(function (loc) {
-          var btn = locButtons[loc.id];
-          sidebar.insertBefore(btn, anchor.nextSibling);
-          anchor = btn;
-        });
-      }
-      var counts = sessionCounts();
-      sidebarHint.textContent =
-        'Area ' + (reviewClusterIndex + 1) + '/' + REVIEW_CLUSTERS.length +
-        ' · ' + cluster.label +
-        (savedLocs.length ? ' · ' + savedLocs.length + ' saved nearby' : '') +
-        ' · ' + sugLocs.length + ' 🌲' +
-        (counts.dismissed ? ' · ' + counts.dismissed + ' removed locally' : '');
-    }
-
-    function applyReviewClusterFilter() {
-      updateSuggestedMarkerIcons();
-      applyLocationVisibility();
-    }
-
-    function setReviewCluster(index) {
-      if (!REVIEW_CLUSTERS.length) return;
-      reviewClusterIndex = (index + REVIEW_CLUSTERS.length) % REVIEW_CLUSTERS.length;
-      applyReviewClusterFilter();
-    }
-
-    function setReviewMode(on) {
-      reviewMode = !!on;
-      document.body.classList.toggle('review-mode', reviewMode);
-      var btn = document.getElementById('review-btn');
-      var nav = document.getElementById('review-nav');
-      btn.classList.toggle('active', reviewMode);
-      btn.setAttribute('aria-pressed', reviewMode ? 'true' : 'false');
-      btn.title = reviewMode ? 'Exit review mode' : 'Review nearby suggestions by area';
-      nav.hidden = !reviewMode;
-      nav.classList.toggle('open', reviewMode);
-      if (reviewMode) {
-        setReviewCluster(0);
-        updateBuildMeta();
-      } else {
-        document.querySelectorAll('.sidebar-section-label').forEach(function (el) { el.remove(); });
-        updateSuggestedMarkerIcons();
-        applyLocationVisibility();
-        map.fitBounds(bounds, defaultBoundsOptions);
-      }
-    }
-
-    var shareToastTimer = null;
 
     function showShareToast(message) {
       var toast = document.getElementById('share-toast');
@@ -3116,11 +1531,6 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       return state;
     }
 
-    function buildShareUrl() {
-      syncHashToUrl();
-      return location.href;
-    }
-
     function syncHashToUrl() {
       if (suppressHashUpdate || !map) return;
       var center = map.getCenter();
@@ -3140,6 +1550,54 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       hashSyncTimer = setTimeout(syncHashToUrl, 300);
     }
 
+    function scheduleSidebarUpdate() {
+      clearTimeout(sidebarViewTimer);
+      sidebarViewTimer = setTimeout(updateSidebarForMapView, 100);
+    }
+
+    function updateSidebarForMapView() {
+      if (!map || !sidebarHint) return;
+      if (!map.getBounds || !map.getBounds().isValid()) return;
+      var mapBounds = map.getBounds();
+      var visible = 0;
+      LOCATIONS.forEach(function (loc) {
+        var btn = locButtons[loc.id];
+        if (!btn) return;
+        var inView = mapBounds.contains([loc.lat, loc.lng]);
+        var show = inView || loc.id === activeId;
+        if (show) visible++;
+        btn.classList.toggle('is-offscreen', !show);
+        if (show) btn.removeAttribute('hidden');
+        else btn.setAttribute('hidden', '');
+      });
+      if (visible === 0 && !activeId) {
+        sidebarHint.textContent = 'No spots in this view · pan or zoom out';
+      } else {
+        sidebarHint.textContent = visible + ' in view · ' + LOCATIONS.length + ' places';
+      }
+    }
+
+    function focusMapOnMarker(loc, callback) {
+      if (!loc || !markers[loc.id] || !clusterGroup || !map) {
+        if (callback) callback();
+        return;
+      }
+      var finished = false;
+      function finishOnce() {
+        if (finished) return;
+        finished = true;
+        if (callback) callback();
+      }
+      if (markerInCluster[loc.id]) {
+        clusterGroup.zoomToShowLayer(markers[loc.id], finishOnce);
+        setTimeout(finishOnce, 600);
+        return;
+      }
+      map.setView([loc.lat, loc.lng], Math.max(map.getZoom(), 12), { animate: true });
+      map.once('moveend', finishOnce);
+      setTimeout(finishOnce, 600);
+    }
+
     function applyHashState(state) {
       suppressHashUpdate = true;
       function finish() {
@@ -3147,32 +1605,20 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
         syncHashToUrl();
         updateSidebarForMapView();
       }
-
       if (!state) {
         finish();
         return;
       }
-
-      if (state.lat != null && state.lng != null && state.z != null) {
-        map.setView([state.lat, state.lng], state.z, { animate: false });
-      }
-
-      if (state.loc) {
-        var locId = state.loc;
-        if (locById[locId]) {
-        var hashLoc = locById[locId];
-        if (hashLoc.suggested && !reviewMode) {
-          finish();
-          return;
-        }
-        clusterGroup.zoomToShowLayer(markers[locId], function () {
-          openLocation(hashLoc);
+      if (state.loc && locById[state.loc]) {
+        focusMapOnMarker(locById[state.loc], function () {
+          openLocation(locById[state.loc]);
           finish();
         });
         return;
-        }
       }
-
+      if (state.lat != null && state.lng != null && state.z != null) {
+        map.setView([state.lat, state.lng], state.z, { animate: false });
+      }
       if (activeId) {
         panel.classList.remove('open');
         panel.setAttribute('aria-hidden', 'true');
@@ -3189,6 +1635,20 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       finish();
     }
 
+    function buildShareUrl() {
+      syncHashToUrl();
+      return location.href;
+    }
+
+    function copyShareUrl(url) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(url).then(function () {
+          showShareToast('Link copied');
+        });
+      }
+      showShareToast(url);
+    }
+
     function shareCurrentView(placeTitle) {
       var url = buildShareUrl();
       var title = placeTitle ? placeTitle + ' — Trippin' : 'Trippin map';
@@ -3200,15 +1660,6 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
         });
       }
       return copyShareUrl(url);
-    }
-
-    function copyShareUrl(url) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        return navigator.clipboard.writeText(url).then(function () {
-          showShareToast('Link copied');
-        });
-      }
-      showShareToast(url);
     }
 
     function googleMapsPlaceUrl(loc) {
@@ -3244,7 +1695,6 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
         'loading="lazy" referrerpolicy="strict-origin-when-cross-origin" ' +
         'src="' + googleMapsEmbedUrl(loc) + '"></iframe></div>' +
         '<p class="panel-gmaps-link"><a href="' + mapsPage + '" target="_blank" rel="noopener">View ratings &amp; photos on Google Maps ↗</a></p>';
-
       if (loc.instagram) {
         html +=
           '<p class="panel-section-label">Instagram</p>' +
@@ -3252,18 +1702,13 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
           '<blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="' +
           loc.instagram + '" data-instgrm-version="14"></blockquote></div>';
       }
-
       container.innerHTML = html;
-
       if (loc.instagram) {
         function process() {
-          if (window.instgrm && window.instgrm.Embeds) {
-            window.instgrm.Embeds.process();
-          }
+          if (window.instgrm && window.instgrm.Embeds) window.instgrm.Embeds.process();
         }
-        if (window.instgrm) {
-          process();
-        } else {
+        if (window.instgrm) process();
+        else {
           var check = setInterval(function () {
             if (window.instgrm) {
               clearInterval(check);
@@ -3277,37 +1722,20 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
 
     function openLocation(loc) {
       activeId = loc.id;
-      document.getElementById('panel-suggested-badge').hidden = !(reviewEnabled && reviewMode && loc.suggested);
-      if (!document.getElementById('panel-suggested-badge').hidden) {
-        document.getElementById('panel-suggested-badge').textContent = 'Suggested — review';
-      }
       document.getElementById('panel-title').textContent = loc.title;
       document.getElementById('panel-region').textContent = loc.region;
       document.getElementById('panel-notes').textContent = loc.notes;
-      var nearbyEl = document.getElementById('panel-nearby-saved');
-      var nearbyText = loc.suggested && reviewMode ? formatNearbySavedNote(loc) : '';
-      if (nearbyText) {
-        nearbyEl.textContent = nearbyText;
-        nearbyEl.hidden = false;
-      } else {
-        nearbyEl.hidden = true;
-      }
       document.getElementById('panel-maps').href = googleMapsPlaceUrl(loc);
       document.getElementById('panel-share-btn').hidden = false;
-
       renderPanel(loc);
-
       panel.classList.add('open');
       panel.setAttribute('aria-hidden', 'false');
       backdrop.hidden = false;
       backdrop.classList.add('open');
-
       document.querySelectorAll('.loc-btn').forEach(function (btn) {
         btn.classList.toggle('active', btn.dataset.id === loc.id);
       });
-      if (markers[loc.id]) {
-        markers[loc.id].openPopup();
-      }
+      if (markers[loc.id]) markers[loc.id].openPopup();
       scheduleHashSync();
       scheduleSidebarUpdate();
       updateSidebarForMapView();
@@ -3325,8 +1753,6 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       document.getElementById('panel-embed').innerHTML =
         '<p class="embed-loading">Select a location on the map.</p>';
       document.getElementById('panel-share-btn').hidden = true;
-      document.getElementById('panel-suggested-badge').hidden = true;
-      document.getElementById('panel-nearby-saved').hidden = true;
       scheduleHashSync();
       updateSidebarForMapView();
     }
@@ -3339,9 +1765,8 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
 
     function createLocButton(loc) {
       var row = document.createElement('div');
-      row.className = 'loc-btn' + (loc.suggested ? ' suggested' : '');
+      row.className = 'loc-btn';
       row.dataset.id = loc.id;
-
       var main = document.createElement('button');
       main.type = 'button';
       main.className = 'loc-main';
@@ -3354,44 +1779,10 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
         });
       });
       row.appendChild(main);
-
-      if (loc.suggested) {
-        var vote = document.createElement('div');
-        vote.className = 'loc-vote';
-
-        var up = document.createElement('button');
-        up.type = 'button';
-        up.className = 'loc-vote-btn loc-vote-up';
-        up.setAttribute('aria-label', 'Approve');
-        up.title = 'Approve';
-        up.textContent = '👍';
-        up.addEventListener('click', function (e) {
-          e.stopPropagation();
-          approveSuggestionLoc(loc.id);
-        });
-
-        var down = document.createElement('button');
-        down.type = 'button';
-        down.className = 'loc-vote-btn loc-vote-down';
-        down.setAttribute('aria-label', 'Remove');
-        down.title = 'Remove';
-        down.textContent = '👎';
-        down.addEventListener('click', function (e) {
-          e.stopPropagation();
-          dismissSuggestion(loc.id);
-        });
-
-        vote.appendChild(up);
-        vote.appendChild(down);
-        row.appendChild(vote);
-      }
-
       locButtons[loc.id] = row;
-      if (loc.suggested && !reviewEnabled) row.setAttribute('hidden', '');
       return row;
     }
 
-    /* Sidebar list */
     sidebarHint = document.createElement('p');
     sidebarHint.className = 'sidebar-hint';
     sidebarHint.id = 'sidebar-hint';
@@ -3400,8 +1791,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       sidebar.appendChild(createLocButton(loc));
     });
 
-    /* Map */
-    var map = L.map('map', {
+    map = L.map('map', {
       scrollWheelZoom: true,
       touchZoom: true,
       doubleClickZoom: true,
@@ -3415,18 +1805,15 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       var lastY = 0;
       var delayMs = 320;
       var maxPx = 28;
-
       map.getContainer().addEventListener('touchend', function (e) {
         if (e.touches.length > 0) return;
         if (e.target.closest('.leaflet-marker-icon, .marker-cluster, .leaflet-control')) return;
-
         var touch = e.changedTouches[0];
         var now = Date.now();
         var x = touch.clientX;
         var y = touch.clientY;
         var dx = x - lastX;
         var dy = y - lastY;
-
         if (lastTap && now - lastTap < delayMs && dx * dx + dy * dy < maxPx * maxPx) {
           e.preventDefault();
           var point = map.mouseEventToContainerPoint(touch);
@@ -3436,44 +1823,19 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
           lastTap = 0;
           return;
         }
-
         lastTap = now;
         lastX = x;
         lastY = y;
       }, { passive: false });
     })();
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    var bounds = L.latLngBounds();
-    var defaultBoundsOptions = { padding: [40, 40], maxZoom: 7 };
-
-    function resetToHome() {
-      suppressHashUpdate = true;
-      panel.classList.remove('open');
-      panel.setAttribute('aria-hidden', 'true');
-      backdrop.classList.remove('open');
-      backdrop.hidden = true;
-      activeId = null;
-      document.querySelectorAll('.loc-btn').forEach(function (btn) {
-        btn.classList.remove('active');
-      });
-      document.getElementById('panel-embed').innerHTML =
-        '<p class="embed-loading">Select a location on the map.</p>';
-      document.getElementById('panel-share-btn').hidden = true;
-      history.replaceState(null, '', location.pathname + location.search);
-      map.closePopup();
-      map.fitBounds(bounds, defaultBoundsOptions);
-      map.once('moveend', function () {
-        history.replaceState(null, '', location.pathname + location.search);
-        suppressHashUpdate = false;
-        updateSidebarForMapView();
-      });
-    }
-
-    var clusterGroup = L.markerClusterGroup({
+    bounds = L.latLngBounds();
+    clusterGroup = L.markerClusterGroup({
       maxClusterRadius: 48,
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
@@ -3490,17 +1852,25 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     });
 
     LOCATIONS.forEach(function (loc) {
-      if (!loc.suggested) bounds.extend([loc.lat, loc.lng]);
+      bounds.extend([loc.lat, loc.lng]);
       registerLocationMarker(loc);
+      clusterGroup.addLayer(markers[loc.id]);
+      markerInCluster[loc.id] = true;
     });
     map.addLayer(clusterGroup);
-    applyLocationVisibility();
-    updateReviewCopyLabel();
-    if (reviewEnabled) {
-      document.getElementById('review-btn').hidden = false;
-      updateBuildMeta();
-    } else {
-      updateBuildMeta();
+    updateBuildMeta();
+
+    function resetToHome() {
+      suppressHashUpdate = true;
+      closePanel();
+      history.replaceState(null, '', location.pathname + location.search);
+      map.closePopup();
+      map.fitBounds(bounds, defaultBoundsOptions);
+      map.once('moveend', function () {
+        history.replaceState(null, '', location.pathname + location.search);
+        suppressHashUpdate = false;
+        updateSidebarForMapView();
+      });
     }
 
     map.on('moveend zoomend resize', function () {
@@ -3508,24 +1878,12 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       scheduleSidebarUpdate();
     });
 
-    document.getElementById('review-btn').addEventListener('click', function () {
-      setReviewMode(!reviewMode);
-    });
-    document.getElementById('review-prev').addEventListener('click', function () {
-      setReviewCluster(reviewClusterIndex - 1);
-    });
-    document.getElementById('review-next').addEventListener('click', function () {
-      setReviewCluster(reviewClusterIndex + 1);
-    });
-    document.getElementById('review-copy-btn').addEventListener('click', copyReviewSessionToClipboard);
-
     var initialHash = parseHashState();
-    if (reviewEnabled) {
-      setReviewMode(true);
-    }
-    if (initialHash && (initialHash.loc || initialHash.lat != null)) {
+    if (initialHash && initialHash.loc && locById[initialHash.loc]) {
       applyHashState(initialHash);
-    } else if (!reviewMode) {
+    } else if (initialHash) {
+      applyHashState(initialHash);
+    } else {
       map.fitBounds(bounds, defaultBoundsOptions);
       map.once('moveend', updateSidebarForMapView);
     }
