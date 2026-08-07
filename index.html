@@ -149,6 +149,53 @@
       color: var(--muted);
       border-bottom: 1px solid var(--line);
     }
+    .sidebar-search {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.55rem 0.65rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .sidebar-search-input {
+      flex: 1;
+      min-width: 0;
+      font: inherit;
+      font-size: 0.8125rem;
+      padding: 0.4rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+    .sidebar-search-input:focus {
+      outline: 2px solid rgba(61, 107, 140, 0.35);
+      outline-offset: 0;
+      border-color: var(--accent);
+    }
+    .sidebar-search-input::-webkit-search-cancel-button {
+      display: none;
+    }
+    .sidebar-search-clear {
+      flex-shrink: 0;
+      width: 1.65rem;
+      height: 1.65rem;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--paper);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      padding: 0;
+    }
+    .sidebar-search-clear:hover {
+      background: var(--bg);
+      color: var(--ink);
+    }
+    .sidebar-search-clear[hidden] {
+      display: none;
+    }
     .loc-btn {
       display: flex;
       align-items: flex-start;
@@ -454,7 +501,7 @@
         </button>
       </div>
       <div class="header-end">
-<span class="build-meta" id="build-meta">ab22de5</span>
+<span class="build-meta" id="build-meta">test-build</span>
       </div>
     </header>
     <div class="main">
@@ -867,6 +914,84 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-124.086106!3d41.584849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54d057540adc2b03:0xa9c95d56460e95d6!2sTrees%20of%20Mystery!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
     "googleRating": 4.7,
     "googleReviewCount": "9,210 reviews"
+  },
+  {
+    "id": "sand-dollar-beach",
+    "title": "Sand Dollar Beach",
+    "region": "Big Sur / Los Padres NF coastline (south of Lucia)",
+    "notes": "Largest sandy beach on the Big Sur coast — wide crescent below cliffs on Hwy 1.",
+    "lat": 35.9232476,
+    "lng": -121.4686936,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Sand+Dollar+Beach/@35.924074,-121.4724921,17z/data=!3m1!4b1!4m6!3m5!1s0x8092984a75991923:0x9e591fae35c8c02d!8m2!3d35.9232476!4d-121.4686936!16s%2Fg%2F1tfrg_t8",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.4686936!3d35.9232476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8092984a75991923:0x9e591fae35c8c02d!2sSand%20Dollar%20Beach!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.7,
+    "googleReviewCount": "131 reviews"
+  },
+  {
+    "id": "elephant-seal-vista-point",
+    "title": "Elephant Seal Vista Point",
+    "region": "San Simeon / Piedras Blancas, San Luis Obispo County",
+    "notes": "Free Hwy 1 pullout above the Piedras Blancas elephant seal rookery — thousands of seals Dec–May.",
+    "lat": 35.6629651,
+    "lng": -121.2577244,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Elephant+Seal+Vista+Point/@35.6629694,-121.2602993,17z/data=!3m1!4b1!4m6!3m5!1s0x8092ca9b580dc385:0x56b9da1aa6ed2816!8m2!3d35.6629651!4d-121.2577244!16s%2Fg%2F12hl9lpzv",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-121.2577244!3d35.6629651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8092ca9b580dc385:0x56b9da1aa6ed2816!2sElephant%20Seal%20Vista%20Point!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "13,613 reviews"
+  },
+  {
+    "id": "estero-bluffs-state-park",
+    "title": "Estero Bluffs State Park",
+    "region": "Cayucos / San Luis Obispo County",
+    "notes": "Coastal bluff trail above tide pools and Morro Bay estuary views.",
+    "lat": 35.4493467,
+    "lng": -120.9185706,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Estero+Bluffs+State+Park/@35.449351,-120.9211455,16z/data=!3m1!4b1!4m6!3m5!1s0x80ed210595555555:0x547c6529396b1f04!8m2!3d35.4493467!4d-120.9185706!16s%2Fm%2F03hl6lq",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-120.9185706!3d35.4493467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80ed210595555555:0x547c6529396b1f04!2sEstero%20Bluffs%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.8,
+    "googleReviewCount": "277 reviews"
+  },
+  {
+    "id": "montana-de-oro-state-park",
+    "title": "Montaña de Oro State Park",
+    "region": "Los Osos / San Luis Obispo County",
+    "notes": "8,000-acre coastal park — bluff trails, tide pools at Spooner's Cove, and volcanic peaks inland.",
+    "lat": 35.2576395,
+    "lng": -120.8556366,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Monta%C3%B1a+de+Oro+State+Park/@35.2723111,-120.8867814,12z/data=!4m6!3m5!1s0x80ecfcdf02594bd5:0x8ee0fd2da418ae8e!8m2!3d35.2576395!4d-120.8556366!16zL20vMGI1Z2s3",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-120.8556366!3d35.2576395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80ecfcdf02594bd5:0x8ee0fd2da418ae8e!2sMonta%C3%B1a%20de%20Oro%20State%20Park!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.9,
+    "googleReviewCount": "4,191 reviews"
+  },
+  {
+    "id": "cayucos",
+    "title": "Cayucos",
+    "region": "Central Coast, San Luis Obispo County",
+    "notes": "Classic Hwy 1 beach town — pier, surf, and estuary views between Morro Bay and Cambria.",
+    "lat": 35.4427511,
+    "lng": -120.8921254,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Cayucos,+CA+93430/@35.4427511,-120.8921254,14z/data=!4m6!3m5!1s0x80ecdf88ee79c031:0x80edbb62a64c9c15!8m2!3d35.4427511!4d-120.8921254!16zL20vMHI1amY",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-120.8921254!3d35.4427511!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80ecdf88ee79c031:0x80edbb62a64c9c15!2sCayucos%2C%20CA%2093430!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": null,
+    "googleReviewCount": null
+  },
+  {
+    "id": "elfin-forest-recreational-reserve",
+    "title": "Elfin Forest Recreational Reserve",
+    "region": "San Diego North County (Escondido)",
+    "notes": "11-mile trail network through coastal sage scrub and riparian oak woodland above Escondido.",
+    "lat": 33.0865796,
+    "lng": -117.1450871,
+    "instagram": null,
+    "googleMaps": "https://www.google.com/maps/place/Elfin+Forest+Recreational+Reserve/@33.0865841,-117.147662,17z/data=!3m1!4b1!4m6!3m5!1s0x80dbf5b9c1f02c01:0x9fb4e6c19a0eb977!8m2!3d33.0865796!4d-117.1450871!16s%2Fg%2F1tghpwnq",
+    "googleMapsEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5000!2d-117.1450871!3d33.0865796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80dbf5b9c1f02c01:0x9fb4e6c19a0eb977!2sElfin%20Forest%20Recreational%20Reserve!5e0!3m2!1sen!2sus!4v1!5m2!1sen!2sus",
+    "googleRating": 4.7,
+    "googleReviewCount": "1,530 reviews"
   },
   {
     "id": "cape-disappointment-state-park",
@@ -1598,7 +1723,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
   }
 ];
     var TrippinMaps = window.TrippinMaps;
-    var BUILD_VERSION = 'ab22de5';
+    var BUILD_VERSION = 'test-build';
 
     var panel = document.getElementById('panel');
     var backdrop = document.getElementById('backdrop');
@@ -1612,6 +1737,9 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     var sidebarViewTimer = null;
     var locButtons = {};
     var sidebarHint = null;
+    var sidebarSearchInput = null;
+    var sidebarSearchClear = null;
+    var sidebarSearchQuery = '';
     var shareToastTimer = null;
     var clusterGroup = null;
     var map = null;
@@ -1644,7 +1772,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
 
     LOCATIONS.forEach(function (loc) {
       locById[loc.id] = loc;
+      loc.searchText = normalizeSearchText(loc.title + ' ' + loc.region);
     });
+
+    function normalizeSearchText(text) {
+      return String(text || '')
+        .normalize('NFD')
+        .replace(/\p{M}/gu, '')
+        .toLowerCase();
+    }
+
+    function locationMatchesSearch(loc, query) {
+      if (!query) return true;
+      return loc.searchText.indexOf(query) !== -1;
+    }
+
+    function clearSidebarSearch() {
+      sidebarSearchQuery = '';
+      if (sidebarSearchInput) sidebarSearchInput.value = '';
+      if (sidebarSearchClear) sidebarSearchClear.hidden = true;
+      updateSidebarForMapView();
+    }
+
+    function setSidebarSearchQuery(value) {
+      sidebarSearchQuery = value;
+      if (sidebarSearchClear) sidebarSearchClear.hidden = !sidebarSearchQuery;
+      updateSidebarForMapView();
+    }
 
     function showShareToast(message) {
       var toast = document.getElementById('share-toast');
@@ -1702,21 +1856,35 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
       if (!map || !sidebarHint) return;
       if (!map.getBounds || !map.getBounds().isValid()) return;
       var mapBounds = map.getBounds();
-      var visible = 0;
+      var query = normalizeSearchText(sidebarSearchQuery.trim());
+      var inViewCount = 0;
+      var matchCount = 0;
       LOCATIONS.forEach(function (loc) {
         var btn = locButtons[loc.id];
         if (!btn) return;
         var inView = mapBounds.contains([loc.lat, loc.lng]);
-        var show = inView || loc.id === activeId;
-        if (show) visible++;
+        var inViewOrActive = inView || (loc.id === activeId && !query);
+        var matches = locationMatchesSearch(loc, query);
+        var show = inViewOrActive && matches;
+        if (inView) inViewCount++;
+        if (inView && matches) matchCount++;
         btn.classList.toggle('is-offscreen', !show);
         if (show) btn.removeAttribute('hidden');
         else btn.setAttribute('hidden', '');
       });
-      if (visible === 0 && !activeId) {
+      if (query) {
+        if (matchCount === 0) {
+          sidebarHint.textContent = inViewCount === 0
+            ? 'No spots in this view · pan or zoom out'
+            : 'No matches in this view · Home to see all';
+        } else {
+          sidebarHint.textContent = matchCount + ' match' + (matchCount === 1 ? '' : 'es') +
+            ' · ' + inViewCount + ' in view';
+        }
+      } else if (inViewCount === 0 && !activeId) {
         sidebarHint.textContent = 'No spots in this view · pan or zoom out';
       } else {
-        sidebarHint.textContent = visible + ' in view · ' + LOCATIONS.length + ' places';
+        sidebarHint.textContent = inViewCount + ' in view · ' + LOCATIONS.length + ' places';
       }
     }
 
@@ -1903,7 +2071,13 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     document.getElementById('panel-close').addEventListener('click', closePanel);
     backdrop.addEventListener('click', closePanel);
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') closePanel();
+      if (e.key !== 'Escape') return;
+      if (sidebarSearchInput && document.activeElement === sidebarSearchInput && sidebarSearchQuery) {
+        clearSidebarSearch();
+        e.preventDefault();
+        return;
+      }
+      closePanel();
     });
 
     function createLocButton(loc) {
@@ -1929,6 +2103,33 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     sidebarHint = document.createElement('p');
     sidebarHint.className = 'sidebar-hint';
     sidebarHint.id = 'sidebar-hint';
+
+    var searchWrap = document.createElement('div');
+    searchWrap.className = 'sidebar-search';
+    sidebarSearchInput = document.createElement('input');
+    sidebarSearchInput.type = 'search';
+    sidebarSearchInput.className = 'sidebar-search-input';
+    sidebarSearchInput.id = 'sidebar-search';
+    sidebarSearchInput.placeholder = 'Search places…';
+    sidebarSearchInput.setAttribute('autocomplete', 'off');
+    sidebarSearchInput.setAttribute('aria-label', 'Search places');
+    sidebarSearchInput.addEventListener('input', function () {
+      setSidebarSearchQuery(sidebarSearchInput.value);
+    });
+    sidebarSearchClear = document.createElement('button');
+    sidebarSearchClear.type = 'button';
+    sidebarSearchClear.className = 'sidebar-search-clear';
+    sidebarSearchClear.id = 'sidebar-search-clear';
+    sidebarSearchClear.setAttribute('aria-label', 'Clear search');
+    sidebarSearchClear.textContent = '\u00d7';
+    sidebarSearchClear.hidden = true;
+    sidebarSearchClear.addEventListener('click', function () {
+      clearSidebarSearch();
+      sidebarSearchInput.focus();
+    });
+    searchWrap.appendChild(sidebarSearchInput);
+    searchWrap.appendChild(sidebarSearchClear);
+    sidebar.appendChild(searchWrap);
     sidebar.appendChild(sidebarHint);
     LOCATIONS.forEach(function (loc) {
       sidebar.appendChild(createLocButton(loc));
@@ -2006,6 +2207,7 @@ global.TrippinMaps={placeNameFromUrl,coordsFromMapsUrl,isGoogleMapsUrl,parseMaps
     function resetToHome() {
       suppressHashUpdate = true;
       closePanel();
+      clearSidebarSearch();
       history.replaceState(null, '', location.pathname + location.search);
       map.closePopup();
       map.fitBounds(bounds, defaultBoundsOptions);
